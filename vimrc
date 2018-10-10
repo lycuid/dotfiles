@@ -36,13 +36,18 @@ endfunction
 "" MY PERSONAL .vimrc SETTINGS
 "
 "" COMMON SETTINGS
-syntax enable
+execute pathogen#infect()
+
+syntax on
+filetype plugin indent on
 set number
 set mouse=a
 set encoding=utf-8
 
 set fileformat=unix  "" EOL>> <LF> LINE FEED
 set et ts=2 sw=2 softtabstop=0 "" noet (use tabs [\t]), ts (tabstop [tab size]), sw (shiftwidth [no of tabs])
+
+
 "" set smarttab
 set list listchars=eol:^,tab:\|\ 
 color moody
@@ -63,14 +68,18 @@ augroup END
 "" COLOR SCHEME
 set t_Co=256  "" 256 COLOR
 
-autocmd BufReadPost * if &ft !~? 'haskell' | call CSyntaxAfter() | endif
+"" autocmd BufReadPost * if &ft !~? 'haskell' | call CSyntaxAfter() | endif
+
+"" airline
+let g:airline_powerline_fonts=1
+let g:airline#extensions#branch#enabled = 1
+
+"" git gutter settings
+set updatetime=100 " in ms
 
 "" indent autoenabled
 let g:indentLine_enabled=0
 let g:indentLine_char='¦'
-
-"" VIM-POWERLINE
-set laststatus=2
 
 "" CTRL-P FILE MANAGER
 " CtrlP REMAP TO ctrl+p
@@ -80,6 +89,17 @@ let g:ctrlp_cmd = 'CtrlP'
 " CTRLP IGNORE UNECESSARY FILES
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+
+"" supertab
+let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
+
+if has("gui_running")
+  imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+else " no gui
+  if has("unix")
+    inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+  endif
+endif
 
 "" TAB COMPLETION IF LINE NOT EMPTY (CTRL+N)
 "  CLEVER TAB
@@ -153,6 +173,8 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 
 "" SET FONT
 if has("gui_running")
+  "" underscore cursor
+  set guicursor+=i:hor20-Cursor/lCursor
 
   "" --FOR gVim (WINDOWS) ONLY --
   "" ctrl+F1 TOGGLE MEBUBAR
