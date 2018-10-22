@@ -103,14 +103,14 @@ endif
 
 "" TAB COMPLETION IF LINE NOT EMPTY (CTRL+N)
 "  CLEVER TAB
-function! CleverTab()
-  if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
-    return "\<Tab>"
-  else
-    return "\<C-N>"
-  endif
-endfunction
-inoremap <Tab> <C-R>=CleverTab()<CR>
+"" function! CleverTab()
+""   if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+""     return "\<Tab>"
+""   else
+""     return "\<C-N>"
+""   endif
+"" endfunction
+"" inoremap <Tab> <C-R>=CleverTab()<CR>
 
 "" CPP SYNTAX HIGHLIGHTING
 let g:cpp_class_scope_highlight = 1
