@@ -45,13 +45,12 @@ set mouse=a
 set encoding=utf-8
 
 set fileformat=unix  "" EOL>> <LF> LINE FEED
-set et ts=2 sw=2 softtabstop=0 "" noet (use tabs [\t]), ts (tabstop [tab size]), sw (shiftwidth [no of tabs])
+set et ts=2 sw=2 softtabstop=0 "" et (use tabs [\t]), ts (tabstop [tab size]), sw (shiftwidth [no of tabs])
 
 
 "" set smarttab
-set list listchars=eol:^,tab:\|\ 
+set list listchars=eol:^,tab:\ \ 
 color moody
-let g:indentLine_enabled=1
 
 "" NO SWAP AND BACKUP FILES
 set nobackup
@@ -68,18 +67,12 @@ augroup END
 "" COLOR SCHEME
 set t_Co=256  "" 256 COLOR
 
-"" autocmd BufReadPost * if &ft !~? 'haskell' | call CSyntaxAfter() | endif
-
 "" airline
 let g:airline_powerline_fonts=1
 let g:airline#extensions#branch#enabled = 1
 
 "" git gutter settings
 set updatetime=100 " in ms
-
-"" indent autoenabled
-let g:indentLine_enabled=0
-let g:indentLine_char='¦'
 
 "" CTRL-P FILE MANAGER
 " CtrlP REMAP TO ctrl+p
@@ -90,16 +83,6 @@ let g:ctrlp_cmd = 'CtrlP'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
-"" supertab
-let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
-
-if has("gui_running")
-  imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-else " no gui
-  if has("unix")
-    inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-  endif
-endif
 
 "" TAB COMPLETION IF LINE NOT EMPTY (CTRL+N)
 "  CLEVER TAB
@@ -110,7 +93,53 @@ endif
 ""     return "\<C-N>"
 ""   endif
 "" endfunction
-"" inoremap <Tab> <C-R>=CleverTab()<CR>
+"" inoremap <Tab> <CR>=CleverTab()<CR>
+
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 "" CPP SYNTAX HIGHLIGHTING
 let g:cpp_class_scope_highlight = 1

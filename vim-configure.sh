@@ -14,7 +14,6 @@ BUNDLES=(
   ["https://github.com/plytophogy/vim-virtualenv.git"]="vim-virtualenv"
   ["https://github.com/jakwings/vim-colors.git"]="vim-colors"
   ["https://github.com/tpope/vim-fugitive.git"]="vim-fugitive"
-  ["https://github.com/ervandew/supertab.git"]="supertab"
 )
 
 for i in "${!BUNDLES[@]}";
