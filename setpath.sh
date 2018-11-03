@@ -8,14 +8,14 @@ success_print() {
   echo
 }
 
-cd $(dirname "$0")
+cd $(dirname $0)/config-files
 CWD=$(pwd -L)
 cd - > /dev/null
-FILES=$(ls | grep -v $(basename $0))
+FILES=$(ls config-files)
 
-for dir in $FILES; do
-  success_print "working on $dir"
-  ln -rsf $CWD/$dir ~/.$dir
+for file in $FILES; do
+  success_print "working on $file"
+  ln -rsf $CWD/$file ~/.$file
 done
 
 
