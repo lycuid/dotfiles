@@ -343,7 +343,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (menu-bar-mode -1)
   (tool-bar-mode -1)
 
-  ;; fullscree by default
+  ;; fullscreen by default
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
   ;; auto-complete
