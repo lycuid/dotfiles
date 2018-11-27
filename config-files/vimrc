@@ -1,52 +1,26 @@
-" DEFAULT WINDOWS _vimrc SETTINGS
+"" Plug plugin installation
+call plug#begin('~/.vim/bundle')
 
-set nocompatible
-source $VIMRUNTIME/vimrc_example.vim
-source $VIMRUNTIME/mswin.vim
-behave mswin
+Plug 'vim-airline/vim-airline'
+Plug 'scrooloose/nerdtree'
+Plug 'kien/ctrlp.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'shougo/neocomplete.vim'
+Plug 'jakwings/vim-colors'
+Plug 'tpope/vim-fugitive'
 
-set diffexpr=MyDiff()
-function MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  let eq = ''
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      let cmd = '""' . $VIMRUNTIME . '\diff"'
-      let eq = '"'
-    else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-    endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-endfunction
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" MY PERSONAL .vimrc SETTINGS
-"
-"" COMMON SETTINGS
-execute pathogen#infect()
+call plug#end()
+"" /Plug plugin Installation.
 
 syntax on
 filetype plugin indent on
+set colorcolumn=80
 set number
 set mouse=a
 set encoding=utf-8
 
 set fileformat=unix  "" EOL>> <LF> LINE FEED
 set et ts=2 sw=2 softtabstop=0 "" et (use tabs [\t]), ts (tabstop [tab size]), sw (shiftwidth [no of tabs])
-
 
 "" set smarttab
 set list listchars=eol:^,tab:\ \ 
@@ -57,12 +31,6 @@ set nobackup
 set nowritebackup
 set noswapfile
 set noundofile
-
-"" SET LINE WRAP HIGHLIGHT AFTER 81 CHARACTERS
-augroup vimrc_autocmds
-  autocmd BufEnter * highlight OverLength ctermbg=darkgrey guibg=#592929
-  autocmd BufEnter * match OverLength /\%81v.*/
-augroup END
 
 "" COLOR SCHEME
 set t_Co=256  "" 256 COLOR
@@ -155,7 +123,7 @@ let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of pattern
 let g:haskell_enable_typeroles = 1 " to enable highlighting of type roles
 let g:haskell_enable_static_pointers = 1 " to enable highlighting of static
 
-"" MAP BUILDS FOR WINDOWS
+"" Build systems.
 autocmd FileType python nmap <buffer> <F5> :w<bar>!python3 %<CR>
 autocmd FileType ruby nmap <buffer> <F5> :w<bar>!ruby %<CR>
 autocmd FileType haskell nmap <buffer> <F5> :w<bar>!runhaskell %<CR>
@@ -168,11 +136,6 @@ autocmd FileType javascript nmap <buffer> <F5> :w<bar>!node %<CR>
 map <C-w><C-t> :tabnew<CR>
 "" TOGGLE TREE >> ctrl+n
 map <C-n> :NERDTreeToggle<CR>
-
-"" NERD-TREE
-"" opens when no file is specified
-"" autocmd StdinReadPre * let s:std_in=1
-"" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 "" close vim if nerdtree is the only window left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -191,7 +154,7 @@ call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#202020')
 call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#202020')
 call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#202020')
 call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#202020')
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'red', '#202020')
+call NERDTreeHighlightFile('go', 'lightblue', 'none', 'lightblue', '#202020')
 call NERDTreeHighlightFile('css', 'cyan', 'none', 'red', '#202020')
 call NERDTreeHighlightFile('py', 'Red', 'none', '#ffa500', '#202020')
 call NERDTreeHighlightFile('pyc', 'Red', 'none', '#99ff33', '#202020')
