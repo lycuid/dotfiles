@@ -8,16 +8,19 @@ Plug 'airblade/vim-gitgutter'
 Plug 'shougo/neocomplete.vim'
 Plug 'jakwings/vim-colors'
 Plug 'tpope/vim-fugitive'
+Plug 'leafgarland/typescript-vim'
 
 call plug#end()
 "" /Plug plugin Installation.
 
 syntax on
 filetype plugin indent on
-set colorcolumn=80
-set number
-set mouse=a
+set colorcolumn=80 "" wrap indicator
+set number "" line number.
+set mouse=a "" mouse click navigation
 set encoding=utf-8
+set incsearch "" highlight search as you type.
+set hlsearch "" highlight all occurences of word after search.
 
 set fileformat=unix  "" EOL>> <LF> LINE FEED
 set et ts=2 sw=2 softtabstop=0 "" et (use tabs [\t]), ts (tabstop [tab size]), sw (shiftwidth [no of tabs])
@@ -133,7 +136,9 @@ autocmd FileType go nmap <buffer> <F5> :w<bar>!go run %<CR>
 autocmd FileType java nmap <buffer> <F5> :w<bar>!javac % && java %:r<CR>
 autocmd FileType javascript nmap <buffer> <F5> :w<bar>!node %<CR>
 
+"" Tab navigation
 map <C-w><C-t> :tabnew<CR>
+
 "" TOGGLE TREE >> ctrl+n
 map <C-n> :NERDTreeToggle<CR>
 
