@@ -1,0 +1,81 @@
+{
+  "editor.fontFamily": "'Operator Mono', 'Fira Code', 'Consolas', 'Droid Sans Mono', 'monospace', 'Droid Sans Fallback'",
+  "editor.fontLigatures": true,
+  "extensions.ignoreRecommendations": true,
+  "window.zoomLevel": 0,
+  "editor.fontSize": 14,
+  "editor.minimap.showSlider": "always",
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.snippetSuggestions": "top",
+  "editor.formatOnPaste": true,
+  "editor.cursorBlinking": "blink",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.renderLineHighlight": "all",
+  "editor.cursorStyle": "line",
+  "editor.renderIndentGuides": true,
+  "editor.rulers": [
+    72
+  ],
+  "workbench.statusBar.visible": true,
+  "workbench.statusBar.feedback.visible": false,
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#000",
+    "statusBar.noFolderBackground": "#000",
+    "statusBar.debuggingBackground": "#000",
+    "statusBar.foreground": "#FFF",
+    "statusBar.noFolderForeground": "#FFF",
+    "statusBar.debuggingForeground": "#FFF"
+  },
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.syntaxProfiles": {
+    "jsx":{
+      "attr_quotes": "single"
+    }
+  },
+  "zenMode.centerLayout": false,
+  "gitlens.defaultDateFormat": "MMMM Do, YYYY h:mma",
+  "gitlens.settings.mode": "advanced",
+  "gitlens.codeLens.recentChange.enabled": false,
+  "gitlens.codeLens.authors.enabled": false,
+  "gitlens.advanced.messages": {
+    "suppressShowKeyBindingsNotice": true
+  },
+  "diffEditor.ignoreTrimWhitespace": true,
+  "breadcrumbs.enabled": true,
+  "window.titleBarStyle": "custom",
+  "vscode-postgres.prettyPrintJSONfields": true,
+  "vim.debug.silent": true,
+  "vim.hlsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<C-]>"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+      "before": ["<C-[>"],
+      "commands": ["editor.action.outdentLines"]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<C-]>"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+      "before": ["<C-[>"],
+      "commands": ["editor.action.outdentLines"]
+    }
+  ],
+  "typescript.implementationsCodeLens.enabled": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "search.useIgnoreFiles": false,
+  "material-icon-theme.folders.color": "#90a4ae",
+  "material-icon-theme.showReloadMessage": false,
+  "material-icon-theme.folders.theme": "specific"
+}
+
