@@ -76,6 +76,7 @@
   "search.useIgnoreFiles": false,
   "material-icon-theme.folders.color": "#90a4ae",
   "material-icon-theme.showReloadMessage": false,
-  "material-icon-theme.folders.theme": "specific"
+  "material-icon-theme.folders.theme": "specific",
+  "workbench.colorTheme": "lucy"
 }
 
