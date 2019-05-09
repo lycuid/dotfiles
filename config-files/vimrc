@@ -130,6 +130,7 @@ let g:haskell_enable_static_pointers = 1 " to enable highlighting of static
 autocmd FileType python nmap <buffer> <F5> :w<bar>!python3 %<CR>
 autocmd FileType ruby nmap <buffer> <F5> :w<bar>!ruby %<CR>
 autocmd FileType haskell nmap <buffer> <F5> :w<bar>!runhaskell %<CR>
+autocmd FileType lisp nmap <buffer> <F5> :w<bar>!clisp %<CR>
 autocmd FileType cpp nmap <buffer> <F5> :w<bar>!g++ -std=c++11 -o %:r % && ./%:r<CR>
 autocmd FileType c nmap <buffer> <F5> :w<bar>!gcc -o %:r % && %:r<CR>
 autocmd FileType go nmap <buffer> <F5> :w<bar>!go run %<CR>
