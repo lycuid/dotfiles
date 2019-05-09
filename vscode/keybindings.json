@@ -52,5 +52,11 @@
       "by": "line",
       "revealCursor": true
     }
+  },
+
+  // restart TS Server.
+  {
+    "key": "ctrl+f6",
+    "command": "typescript.restartTsServer"
   }
 ]
