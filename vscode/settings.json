@@ -12,7 +12,7 @@
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
   "editor.renderLineHighlight": "all",
-  "editor.cursorStyle": "line",
+  "editor.cursorStyle": "underline",
   "editor.renderIndentGuides": true,
   "editor.rulers": [
     72
@@ -77,6 +77,9 @@
   "material-icon-theme.folders.color": "#90a4ae",
   "material-icon-theme.showReloadMessage": false,
   "material-icon-theme.folders.theme": "specific",
+  "window.menuBarVisibility": "default",
+  "workbench.activityBar.visible": true,
+  "workbench.sideBar.location": "left",
   "workbench.colorTheme": "lucy"
 }
 
