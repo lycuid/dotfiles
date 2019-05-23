@@ -5,7 +5,7 @@
 export PATH="$PATH:$HOME/.flutter-dev/bin"
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/care/.oh-my-zsh
+export ZSH=/home/ubuntu/.oh-my-zsh
 export LC_ALL=en_US.UTF-8
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -13,7 +13,7 @@ export LC_ALL=en_US.UTF-8
 if [[ -n $INSIDE_EMACS ]] then;
   ZSH_THEME="simple"
 else
-  ZSH_THEME="bira"
+  ZSH_THEME="robbyrussell"
 fi
 #"bira"
 #"robbyrussell"
@@ -44,19 +44,6 @@ fi
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-
-# Automate upload code 
-update_upload() {
-	if [ $# -eq 1]
-	then
-	cd ~/Desktop/desertbox_sql && git status && git pull origin master &&	
- pscp -i ~/Desktop/private_key.ppk ~/Desktop/desertbox_sql/"$1" mis@52.77.139.211:/home/mis/sql_files/ && google-chrome 'http://52.77.139.211/cgi-bin/update_data.py?file_name=&action=DATA-UPDATE'
-	else
-		echo -e "Please give current file name (0_0)"		
-	fi
-}
 
 
 # under VCS as dirty. This makes repository status check for large repositories
