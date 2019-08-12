@@ -14,11 +14,11 @@
   "editor.renderLineHighlight": "all",
   "editor.cursorStyle": "underline",
   "editor.renderIndentGuides": true,
+  "editor.wordWrapColumn": 72,
   "editor.rulers": [
     72
   ],
   "workbench.statusBar.visible": true,
-  "workbench.statusBar.feedback.visible": false,
   "workbench.editor.highlightModifiedTabs": true,
   "workbench.colorCustomizations": {
     "statusBar.background": "#000",
@@ -38,7 +38,6 @@
   },
   "zenMode.centerLayout": false,
   "gitlens.defaultDateFormat": "MMMM Do, YYYY h:mma",
-  "gitlens.settings.mode": "advanced",
   "gitlens.codeLens.recentChange.enabled": false,
   "gitlens.codeLens.authors.enabled": false,
   "gitlens.advanced.messages": {
@@ -47,11 +46,20 @@
   "diffEditor.ignoreTrimWhitespace": true,
   "breadcrumbs.enabled": true,
   "window.titleBarStyle": "custom",
-  "vscode-postgres.prettyPrintJSONfields": true,
   "vim.debug.silent": true,
   "vim.hlsearch": true,
   "vim.useSystemClipboard": true,
   "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<C-]>"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+      "before": ["<C-[>"],
+      "commands": ["editor.action.outdentLines"]
+    }
+  ],
+  "vim.insertModeKeyBindingsNonRecursive": [
     {
       "before": ["<C-]>"],
       "commands": ["editor.action.indentLines"]
@@ -80,6 +88,6 @@
   "window.menuBarVisibility": "default",
   "workbench.activityBar.visible": true,
   "workbench.sideBar.location": "left",
-  "workbench.colorTheme": "lucy"
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "workbench.colorTheme": "Cika Dark Black",
 }
-
