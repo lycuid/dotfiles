@@ -5,7 +5,7 @@
 export PATH="$PATH:$HOME/.flutter-dev/bin"
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/ubuntu/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 export LC_ALL=en_US.UTF-8
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -13,7 +13,7 @@ export LC_ALL=en_US.UTF-8
 if [[ -n $INSIDE_EMACS ]] then;
   ZSH_THEME="simple"
 else
-  ZSH_THEME="robbyrussell"
+  ZSH_THEME="bira"
 fi
 #"bira"
 #"robbyrussell"

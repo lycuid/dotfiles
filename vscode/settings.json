@@ -34,6 +34,9 @@
   "emmet.syntaxProfiles": {
     "jsx":{
       "attr_quotes": "single"
+    },
+    "tsx":{
+      "attr_quotes": "single"
     }
   },
   "zenMode.centerLayout": false,
@@ -79,6 +82,9 @@
       "commands": ["editor.action.outdentLines"]
     }
   ],
+  "javascript.preferences.quoteStyle": "single",
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.updateImportsOnFileMove.enabled": "always",
   "typescript.implementationsCodeLens.enabled": true,
   "workbench.iconTheme": "material-icon-theme",
   "search.useIgnoreFiles": false,
@@ -88,6 +94,5 @@
   "window.menuBarVisibility": "default",
   "workbench.activityBar.visible": true,
   "workbench.sideBar.location": "left",
-  "typescript.updateImportsOnFileMove.enabled": "always",
   "workbench.colorTheme": "Cika Dark Black",
 }
