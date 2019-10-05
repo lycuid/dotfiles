@@ -95,4 +95,7 @@
   "workbench.activityBar.visible": true,
   "workbench.sideBar.location": "left",
   "workbench.colorTheme": "Cika Dark Black",
+  "terminal.integrated.rendererType": "dom",
+  "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+  "terminal.integrated.shell.linux": "/usr/bin/zsh",
 }
