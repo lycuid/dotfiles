@@ -1,120 +1,275 @@
-"" Plug plugin installation
-if has("win32")
-  let PlugDirectory=$VIM.'\vimfiles\bundle\'
-else
-  let PlugDirectory='~/.vim/bundle/'
-endif
-call plug#begin(PlugDirectory)
+call plug#begin('~/AppData/Local/nvim/plugged')
 
-Plug 'vim-airline/vim-airline'
-Plug 'scrooloose/nerdtree'
+"" Autocompletion.
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+"" File navigation.
 Plug 'kien/ctrlp.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'jakwings/vim-colors'
+Plug 'scrooloose/nerdtree'
+
+"" SCM.
 Plug 'tpope/vim-fugitive'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'airblade/vim-gitgutter' " not working.
+
+"" Display.
+Plug 'ryanoasis/vim-devicons'
+Plug 'Yggdroot/indentLine'
+" statusbar.
+Plug 'vim-airline/vim-airline'
+" colorscheme.
+Plug 'dunstontc/vim-vscode-theme'
+Plug 'tomasiser/vim-code-dark'
+" only for youtube"
+Plug 'habamax/vim-colors-defnoche'
+" Syntax.
 Plug 'leafgarland/typescript-vim'
 
-if !has('win32')
-  Plug 'shougo/neocomplete.vim'
-endif
+Plug 'scrooloose/nerdcommenter'
 
 call plug#end()
-"" /Plug plugin Installation.
 
-syntax on
+
 filetype plugin indent on
-set colorcolumn=80 "" wrap indicator
+set autoindent
+set colorcolumn=72 "" wrap indicator
+set cursorline "" highlight current line
 set number "" line number.
 set mouse=a "" mouse click navigation
 set encoding=utf-8
 set incsearch "" highlight search as you type.
 set hlsearch "" highlight all occurences of word after search.
-
 set fileformat=unix  "" EOL>> <LF> LINE FEED
 set et ts=2 sw=2 softtabstop=0 "" et (use tabs [\t]), ts (tabstop [tab size]), sw (shiftwidth [no of tabs])
 
-"" set smarttab
-set list listchars=eol:^,tab:\ \ 
-color moody
+" copy/paste from clipboard (nirvana).
+set clipboard+=unnamedplus
 
-"" NO SWAP AND BACKUP FILES
+"" set smarttab
+set list listchars=eol:^,tab:>-
+color dark_plus
+
+
+"" no swap and backup files.
 set nobackup
 set nowritebackup
 set noswapfile
 set noundofile
 
-"" COLOR SCHEME
+"" Color Scheme.
 set t_Co=256  "" 256 COLOR
+
+"" Useful Macros.
+" Tab navigation
+map <C-w><C-t> :tabnew<CR>
+map <C-PageUp> :tabprevious<CR>
+map <C-PageDown> :tabnext<CR>
+
+nnoremap ,, :noh<CR>
+
+"" indent block of code
+" vmap <C-]> >
+" vmap <C-[> <
+"" indent single line of code
+" nmap <C-]> >>
+" nmap <C-[> <<
+
+" edit my vimrc
+nnoremap <C-F6> :e $MYVIMRC<CR>
+
+" reloading
+nnoremap <C-F5> :source $MYVIMRC<CR>
+
+" force of habit (sometimes).
+nnoremap <C-s> :w<CR>
+
+nnoremap <C-Up> <C-y>
+nnoremap <C-Down> <C-e>
+
+" code/code-block navigation.
+nnoremap <C-S-Up> :m .-2<CR>==
+nnoremap <C-S-Down> :m .+1<CR>==
+inoremap <C-S-Up> <ESC>:m .-2<CR>==gi
+inoremap <C-S-Down> <ESC>:m .+1<CR>==gi
+vnoremap <C-S-Up> :m '<-2<CR>gv=gv
+vnoremap <C-S-Down> :m '>+1<CR>gv=gv
+
+command! RN :NERDTreeCWD <bar> NERDTreeRefreshRoot <bar> CtrlPClearCache<CR>
+
+function! YT()
+  if has("nvim")
+    set guifont=Hack\ NF:h12
+  endif
+  color defnoche
+endfunction
+
+command! YT :call YT()<CR>
+
+
+"" settings coc.
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Better display for messages
+set cmdheight=2
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+" nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <C-d> <Plug>(coc-range-select)
+xmap <silent> <C-d> <Plug>(coc-range-select)
+
+
+" Use `:Format` to format current buffer:w
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+let g:coc_global_extensions = [
+  \ 'coc-snippets',
+  \ 'coc-pairs',
+  \ 'coc-tsserver',
+  \ 'coc-eslint',
+  \ 'coc-json',
+  \ 'coc-emmet',
+  \ ]
+
 
 "" airline
 let g:airline_powerline_fonts=1
-let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#branch#enabled=1
+let g:airline#extensions#tabline#enabled=1
+let g:airline_theme='codedark'
+
+
+"" indentLine settings.
+let g:indentLine_enabled=1
 
 "" git gutter settings
-set updatetime=100 " in ms
+set updatetime=100 " ms.
+let g:gitgutter_git_executable='C:\Program Files\Git\bin\git.exe'
 
-"" CTRL-P FILE MANAGER
+
+"" ctrl-p settings.
 " CtrlP REMAP TO ctrl+p
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_map='<c-p>'
+let g:ctrlp_cmd='CtrlP'
 
-" CTRLP IGNORE UNECESSARY FILES
+" ignores all files/dirs ignored by current git.
+let g:ctrlp_user_command=['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+
+
+" ctrlp ignore unecessary files.
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
 
-"" TAB COMPLETION IF LINE NOT EMPTY (CTRL+N)
-"  CLEVER TAB
-"" function! CleverTab()
-""   if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
-""     return "\<Tab>"
-""   else
-""     return "\<C-N>"
-""   endif
-"" endfunction
-"" inoremap <Tab> <CR>=CleverTab()<CR>
-
-if !has('win32')
-  "" Default Neocomplete config
-
-  " Use neocomplete.
-  let g:neocomplete#enable_at_startup = 1
-  " Use smartcase.
-  let g:neocomplete#enable_smart_case = 1
-  " Set minimum syntax keyword length.
-  let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-  " Define dictionary.
-  let g:neocomplete#sources#dictionary#dictionaries = {
-      \ 'default' : '',
-      \ 'vimshell' : $HOME.'/.vimshell_hist',
-      \ 'scheme' : $HOME.'/.gosh_completions'
-          \ }
-
-  " Define keyword.
-  if !exists('g:neocomplete#keyword_patterns')
-      let g:neocomplete#keyword_patterns = {}
-  endif
-  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-  " Plugin key-mappings.
-  inoremap <expr><C-g>     neocomplete#undo_completion()
-  inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-  " Recommended key-mappings.
-  " <CR>: close popup and save indent.
-  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-  function! s:my_cr_function()
-    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-    " For no inserting <CR> key.
-    "return pumvisible() ? "\<C-y>" : "\<CR>"
-  endfunction
-  " <TAB>: completion.
-  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-  " <C-h>, <BS>: close popup and delete backword char.
-  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-endif
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -123,11 +278,13 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-"" CPP SYNTAX HIGHLIGHTING
+
+"" cpp syntax highlighting
 let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 1
 
-"" HASKELL AND CABAL SYNTAX HIGLIGHTLING
+
+"" haskell and cabal syntax higlightling
 let g:haskell_enable_quantification = 1 " to enable highlighting of forall
 let g:haskell_enable_recursivedo = 1 " to enable highlighting of mdo and rec
 let g:haskell_enable_arrowsyntax = 1 " to enable highlighting of proc
@@ -135,7 +292,7 @@ let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of pattern
 let g:haskell_enable_typeroles = 1 " to enable highlighting of type roles
 let g:haskell_enable_static_pointers = 1 " to enable highlighting of static
 
-"" Build systems.
+"" Build systems (inline).
 autocmd FileType python nmap <buffer> <F5> :w<bar>!python3 %<CR>
 autocmd FileType ruby nmap <buffer> <F5> :w<bar>!ruby %<CR>
 autocmd FileType haskell nmap <buffer> <F5> :w<bar>!runhaskell %<CR>
@@ -146,10 +303,9 @@ autocmd FileType go nmap <buffer> <F5> :w<bar>!go run %<CR>
 autocmd FileType java nmap <buffer> <F5> :w<bar>!javac % && java %:r<CR>
 autocmd FileType javascript nmap <buffer> <F5> :w<bar>!node %<CR>
 
-"" Tab navigation
-map <C-w><C-t> :tabnew<CR>
 
-"" TOGGLE TREE >> ctrl+n
+"" NERDTree Settings.
+"" nerdtree toggle.
 map <C-n> :NERDTreeToggle<CR>
 
 "" close vim if nerdtree is the only window left open
@@ -161,35 +317,75 @@ function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
  exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 endfunction
 
-call NERDTreeHighlightFile('cpp', 'green', 'none', '#990099', '#202020')
-call NERDTreeHighlightFile('php', 'yellow', 'none', 'yellow', '#202020')
-call NERDTreeHighlightFile('hs', 'blue', 'none', '#a0a0a0', '#202020')
-call NERDTreeHighlightFile('txt', 'yellow', 'none', 'yellow', '#202020')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#202020')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#202020')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#202020')
-call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#202020')
-call NERDTreeHighlightFile('go', 'lightblue', 'none', 'lightblue', '#202020')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'red', '#202020')
-call NERDTreeHighlightFile('py', 'Red', 'none', '#ffa500', '#202020')
-call NERDTreeHighlightFile('pyc', 'Red', 'none', '#99ff33', '#202020')
-call NERDTreeHighlightFile('js', 'Red', 'none', '#6666ff', '#202020')
-call NERDTreeHighlightFile('java', 'Magenta', 'none', '#ff99ff', '#202020')
+let g:NERDTreeIgnore=['^node_modules$', '^\.git$']
+let g:NERDTreeShowHidden=1
 
-"" NAVIGATION-ARROWS 
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
+"" nerdtree navigation icons.
+let g:NERDTreeDirArrowExpandable='▸'
+let g:NERDTreeDirArrowCollapsible='▾'
 
-"" SET FONT
+"" nerd commenter mapping
+vmap <C-/> <plug>NERDCommenterToggle
+nmap <C-/> <plug>NERDCommenterToggle
+let g:NERDSpaceDelims=1
+let g:NERDCompactSexyComs=1
+let g:NERDDefaultAlign='left'
+let g:NERDCommentEmptyLines=1
+let g:NERDTrimTrailingWhitespace=1
+
+"" Nerdtree icons.
+"" refreshing devicons, visual bug (brackets around icons).
+if exists('g:loaded_webdevicons')
+  call webdevicons#refresh()
+endif
+
+"" Nerdtree git icons (nerdtree-git-plugin).
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
+
+
+
+"" nvim settings
+if has('nvim')
+
+  function OpenTerminal()
+    exec 'tabnew'
+    if has('win32')
+      exec 'terminal gitb'
+    else
+      exec 'terminal'
+    endif
+  endfunction
+
+  " open terminal in new window (for neovim).
+  nnoremap tt :call OpenTerminal()<CR>
+
+  call rpcnotify(1, 'Gui', 'Option', 'Tabline', 0)
+
+  " escape terminal mode (while in terminal mode) (only neovim).
+  tnoremap <ESC> <C-\><C-n>
+endif
+
+
+"" GVIM settings.
 if has("gui_running")
 
-  "" auto fullscreen on gvim.
+  "" auto fullscreen on gvim
   autocmd GUIEnter * simalt ~x
 
   "" underscore cursor
   set guicursor+=i:hor20-Cursor/lCursor
 
-  "" --FOR gVim (WINDOWS) ONLY --
   "" ctrl+F1 TOGGLE MEBUBAR
   nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
 
@@ -197,12 +393,13 @@ if has("gui_running")
   set go-=r  "" REMOVES RIGHT SCROLLBAR
   set go-=L  "" REMOVES LEFT SCROLLBAR
   set go-=m  "" REMOVES MENUBAR
-  color moody
-  let g:indentLine_enabled=1
-
-  if has("gui_win32")
-    set guifont=Lucida\ Console:h10:cANSI
-  elseif has("gui_gtk+")
-    set guifont=Inconsolata\ 10
-  endif
 endif
+
+
+"" GVIM/nvim combined settings
+if has("nvim") || has("gui_running")
+  "" Downloaded from:
+  "" https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/3270/Narrow/complete
+  set guifont=Hack\ NF:h11
+endif
+
