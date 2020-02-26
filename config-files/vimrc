@@ -1,4 +1,4 @@
-call plug#begin('~/AppData/Local/nvim/plugged')
+call plug#begin('~/.vim/plugged')
 
 "" Autocompletion.
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -253,7 +253,6 @@ let g:indentLine_enabled=1
 
 "" git gutter settings
 set updatetime=100 " ms.
-let g:gitgutter_git_executable='C:\Program Files\Git\bin\git.exe'
 
 
 "" ctrl-p settings.
