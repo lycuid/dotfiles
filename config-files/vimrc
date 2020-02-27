@@ -47,7 +47,7 @@ set clipboard+=unnamedplus
 
 "" set smarttab
 set list listchars=eol:^,tab:>-
-color dark_plus
+color defnoche
 
 
 "" no swap and backup files.
@@ -95,15 +95,6 @@ vnoremap <C-S-Up> :m '<-2<CR>gv=gv
 vnoremap <C-S-Down> :m '>+1<CR>gv=gv
 
 command! RN :NERDTreeCWD <bar> NERDTreeRefreshRoot <bar> CtrlPClearCache<CR>
-
-function! YT()
-  if has("nvim")
-    set guifont=Hack\ NF:h12
-  endif
-  color defnoche
-endfunction
-
-command! YT :call YT()<CR>
 
 
 "" settings coc.
@@ -245,7 +236,6 @@ let g:coc_global_extensions = [
 let g:airline_powerline_fonts=1
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#tabline#enabled=1
-let g:airline_theme='codedark'
 
 
 "" indentLine settings.
