@@ -13,12 +13,8 @@ export LC_ALL=en_US.UTF-8
 if [[ -n $INSIDE_EMACS ]] then;
   ZSH_THEME="simple"
 else
-  ZSH_THEME="bira"
+  ZSH_THEME="amuse"
 fi
-#"bira"
-#"robbyrussell"
-#"gianu"
-#"superjarin"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
