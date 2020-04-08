@@ -10,20 +10,22 @@ Plug 'scrooloose/nerdtree'
 "" SCM.
 Plug 'tpope/vim-fugitive'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'airblade/vim-gitgutter' " not working.
+Plug 'airblade/vim-gitgutter'
 
 "" Display.
 Plug 'ryanoasis/vim-devicons'
 Plug 'Yggdroot/indentLine'
+
 " statusbar.
 Plug 'vim-airline/vim-airline'
+
 " colorscheme.
-Plug 'dunstontc/vim-vscode-theme'
-Plug 'tomasiser/vim-code-dark'
-" only for youtube"
-Plug 'habamax/vim-colors-defnoche'
+Plug 'wesgibbs/vim-irblack'
+Plug 'dikiaap/minimalist'
+
 " Syntax.
 Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 
 Plug 'scrooloose/nerdcommenter'
 
@@ -42,13 +44,14 @@ set hlsearch "" highlight all occurences of word after search.
 set fileformat=unix  "" EOL>> <LF> LINE FEED
 set et ts=2 sw=2 softtabstop=0 "" et (use tabs [\t]), ts (tabstop [tab size]), sw (shiftwidth [no of tabs])
 
-" copy/paste from clipboard (nirvana).
-set clipboard+=unnamedplus
+
+if has("nvim")
+  " copy/paste from clipboard (nirvana).
+  set clipboard+=unnamedplus
+endif
 
 "" set smarttab
 set list listchars=eol:^,tab:>-
-color defnoche
-
 
 "" no swap and backup files.
 set nobackup
@@ -236,6 +239,7 @@ let g:coc_global_extensions = [
 let g:airline_powerline_fonts=1
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#tabline#enabled=1
+let g:airline_theme='minimalist'
 
 
 "" indentLine settings.
@@ -387,8 +391,9 @@ endif
 
 "" GVIM/nvim combined settings
 if has("nvim") || has("gui_running")
+  color ir_black
   "" Downloaded from:
   "" https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/3270/Narrow/complete
-  set guifont=Hack\ NF:h11
+  set guifont=Hack\ NF:h10
 endif
 
