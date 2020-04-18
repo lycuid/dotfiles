@@ -61,6 +61,7 @@ set noundofile
 
 "" Color Scheme.
 set t_Co=256  "" 256 COLOR
+color ir_black
 
 "" Useful Macros.
 " Tab navigation
@@ -363,7 +364,7 @@ if has('nvim')
   " open terminal in new window (for neovim).
   nnoremap tt :call OpenTerminal()<CR>
 
-  call rpcnotify(1, 'Gui', 'Option', 'Tabline', 0)
+  " call rpcnotify(1, 'Gui', 'Option', 'Tabline', 0)
 
   " escape terminal mode (while in terminal mode) (only neovim).
   tnoremap <ESC> <C-\><C-n>
@@ -391,7 +392,6 @@ endif
 
 "" GVIM/nvim combined settings
 if has("nvim") || has("gui_running")
-  color ir_black
   "" Downloaded from:
   "" https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/3270/Narrow/complete
   set guifont=Hack\ NF:h10
