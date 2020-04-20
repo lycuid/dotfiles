@@ -394,6 +394,6 @@ endif
 if has("nvim") || has("gui_running")
   "" Downloaded from:
   "" https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/3270/Narrow/complete
-  set guifont=Hack\ NF:h10
+  set guifont=CaskaydiaCove\ Nerd\ Font:h10
 endif
 
