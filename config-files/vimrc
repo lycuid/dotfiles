@@ -20,14 +20,14 @@ Plug 'Yggdroot/indentLine'
 Plug 'vim-airline/vim-airline'
 
 " colorscheme.
-Plug 'wesgibbs/vim-irblack'
-Plug 'dikiaap/minimalist'
+Plug 'sainnhe/edge'
 
 " Syntax.
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 
 Plug 'scrooloose/nerdcommenter'
+Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
@@ -39,35 +39,39 @@ set cursorline "" highlight current line
 set number "" line number.
 set mouse=a "" mouse click navigation
 set encoding=utf-8
+set et ts=2 sw=2 softtabstop=0
 set incsearch "" highlight search as you type.
 set hlsearch "" highlight all occurences of word after search.
 set fileformat=unix  "" EOL>> <LF> LINE FEED
-set et ts=2 sw=2 softtabstop=0 "" et (use tabs [\t]), ts (tabstop [tab size]), sw (shiftwidth [no of tabs])
-
-
-if has("nvim")
-  " copy/paste from clipboard (nirvana).
-  set clipboard+=unnamedplus
-endif
-
-"" set smarttab
 set list listchars=eol:^,tab:>-
-
 "" no swap and backup files.
 set nobackup
 set nowritebackup
 set noswapfile
 set noundofile
-
-"" Color Scheme.
 set t_Co=256  "" 256 COLOR
-color ir_black
+set background=dark
+"
+" colorscheme.
+set termguicolors
+let g:edge_transparent_background = 1
+let g:edge_enable_italic = 1
+colorscheme edge
+
+if has("nvim")
+  " copy/paste from clipboard.
+  set clipboard+=unnamedplus
+endif
 
 "" Useful Macros.
 " Tab navigation
 map <C-w><C-t> :tabnew<CR>
 map <C-PageUp> :tabprevious<CR>
 map <C-PageDown> :tabnext<CR>
+
+" page navigation.
+map <C-k> <C-y>
+map <C-j> <C-e>
 
 nnoremap ,, :noh<CR>
 
@@ -106,7 +110,7 @@ command! RN :NERDTreeCWD <bar> NERDTreeRefreshRoot <bar> CtrlPClearCache<CR>
 set hidden
 
 " Better display for messages
-set cmdheight=2
+" set cmdheight=2
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
@@ -229,6 +233,8 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 let g:coc_global_extensions = [
   \ 'coc-snippets',
   \ 'coc-pairs',
+  \ 'coc-highlight',
+  \ 'coc-rls',
   \ 'coc-tsserver',
   \ 'coc-eslint',
   \ 'coc-json',
@@ -240,7 +246,7 @@ let g:coc_global_extensions = [
 let g:airline_powerline_fonts=1
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#tabline#enabled=1
-let g:airline_theme='minimalist'
+" let g:airline_theme='edge'
 
 
 "" indentLine settings.
@@ -364,8 +370,6 @@ if has('nvim')
   " open terminal in new window (for neovim).
   nnoremap tt :call OpenTerminal()<CR>
 
-  " call rpcnotify(1, 'Gui', 'Option', 'Tabline', 0)
-
   " escape terminal mode (while in terminal mode) (only neovim).
   tnoremap <ESC> <C-\><C-n>
 endif
@@ -393,7 +397,7 @@ endif
 "" GVIM/nvim combined settings
 if has("nvim") || has("gui_running")
   "" Downloaded from:
-  "" https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/3270/Narrow/complete
+  "" https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/
   set guifont=CaskaydiaCove\ Nerd\ Font:h10
 endif
 
