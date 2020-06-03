@@ -1,6 +1,8 @@
 dbaeumer.vscode-eslint
 eamodio.gitlens
+GitHub.github-vscode-theme
 hoovercj.haskell-linter
+jpoissonnier.vscode-styled-components
 justusadam.language-haskell
 ms-python.python
 ms-vscode-remote.remote-containers
@@ -13,5 +15,7 @@ ms-vscode.Go
 ms-vscode.sublime-keybindings
 ms-vscode.vscode-typescript-tslint-plugin
 ms-vsliveshare.vsliveshare
+ritwickdey.LiveServer
+rust-lang.rust
 vscode-icons-team.vscode-icons
 vscodevim.vim
