@@ -1,5 +1,5 @@
 {
-  "editor.fontFamily": "'Hack NF', 'Consolas', 'monospace', 'Droid Sans Fallback'",
+  "editor.fontFamily": "'CasKaydiaCove Nerd Font', 'Consolas', 'monospace', 'Droid Sans Fallback'",
   "editor.fontLigatures": true,
   "extensions.ignoreRecommendations": true,
   "editor.fontSize": 13,
@@ -35,7 +35,7 @@
   "gitlens.advanced.messages": {
     "suppressShowKeyBindingsNotice": true
   },
-  "diffEditor.ignoreTrimWhitespace": true,
+  "diffEditor.ignoreTrimWhitespace": false,
   "breadcrumbs.enabled": true,
   "window.titleBarStyle": "custom",
   "vim.debug.silent": true,
@@ -81,7 +81,6 @@
   "javascript.updateImportsOnFileMove.enabled": "always",
   "typescript.preferences.quoteStyle": "single",
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "html.mirrorCursorOnMatchingTag": false,
   "html.autoClosingTags": false,
   "search.useIgnoreFiles": false,
   "window.menuBarVisibility": "default",
@@ -92,6 +91,8 @@
   "terminal.integrated.shell.linux": "/usr/bin/zsh",
   "C_Cpp.updateChannel": "Insiders",
   "workbench.iconTheme": "vscode-icons",
-  "liveServer.settings.donotShowInfoMsg": true,
-  "liveServer.settings.donotVerifyTags": true,
+  "vsicons.dontShowNewVersionMessage": true,
+  "go.formatTool": "goimports",
+  "go.useLanguageServer": true,
+  "workbench.colorTheme": "GitHub Dark",
 }
