@@ -34,28 +34,27 @@ call plug#end()
 
 filetype plugin indent on
 set autoindent
-set colorcolumn=72 "" wrap indicator
-set cursorline "" highlight current line
-set number "" line number.
-set mouse=a "" mouse click navigation
+set colorcolumn=72                " wrap indicator
+set cursorline                    " highlight current line
+set number                        " line number.
+set mouse=a                       " mouse click navigation.
 set encoding=utf-8
 set et ts=2 sw=2 softtabstop=0
-set incsearch "" highlight search as you type.
-set hlsearch "" highlight all occurences of word after search.
-set fileformat=unix  "" EOL>> <LF> LINE FEED
-set list listchars=eol:^,tab:>-
+set incsearch                     " highlight search as you type.
+set hlsearch                      " highlight search words.
+set fileformat=unix
+set list listchars=eol:^,tab:--
+
 "" no swap and backup files.
 set nobackup
 set nowritebackup
 set noswapfile
 set noundofile
+
+" colorscheme.
 set t_Co=256  "" 256 COLOR
 set background=dark
-"
-" colorscheme.
 set termguicolors
-let g:edge_transparent_background = 1
-let g:edge_enable_italic = 1
 colorscheme edge
 
 if has("nvim")
@@ -246,8 +245,6 @@ let g:coc_global_extensions = [
 let g:airline_powerline_fonts=1
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#tabline#enabled=1
-" let g:airline_theme='edge'
-
 
 "" indentLine settings.
 let g:indentLine_enabled=1
@@ -325,8 +322,8 @@ let g:NERDTreeDirArrowExpandable='▸'
 let g:NERDTreeDirArrowCollapsible='▾'
 
 "" nerd commenter mapping
-vmap <C-/> <plug>NERDCommenterToggle
-nmap <C-/> <plug>NERDCommenterToggle
+vnoremap <C-/> <plug>NERDCommenterToggle
+nnoremap <C-/> <plug>NERDCommenterToggle
 let g:NERDSpaceDelims=1
 let g:NERDCompactSexyComs=1
 let g:NERDDefaultAlign='left'
@@ -398,6 +395,6 @@ endif
 if has("nvim") || has("gui_running")
   "" Downloaded from:
   "" https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/
-  set guifont=CaskaydiaCove\ Nerd\ Font:h10
+  set guifont=BlexMono\ Nerd\ Font:h10
 endif
 
