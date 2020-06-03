@@ -1,10 +1,10 @@
 Config
-  { font = "xft:CaskaydiaCove Nerd Font:size=9"
+  { font = "xft:BlexMono Nerd Font:size=9"
   , overrideRedirect  = True
   , additionalFonts   = []
   , bgColor           = "black"
-  , fgColor           = "grey"
-  , alpha             = 255
+  , fgColor           = "#dcdde1"
+  , alpha             = 150
   , position          = Bottom
   , textOffset        = -1
   , iconOffset        = -1
@@ -28,7 +28,6 @@ Config
     , Run Memory ["-t","m: <usedratio>%","-L","30","-H","60","--low"
                   ,"green","--normal","yellow","--high","red"] 10
     , Run Swap ["-t","s: <usedratio>%"] 10
-    , Run Com "uname" ["-r"] "" 36000
     , Run Date "%a, %b %_d %H:%M:%S" "date" 10
     , Run UnsafeStdinReader
   ]
