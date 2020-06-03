@@ -3,6 +3,7 @@ import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
+import XMonad.Layout.Spacing
 
 import Data.Monoid
 import Text.Printf (printf)
@@ -16,12 +17,12 @@ myTerminal           = "alacritty"
 myFocusFollowsMouse  = False
 myClickJustFocuses   = False
 myBorderWidth        = 1
-myModMask            = mod1Mask       -- left alt button.
+myModMask            = mod4Mask       -- super key (windows button).
 myFocusedBorderColor = "#ff0000"      -- active pane border color.
 myNormalBorderColor  = "#d0d0d0"      -- inactive pane border color.
 
 
-{- Making the workspaces clickable. -}
+{- Making the workspace tabs on xmobar, clickable. -}
 wss = ws ++ map show [(wsl + 1)..(wsl + 5)]
   where
     wsl = length ws
@@ -31,7 +32,7 @@ myWorkspaces :: [String]
 myWorkspaces  = clickAction wss
   where
     clickAction = map (uncurry action) . zip (map show [1..])
-    action = printf "<action=xdotool key alt+%s>%s</action>"
+    action = printf "<action=xdotool key super+%s>%s</action>"
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -125,6 +126,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
       | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
       , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+  ++
+
+  -- screen lock
+  [ ((modm .|. shiftMask, xK_l), spawn "slock") ]
 
 
 ------------------------------------------------------------------------
@@ -157,8 +162,10 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full
+myLayout = avoidStruts $ borders $ tiled ||| Mirror tiled ||| Full
   where
+    borders = spacingRaw True (Border 0 0 0 0) False (Border 3 3 3 3) True
+
     -- default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
 
