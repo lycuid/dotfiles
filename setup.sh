@@ -2,26 +2,33 @@
 
 DEFAULT="\033[0m"
 GREEN="\033[92m"
-YELLOW="\033[93m"
+BLUE="\033[94m"
 
 echo_success() {
   echo -e "$GREEN$1$DEFAULT"
 }
 
 echo_warning() {
-  echo -e "$YELLOW$1$DEFAULT"
+  echo -e "$BLUE$1$DEFAULT"
 }
 
-
 cwd="./config-files"
-files=$(tree config-files -iaf --noreport | cut -s -d \/ -f 2-)
+paths=$(tree config-files -iaf --noreport | cut -s -d \/ -f 2-)
+CONFIG="$HOME"
 
-for file in $files; do
-  if [ -f "$cwd/$file" ]; then
-    echo_success "[+] Linking: $file"
-    ln -rsf $cwd/$file ~/.$file
+for path in $paths; do
+  # if file, create a symlink.
+  if [ -f "$cwd/$path" ]; then
+    echo_success "[+] Linking: $path"
+    ln -rsf $cwd/$path $CONFIG/$path
   else
-    echo_warning "[*] Ignoring directory: $file"
+    # else if directory, mkdir if doesn't exist already.
+    if [ -d $CONFIG/$path ]; then
+      echo_warning "[?] Ignoring directory: $path"
+    else
+      echo_success "[+] Creating empty directory: $path"
+      mkdir $CONFIG/$path
+    fi
   fi
 done
 
