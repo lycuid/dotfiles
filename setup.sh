@@ -17,22 +17,22 @@ echo_warning() {
   echo -e "$YELLOW$1$DEFAULT"
 }
 
-cwd="./config-files"
-paths=$(tree config-files -iaf --noreport | cut -s -d \/ -f 2-)
-CONFIG="$HOME"
+ROOT="$HOME"
+CWD="./files"
+PATHS=$(tree $CWD -iaf --noreport | cut -s -d \/ -f 3-)
 
-for path in $paths; do
+for path in $PATHS; do
   # if file, create a symlink.
-  if [ -f "$cwd/$path" ]; then
+  if [ -f "$CWD/$path" ]; then
     echo_success "[+] Linking: $path"
-    ln -rsf $cwd/$path $CONFIG/$path
+    ln -rsf $CWD/$path $ROOT/$path
   else
     # else if directory, mkdir if doesn't exist already.
-    if [ -d $CONFIG/$path ]; then
+    if [ -d $ROOT/$path ]; then
       echo_warning "[?] Ignoring directory: $path"
     else
       echo_info "[+] Creating directory: $path"
-      mkdir $CONFIG/$path
+      mkdir $ROOT/$path
     fi
   fi
 done
