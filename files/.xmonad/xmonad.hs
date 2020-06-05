@@ -6,6 +6,7 @@ import XMonad.Layout.Spacing (spacingRaw, Border(..))
 
 import XMonad.Hooks.DynamicLog  ( dynamicLogWithPP
                                 , wrap
+                                , shorten
                                 , xmobarPP
                                 , xmobarColor
                                 , PP(..)
@@ -170,7 +171,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 --
 myLayout = avoidStruts $ borders $ tiled ||| Mirror tiled ||| Full
   where
-    borders = spacingRaw False (Border 0 0 0 0) False (Border 3 3 3 3) True
+    borders = spacingRaw False (Border 1 1 1 1) True (Border 1 1 1 1) True
 
     -- default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
@@ -223,8 +224,9 @@ myEventHook = mempty
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
 --
 myLogHook proc = dynamicLogWithPP xmobarPP
-  { ppCurrent         = xmobarColor "#ff7f50" "" . wrap "[" "]"
-  , ppVisible         = xmobarColor "#131313" "" . wrap "." "."
+  { ppCurrent         = xmobarColor "#ffffff" "#30336b" . wrap " " " "
+  , ppTitle           = xmobarColor "#2ed573" "" . shorten 30
+  , ppVisible         = xmobarColor "gray" "" . wrap " " " "
   , ppSep             =  "<fc=#dddddd> | </fc>"
   , ppOrder           = \(ws:l:t:ex) -> [ws,l] ++ ex ++ [t]
   , ppOutput          = hPutStrLn proc
@@ -248,8 +250,7 @@ myStartupHook = do
 -- Run xmonad with the settings you specify. No need to modify this.
 main = do
   xmobarProc <- spawnPipe "xmobar"
-  xmonad $ docks
-    $ def
+  xmonad $ docks $ def
     { terminal           = myTerminal
     , focusFollowsMouse  = myFocusFollowsMouse
     , clickJustFocuses   = myClickJustFocuses
@@ -270,4 +271,5 @@ main = do
     , logHook            = myLogHook xmobarProc
     , startupHook        = myStartupHook
     }
+
 

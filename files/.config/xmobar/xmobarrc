@@ -2,9 +2,9 @@ Config
   { font = "xft:BlexMono Nerd Font:size=9"
   , overrideRedirect  = True
   , additionalFonts   = []
-  , bgColor           = "black"
+  , bgColor           = "#131313"
   , fgColor           = "#c5cdd9"
-  , alpha             = 225
+  , alpha             = 255
   , position          = Bottom
   , textOffset        = -1
   , iconOffset        = -1
@@ -16,19 +16,50 @@ Config
   , allDesktops       = True
   , sepChar           = "%"
   , alignSep          = "}{"
-  , template          = "%UnsafeStdinReader%\
-                        \}<fc=#ffffff>%date%</fc>{\
-                        \%cpu% | %memory% (%swap%) | %battery%"
-
+  , template          = "%UnsafeStdinReader%}<fc=#81ecec>%date%</fc>{\
+                        \ %dynnetwork% | %cpu% | %memory% (%swap%) | %battery%"
   , commands          = [
-      Run Battery ["-t","b: <left>%","-L","30","-H","60","--high"
-                  ,"green","--normal","yellow","--low","red"] 10
-    , Run Cpu ["-t","c: <total>%","-L","30","-H","60","--low"
-            ,"green","--normal","yellow","--high","red"] 10
-    , Run Memory ["-t","m: <usedratio>%","-L","30","-H","60","--low"
-                  ,"green","--normal","yellow","--high","red"] 10
-    , Run Swap ["-t","s: <usedratio>%"] 10
-    , Run Date "%a, %b %_d %H:%M:%S" "date" 10
+      -- network activity monitor (dynamic interface resolution)
+      Run DynNetwork  [ "--template" , "<dev>: \x2193 <rx>kb/s \x2191 <tx>kb/s"
+                      , "--Low"      , "1000"
+                      , "--High"     , "5000"
+                      , "--low"      , "#4cd137"
+                      , "--normal"   , "#ffdd59"
+                      , "--high"     , "#ff5e57"
+                      ] 10
+
+    -- cpu activity monitor
+    , Run Cpu         [ "--template" , "C: <total>%"
+                      , "--Low"      , "50"
+                      , "--High"     , "85"
+                      , "--low"      , "#4cd137"
+                      , "--normal"   , "#ffdd59"
+                      , "--high"     , "#ff5e57"
+                      ] 10
+
+    -- memory usage monitor
+    , Run Memory      [ "--template" ,"M: <usedratio>%"
+                      , "--Low"      , "20"
+                      , "--High"     , "90"
+                      , "--low"      , "#4cd137"
+                      , "--normal"   , "#ffdd59"
+                      , "--high"     , "#ff5e57"
+                      ] 10
+
+    -- battery monitor
+    , Run Battery     [ "--template" , "B: <acstatus>"
+                      , "--Low"      , "20"
+                      , "--High"     , "80"
+                      , "--low"      , "#ff5e57"
+                      , "--normal"   , "#ffdd59"
+                      , "--high"     , "#4cd137"
+                      , "--"
+                      , "-o"	, "<left>%<fc=#ffdd59> (<timeleft>) </fc>"
+                      , "-O"	, "<left>%<fc=#ffdd59> \x26a1 </fc>"
+                      , "-i"	, "<left>%<fc=#4cd137> \x26a1 </fc>"
+                      ] 50
+    , Run Swap        ["-t","s: <usedratio>%"] 10
+    , Run Date        "%a, %b %d %H:%M:%S" "date" 10
     , Run UnsafeStdinReader
   ]
 }
