@@ -54,7 +54,7 @@ set et ts=2 sw=2 softtabstop=0
 set incsearch                     " highlight search as you type.
 set hlsearch                      " highlight search words.
 set fileformat=unix
-set list listchars=eol:^,tab:--
+set list listchars=eol:¬,tab:↦\ 
 
 "" no swap and backup files.
 set nobackup
@@ -66,7 +66,6 @@ set noundofile
 set t_Co=256  "" 256 COLOR
 set background=dark
 set termguicolors
-let g:edge_transparent_background=1
 colorscheme edge
 
 " Tab navigation
