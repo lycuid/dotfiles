@@ -2,7 +2,6 @@ import XMonad
 import XMonad.Util.Run (spawnPipe, hPutStrLn)
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
-import XMonad.Layout.Spacing (spacingRaw, Border(..))
 
 import XMonad.Hooks.DynamicLog  ( dynamicLogWithPP
                                 , wrap
@@ -169,10 +168,8 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = avoidStruts $ borders $ tiled ||| Mirror tiled ||| Full
+myLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full
   where
-    borders = spacingRaw False (Border 1 1 1 1) True (Border 1 1 1 1) True
-
     -- default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
 
