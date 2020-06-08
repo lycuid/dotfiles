@@ -1,9 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# export variables for development
-export PATH="$PATH:$HOME/.flutter-dev/bin"
-
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 export LC_ALL=en_US.UTF-8
