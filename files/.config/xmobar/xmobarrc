@@ -1,5 +1,5 @@
 Config
-  { font = "xft:BlexMono Nerd Font:size=9"
+  { font = "xft:BlexMono Nerd Font:size=9:style=semibold"
   , overrideRedirect  = True
   , additionalFonts   = []
   , bgColor           = "#131313"
@@ -16,7 +16,7 @@ Config
   , allDesktops       = True
   , sepChar           = "%"
   , alignSep          = "}{"
-  , template          = "%UnsafeStdinReader%}<fc=#81ecec>%date%</fc>{\
+  , template          = "<fc=white,#30336b> >></fc><fc=#81ecec,#30336b>= </fc> %UnsafeStdinReader%}<fc=#81ecec>%date%</fc>{\
                         \ %dynnetwork% | %cpu% | %memory% (%swap%) | %battery%"
   , commands          = [
       -- network activity monitor (dynamic interface resolution)
@@ -57,7 +57,7 @@ Config
                       , "-o"	, "<left>%<fc=#ffdd59> (<timeleft>) </fc>"
                       , "-O"	, "<left>%<fc=#ffdd59> \x26a1 </fc>"
                       , "-i"	, "<left>%<fc=#4cd137> \x26a1 </fc>"
-                      ] 50
+                      ] 20
     , Run Swap        ["-t","s: <usedratio>%"] 10
     , Run Date        "%a, %b %d %H:%M:%S" "date" 10
     , Run UnsafeStdinReader

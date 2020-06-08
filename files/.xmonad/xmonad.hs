@@ -1,8 +1,11 @@
 import XMonad
-import XMonad.Util.Run (spawnPipe, hPutStrLn)
-import XMonad.Util.SpawnOnce (spawnOnce)
-import XMonad.Hooks.ManageDocks (docks, avoidStruts)
+import XMonad.Prompt
+import XMonad.Prompt.Shell
 
+import XMonad.Util.Run          (spawnPipe, hPutStrLn)
+import XMonad.Util.SpawnOnce    (spawnOnce)
+
+import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 import XMonad.Hooks.DynamicLog  ( dynamicLogWithPP
                                 , wrap
                                 , shorten
@@ -12,12 +15,20 @@ import XMonad.Hooks.DynamicLog  ( dynamicLogWithPP
                                 )
 
 import Data.Monoid
-import Text.Printf (printf)
+import Data.Char                (isSpace)
+import Control.Arrow            (first)
+import Data.List                (isInfixOf)
+import Text.Printf              (printf)
 import System.Exit
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
+panelColorLight      = "#c5cdd9"
+panelColorDark       = "#131313"
+panelColorHlDark     = "#353b48"
+panelColorGreen      = "#2ed573"
+panelColorBlue       = "#30336b"
 
 myTerminal           = "alacritty"
 myFocusFollowsMouse  = False
@@ -29,17 +40,35 @@ myNormalBorderColor  = "#d0d0d0"      -- inactive pane border color.
 
 
 {- Making the workspace tabs on xmobar, clickable. -}
-wss = ws ++ map show [(wsl + 1)..(wsl + 5)]
-  where
-    wsl = length ws
-    ws = ["1:term", "2:dev", "3:web"]
-
 myWorkspaces :: [String]
-myWorkspaces  = clickAction wss
+myWorkspaces  = clickAction . map show $ [1..9]
   where
     clickAction = map (uncurry action) . zip (map show [1..])
     action = printf "<action=xdotool key super+%s>%s</action>"
 
+promptConfig :: XPConfig
+promptConfig = def  { font                  = "xft:BlexMono Nerd Font:size=9"
+                    , fgColor               = panelColorLight
+                    , bgColor               = panelColorDark
+                    , fgHLight              = panelColorLight
+                    , bgHLight              = panelColorBlue
+                    , promptBorderWidth     = 0
+                    -- , position              = Top
+                    , position              = CenteredAt 0.3 0.5
+                    , alwaysHighlight       = False
+                    , height                = 25
+                    , promptKeymap          = emacsLikeXPKeymap
+                    , historySize           = 128
+                    , searchPredicate       = isInfixOf
+                    , maxComplRows          = Just 5
+                    -- , historyFilter :: [String] -> [String]
+                    -- , completionKey :: (KeyMask, KeySym)
+                    -- , changeModeKey :: KeySym
+                    -- , defaultText :: String
+                    -- , autoComplete :: Maybe Int
+                    -- , showCompletionOnTab :: Bool
+                    -- , searchPredicate :: String -> String -> Bool
+                    }
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
@@ -47,12 +76,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
   -- launch a terminal
   [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
-
-  -- launch dmenu
-  , ((modm,               xK_p     ), spawn "dmenu_run")
-
-  -- launch gmrun
-  , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
 
   -- close focused window
   , ((modm .|. shiftMask, xK_c     ), kill)
@@ -135,7 +158,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   ++
 
   -- screen lock
-  [ ((modm .|. shiftMask, xK_l), spawn "slock") ]
+  [ ((modm .|. shiftMask, xK_l), spawn "slock")
+  -- shell prompt
+  , ((modm              , xK_p), shellPrompt promptConfig)
+  ]
 
 
 ------------------------------------------------------------------------
@@ -221,10 +247,10 @@ myEventHook = mempty
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
 --
 myLogHook proc = dynamicLogWithPP xmobarPP
-  { ppCurrent         = xmobarColor "#ffffff" "#30336b" . wrap " " " "
-  , ppTitle           = xmobarColor "#2ed573" "" . shorten 30
-  , ppVisible         = xmobarColor "gray" "" . wrap " " " "
-  , ppSep             =  "<fc=#dddddd> | </fc>"
+  { ppCurrent         = xmobarColor panelColorLight  panelColorHlDark  . wrap " " " "
+  , ppHidden          = xmobarColor panelColorLight "" . wrap " " " "
+  , ppTitle           = xmobarColor panelColorGreen "" . shorten 30
+  , ppSep             =  "<fc=" ++ panelColorLight ++ "> | </fc>"
   , ppOrder           = \(ws:l:t:ex) -> [ws,l] ++ ex ++ [t]
   , ppOutput          = hPutStrLn proc
   }
