@@ -1,6 +1,6 @@
 import XMonad
 
-import XMonad.Util.Run          (unsafeSpawn, spawnPipe, hPutStrLn)
+import XMonad.Util.Run          (spawnPipe, hPutStrLn)
 import XMonad.Util.SpawnOnce    (spawnOnce)
 
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
@@ -13,8 +13,6 @@ import XMonad.Hooks.DynamicLog  ( dynamicLogWithPP
                                 )
 
 import Data.Monoid
-import Data.Char                (isSpace)
-import Control.Arrow            (first)
 import Text.Printf              (printf)
 import System.Exit
 
