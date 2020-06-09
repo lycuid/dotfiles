@@ -1,8 +1,6 @@
 import XMonad
-import XMonad.Prompt
-import XMonad.Prompt.Shell
 
-import XMonad.Util.Run          (spawnPipe, hPutStrLn)
+import XMonad.Util.Run          (unsafeSpawn, spawnPipe, hPutStrLn)
 import XMonad.Util.SpawnOnce    (spawnOnce)
 
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
@@ -17,26 +15,15 @@ import XMonad.Hooks.DynamicLog  ( dynamicLogWithPP
 import Data.Monoid
 import Data.Char                (isSpace)
 import Control.Arrow            (first)
-import Data.List                (isInfixOf)
 import Text.Printf              (printf)
 import System.Exit
 
+import Configs.Main
+import Configs.XPrompt          (shellXPrompt, nvimXPrompt)
+import Configs.XPrompt.Colors   (XPColor(..), defXPColor)
+
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
-
-panelColorLight      = "#c5cdd9"
-panelColorDark       = "#131313"
-panelColorHlDark     = "#353b48"
-panelColorGreen      = "#2ed573"
-panelColorBlue       = "#30336b"
-
-myTerminal           = "alacritty"
-myFocusFollowsMouse  = False
-myClickJustFocuses   = False
-myBorderWidth        = 1
-myModMask            = mod4Mask       -- super key (windows button).
-myFocusedBorderColor = "#ff0000"      -- active pane border color.
-myNormalBorderColor  = "#d0d0d0"      -- inactive pane border color.
 
 
 {- Making the workspace tabs on xmobar, clickable. -}
@@ -46,35 +33,13 @@ myWorkspaces  = clickAction . map show $ [1..9]
     clickAction = map (uncurry action) . zip (map show [1..])
     action = printf "<action=xdotool key super+%s>%s</action>"
 
-promptConfig :: XPConfig
-promptConfig = def  { font                  = "xft:BlexMono Nerd Font:size=9"
-                    , fgColor               = panelColorLight
-                    , bgColor               = panelColorDark
-                    , fgHLight              = panelColorLight
-                    , bgHLight              = panelColorBlue
-                    , promptBorderWidth     = 0
-                    -- , position              = Top
-                    , position              = CenteredAt 0.3 0.5
-                    , alwaysHighlight       = False
-                    , height                = 25
-                    , promptKeymap          = emacsLikeXPKeymap
-                    , historySize           = 128
-                    , searchPredicate       = isInfixOf
-                    , maxComplRows          = Just 5
-                    -- , historyFilter :: [String] -> [String]
-                    -- , completionKey :: (KeyMask, KeySym)
-                    -- , changeModeKey :: KeySym
-                    -- , defaultText :: String
-                    -- , autoComplete :: Maybe Int
-                    -- , showCompletionOnTab :: Bool
-                    -- , searchPredicate :: String -> String -> Bool
-                    }
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
   -- launch a terminal
+  --
   [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
   -- close focused window
@@ -160,9 +125,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   -- screen lock
   [ ((modm .|. shiftMask, xK_l), spawn "slock")
   -- shell prompt
-  , ((modm              , xK_p), shellPrompt promptConfig)
+  , ((modm              , xK_p), shellXPrompt)
+  , ((modm              , xK_o), nvimXPrompt)
   ]
-
 
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
@@ -247,10 +212,10 @@ myEventHook = mempty
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
 --
 myLogHook proc = dynamicLogWithPP xmobarPP
-  { ppCurrent         = xmobarColor panelColorLight  panelColorHlDark  . wrap " " " "
-  , ppHidden          = xmobarColor panelColorLight "" . wrap " " " "
-  , ppTitle           = xmobarColor panelColorGreen "" . shorten 30
-  , ppSep             =  "<fc=" ++ panelColorLight ++ "> | </fc>"
+  { ppCurrent         = xmobarColor (light defXPColor) (hlDark defXPColor)  . wrap " " " "
+  , ppHidden          = xmobarColor (light defXPColor) "" . wrap " " " "
+  , ppTitle           = xmobarColor (green defXPColor) "" . shorten 30
+  , ppSep             =  "<fc=" ++ (light defXPColor) ++ "> | </fc>"
   , ppOrder           = \(ws:l:t:ex) -> [ws,l] ++ ex ++ [t]
   , ppOutput          = hPutStrLn proc
   }
