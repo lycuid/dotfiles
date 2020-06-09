@@ -18,7 +18,7 @@ import System.Exit
 
 import Configs.Main
 import Configs.XPrompt          (shellXPrompt, nvimXPrompt)
-import Configs.XPrompt.Colors   (XPColor(..), defXPColor)
+import Configs.Colors           (Colors(..), defColors)
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -210,10 +210,10 @@ myEventHook = mempty
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
 --
 myLogHook proc = dynamicLogWithPP xmobarPP
-  { ppCurrent         = xmobarColor (light defXPColor) (hlDark defXPColor)  . wrap " " " "
-  , ppHidden          = xmobarColor (light defXPColor) "" . wrap " " " "
-  , ppTitle           = xmobarColor (green defXPColor) "" . shorten 30
-  , ppSep             =  "<fc=" ++ (light defXPColor) ++ "> | </fc>"
+  { ppCurrent         = xmobarColor (light defColors) (hlDark defColors)  . wrap " " " "
+  , ppHidden          = xmobarColor (light defColors) "" . wrap " " " "
+  , ppTitle           = xmobarColor (green defColors) "" . shorten 30
+  , ppSep             =  "<fc=" ++ (light defColors) ++ "> | </fc>"
   , ppOrder           = \(ws:l:t:ex) -> [ws,l] ++ ex ++ [t]
   , ppOutput          = hPutStrLn proc
   }
