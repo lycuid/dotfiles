@@ -1,5 +1,5 @@
 {
-  "editor.fontFamily": "'CasKaydiaCove Nerd Font', 'Consolas', 'monospace', 'Droid Sans Fallback'",
+  "editor.fontFamily": "'BlexMono Nerd Font', 'Consolas', 'monospace', 'Droid Sans Fallback'",
   "editor.fontLigatures": true,
   "extensions.ignoreRecommendations": true,
   "editor.fontSize": 13,
