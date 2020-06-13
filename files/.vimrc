@@ -47,6 +47,7 @@ filetype plugin indent on
 set autoindent
 set colorcolumn=72                " wrap indicator
 set cursorline                    " highlight current line
+set number                        " line number.
 set relativenumber                " line number (relative).
 set mouse=a                       " mouse click navigation.
 set encoding=utf-8
@@ -138,14 +139,14 @@ if has("gui_running")
 endif
 
 " coc.
-source ~/.vim/conf.d/coc.conf.vim
+source ~/.vim/plugins.cfg.d/coc.cfg.vim
 
 " airline.
-source ~/.vim/conf.d/airline.conf.vim
+source ~/.vim/plugins.cfg.d/airline.cfg.vim
 
 " nerdtree/nerdcommenter.
-source ~/.vim/conf.d/nerdtree.conf.vim
+source ~/.vim/plugins.cfg.d/nerdtree.cfg.vim
 
 " rest.
-source ~/.vim/conf.d/plugins.conf.vim
+source ~/.vim/plugins.cfg.d/plugins.cfg.vim
 
