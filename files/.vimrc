@@ -31,6 +31,7 @@ Plug 'sainnhe/edge'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'rust-lang/rust.vim'
+Plug 'neovimhaskell/haskell-vim'
 
 Plug 'scrooloose/nerdcommenter'
 
@@ -55,7 +56,7 @@ set et ts=2 sw=2 softtabstop=0
 set incsearch                     " highlight search as you type.
 set hlsearch                      " highlight search words.
 set fileformat=unix
-set list listchars=eol:¬,tab:↦\ 
+set list listchars=tab:↦\ ,eol:¬
 
 "" no swap and backup files.
 set nobackup
@@ -119,6 +120,14 @@ autocmd FileType javascript nmap <buffer> <F5> :w<bar>!node %<CR>
 " needed this to be available globally as although 'if gvim running?' can
 " be determined but `nvim-qt` cannnot (yet).
 set guifont=BlexMono\ Nerd\ Font:h10
+
+let g:haskell_enable_quantification=1
+let g:haskell_enable_recursivedo=1
+let g:haskell_enable_arrowsyntax=1
+let g:haskell_enable_pattern_synonyms=1
+let g:haskell_enable_typeroles=1
+let g:haskell_enable_static_pointers=1
+let g:haskell_backpack=1
 
 "" GVIM settings.
 if has("gui_running")

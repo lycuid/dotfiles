@@ -10,22 +10,22 @@ import XMonad.Util.Run          (unsafeSpawn)
 
 import Data.List                (isInfixOf)
 
-import Configs.Main             (myTerminal)
-import Configs.Colors   (Colors(..), defColors, nvimColors)
+import Configs.Colors   (Colors(..), defColors)
 
 
 xpConfig :: XPConfig
-xpConfig = def  { font                  = "xft:BlexMono Nerd Font:size=9"
+xpConfig = def  { font                  = "xft:BlexMono Nerd Font:size=10"
                 , fgColor               = light defColors
-                , bgColor               = dark defColors
-                , fgHLight              = light defColors
-                , bgHLight              = blue defColors
-                , promptBorderWidth     = 0
-                , position              = CenteredAt 0.3 0.5
+                , bgColor               = blue defColors
+                , bgHLight              = green defColors
+                , fgHLight              = dark defColors
+                , borderColor           = teal defColors
+                , promptBorderWidth     = 2
+                , position              = CenteredAt 0.2 0.5
                 , alwaysHighlight       = False
-                , height                = 25
+                , height                = 30
                 , promptKeymap          = emacsLikeXPKeymap
-                , historySize           = 128
+                , historySize           = 64
                 , searchPredicate       = isInfixOf
                 , maxComplRows          = Just 5
                 -- , historyFilter :: [String] -> [String]
@@ -45,15 +45,12 @@ data Nvim = Nvim
 instance XPrompt Nvim where
   showXPrompt Nvim = "edit: "
 
-nvimXPConfig = xpConfig { bgColor  = blue nvimColors
-                        , bgHLight = green nvimColors
-                        , fgHLight = dark nvimColors
-                        }
+nvimXPConfig = xpConfig
 
 {- @TODO: write a custom 'getShellCompl' function. -}
-nvimXPrompt :: X ()
-nvimXPrompt = mkXPrompt Nvim nvimXPConfig (getShellCompl [cmd] $ searchPredicate nvimXPConfig) run
+nvimXPrompt :: XConfig Layout -> X ()
+nvimXPrompt conf = mkXPrompt Nvim nvimXPConfig (getShellCompl [cmd] $ searchPredicate nvimXPConfig) run
     where
       run a   = unsafeSpawn $ cmd ++ " " ++ a
-      cmd     = unwords [myTerminal, "-e", "nvim"]
+      cmd     = XMonad.terminal conf ++ " -e nvim"
 

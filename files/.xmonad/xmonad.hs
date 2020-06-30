@@ -1,5 +1,6 @@
 import XMonad
 
+import XMonad.Actions.Submap    (submap)
 import XMonad.Util.Run          (spawnPipe, hPutStrLn)
 import XMonad.Util.SpawnOnce    (spawnOnce)
 
@@ -26,7 +27,7 @@ import qualified Data.Map        as M
 
 {- Making the workspace tabs on xmobar, clickable. -}
 myWorkspaces :: [String]
-myWorkspaces  = clickAction . map show $ [1..9]
+myWorkspaces  = clickAction . map show $ [1..5]
   where
     clickAction = map (uncurry action) . zip (map show [1..])
     action = printf "<action=xdotool key super+%s>%s</action>"
@@ -122,9 +123,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
   -- screen lock
   [ ((modm .|. shiftMask, xK_l), spawn "slock")
-  -- shell prompt
-  , ((modm              , xK_p), shellXPrompt)
-  , ((modm              , xK_o), nvimXPrompt)
+  -- prompt keybindings.
+  , ((modm, xK_p), submap . M.fromList $
+    [ ((modm, xK_p), shellXPrompt)
+    , ((modm, xK_o), nvimXPrompt conf)
+    ])
   ]
 
 ------------------------------------------------------------------------
@@ -189,8 +192,9 @@ myLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
-    , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "kdesktop"       --> doIgnore ]
+    , className =? "Firefox"        --> doShift (myWorkspaces !! 2)
+    , className =? "Google-chrome"  --> doShift (myWorkspaces !! 2)
+    ]
 
 ------------------------------------------------------------------------
 -- Event handling
@@ -210,12 +214,15 @@ myEventHook = mempty
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
 --
 myLogHook proc = dynamicLogWithPP xmobarPP
-  { ppCurrent         = xmobarColor (light defColors) (hlDark defColors)  . wrap " " " "
-  , ppHidden          = xmobarColor (light defColors) "" . wrap " " " "
-  , ppTitle           = xmobarColor (green defColors) "" . shorten 30
-  , ppSep             =  "<fc=" ++ (light defColors) ++ "> | </fc>"
-  , ppOrder           = \(ws:l:t:ex) -> [ws,l] ++ ex ++ [t]
-  , ppOutput          = hPutStrLn proc
+  { ppCurrent           = xmobarColor (light defColors) (hlDark defColors)  . wrap " " " "
+  , ppHidden            = xmobarColor (light defColors) "" . wrap " " " "
+  , ppHiddenNoWindows   = xmobarColor "#353535" "" . wrap " " " "
+  , ppVisibleNoWindows  = Just (xmobarColor "red" "" . wrap " " " ")
+  , ppUrgent            = xmobarColor (red defColors) "" . wrap " " " "
+  , ppTitle             = xmobarColor (green defColors) "" . shorten 30
+  , ppSep               =  "<fc=" ++ (light defColors) ++ "> | </fc>"
+  , ppOrder             = \(ws:l:t:ex) -> [ws,l] ++ ex ++ [t]
+  , ppOutput            = hPutStrLn proc
   }
 
 ------------------------------------------------------------------------
@@ -229,6 +236,7 @@ myLogHook proc = dynamicLogWithPP xmobarPP
 myStartupHook = do
   spawnOnce "nitrogen --restore &"
   spawnOnce "compton &"
+  spawnOnce myTerminal
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
@@ -245,12 +253,8 @@ main = do
     , workspaces         = myWorkspaces
     , normalBorderColor  = myNormalBorderColor
     , focusedBorderColor = myFocusedBorderColor
-
-    -- key bindings
     , keys               = myKeys
     , mouseBindings      = myMouseBindings
-
-    -- hooks, layout
     , layoutHook         = myLayout
     , manageHook         = myManageHook
     , handleEventHook    = myEventHook
