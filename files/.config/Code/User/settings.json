@@ -94,5 +94,6 @@
   "vsicons.dontShowNewVersionMessage": true,
   "go.formatTool": "goimports",
   "go.useLanguageServer": true,
+  "vscode-neovim.neovimPath": "/usr/bin/nvim",
   "workbench.colorTheme": "GitHub Dark",
 }

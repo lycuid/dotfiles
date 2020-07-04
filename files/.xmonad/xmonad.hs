@@ -1,25 +1,36 @@
 import XMonad
 
-import XMonad.Actions.Submap    (submap)
-import XMonad.Util.Run          (spawnPipe, hPutStrLn)
-import XMonad.Util.SpawnOnce    (spawnOnce)
 
-import XMonad.Hooks.ManageDocks (docks, avoidStruts)
-import XMonad.Hooks.DynamicLog  ( dynamicLogWithPP
-                                , wrap
-                                , shorten
-                                , xmobarPP
-                                , xmobarColor
-                                , PP(..)
-                                )
+import XMonad.Util.Run                (spawnPipe, hPutStrLn)
+import XMonad.Util.SpawnOnce          (spawnOnce)
+import XMonad.Util.NamedScratchpad    ( namedScratchpadAction
+                                      , namedScratchpadManageHook
+                                      , customFloating
+                                      , NamedScratchpad(..)
+                                      )
+
+import XMonad.Hooks.ManageDocks       (docks, avoidStruts)
+import XMonad.Hooks.DynamicLog        ( dynamicLogWithPP
+                                      , wrap
+                                      , shorten
+                                      , xmobarPP
+                                      , xmobarColor
+                                      , PP(..)
+                                      )
+
+import XMonad.Layout.LimitWindows     (limitWindows)
+import XMonad.Layout.Magnifier        (magnifier)
+import XMonad.Layout.ResizableTile    (ResizableTall(..))
+import XMonad.Layout.Renamed          (renamed, Rename(Replace))
+import XMonad.Layout.NoBorders        (noBorders)
 
 import Data.Monoid
-import Text.Printf              (printf)
+import Text.Printf                    (printf)
 import System.Exit
 
 import Configs.Main
-import Configs.XPrompt          (shellXPrompt, nvimXPrompt)
-import Configs.Colors           (Colors(..), defColors)
+import Configs.XPrompt                (shellXPrompt, nvimXPrompt)
+import Configs.Colors                 (Colors(..), defColors)
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -121,14 +132,24 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
       , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
   ++
 
-  -- screen lock
+  -- screen lock keybinding.
   [ ((modm .|. shiftMask, xK_l), spawn "slock")
+
   -- prompt keybindings.
-  , ((modm, xK_p), submap . M.fromList $
-    [ ((modm, xK_p), shellXPrompt)
-    , ((modm, xK_o), nvimXPrompt conf)
-    ])
+  , ((modm, xK_p), shellXPrompt)
+  , ((modm, xK_o), nvimXPrompt conf)
+
+  -- named scratchpads keybindings.
+  , ((modm .|. controlMask, xK_Return), namedScratchpadAction myScratchpads "term")
   ]
+
+-- Named Scratchpads.
+myScratchpads = [NS "term" spawnTerminal query centerFloating]
+  where
+    spawnTerminal = unwords [myTerminal, "-t", "scratchpad-term"]
+    query = title =? "scratchpad-term"
+    centerFloating = customFloating $ W.RationalRect 0.025 0.05 0.95 0.9
+
 
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
@@ -160,7 +181,12 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full
+magnify = renamed [Replace "magnify"]
+        $ magnifier
+        $ limitWindows 12
+        $ ResizableTall 1 (3/100) (1/2) []
+
+myLayout = avoidStruts $ noBorders Full ||| tiled ||| Mirror tiled ||| magnify
   where
     -- default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
@@ -194,7 +220,7 @@ myManageHook = composeAll
     , className =? "Gimp"           --> doFloat
     , className =? "Firefox"        --> doShift (myWorkspaces !! 2)
     , className =? "Google-chrome"  --> doShift (myWorkspaces !! 2)
-    ]
+    ] <+> namedScratchpadManageHook myScratchpads
 
 ------------------------------------------------------------------------
 -- Event handling
@@ -221,7 +247,7 @@ myLogHook proc = dynamicLogWithPP xmobarPP
   , ppUrgent            = xmobarColor (red defColors) "" . wrap " " " "
   , ppTitle             = xmobarColor (green defColors) "" . shorten 30
   , ppSep               =  "<fc=" ++ (light defColors) ++ "> | </fc>"
-  , ppOrder             = \(ws:l:t:ex) -> [ws,l] ++ ex ++ [t]
+  , ppOrder             = take 3
   , ppOutput            = hPutStrLn proc
   }
 
