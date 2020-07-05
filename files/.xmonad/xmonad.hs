@@ -141,13 +141,15 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
   -- named scratchpads keybindings.
   , ((modm .|. controlMask, xK_Return), namedScratchpadAction myScratchpads "term")
+  , ((modm .|. controlMask, xK_f),      namedScratchpadAction myScratchpads "fm")
   ]
 
 -- Named Scratchpads.
-myScratchpads = [NS "term" spawnTerminal query centerFloating]
+myScratchpads = [ NS "term" spawnTerminal (title =? "scratchpad-term") centerFloating
+                , NS "fm" "pcmanfm" (className =? "Pcmanfm") centerFloating
+                ]
   where
     spawnTerminal = unwords [myTerminal, "-t", "scratchpad-term"]
-    query = title =? "scratchpad-term"
     centerFloating = customFloating $ W.RationalRect 0.025 0.05 0.95 0.9
 
 
