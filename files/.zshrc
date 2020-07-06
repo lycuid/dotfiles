@@ -5,9 +5,9 @@
 export ZSH=~/.oh-my-zsh
 export LC_ALL=en_US.UTF-8
 
-ZSH_THEME_FILE=~/.oh-my-zsh/themes/lambda-mod.zsh-theme
+ZSH_THEME_FILE=~/.oh-my-zsh/themes/simple-lambda.zsh-theme
 if [[ ! -f $ZSH_THEME_FILE ]]; then
-  THEME_FILE="https://raw.githubusercontent.com/halfo/lambda-mod-zsh-theme/master/lambda-mod.zsh-theme"
+  THEME_FILE="https://raw.githubusercontent.com/lycuid/simple-lambda-zsh-theme/master/simple-lambda.zsh-theme"
   curl -o $ZSH_THEME_FILE $THEME_FILE 2> /dev/null
   unset THEME_FILE
 fi
@@ -19,7 +19,7 @@ unset ZSH_THEME_FILE
 if [[ -n $INSIDE_EMACS ]] then;
   ZSH_THEME="simple"
 else
-  ZSH_THEME="lambda-mod"
+  ZSH_THEME="simple-lambda"
 fi
 
 # Uncomment the following line to use case-sensitive completion.
@@ -97,16 +97,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias vtop="vtop --theme seti"
-
 # Automate upload code
 # Automate upload code
 
 # pscp -i ~/Desktop/private_key.ppk ~/Desktop/desertbox_sql/"finance queries"/#  coll_ticket_created.sql mis@52.77.139.211:/home/mis/sql_files/
 #&& google-chrome 'http://52.77.139.211/cgi-bin/update_data.py?file_name="$2"&action=DATA-UPDATE'
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
