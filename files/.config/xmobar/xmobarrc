@@ -1,7 +1,7 @@
 Config
-  { font              = "xft:TerminessTTF NF:size=12"
+  { font              = "xft:monospace:size=10"
   , overrideRedirect  = True
-  , additionalFonts   = []
+  , additionalFonts   = ["xft:monospace:size=10:style=Bold"]
   , bgColor           = "#131313"
   , fgColor           = "#c5cdd9"
   , alpha             = 255
@@ -12,11 +12,11 @@ Config
   , pickBroadest      = False
   , persistent        = False
   , hideOnStart       = False
-  , iconRoot          = "/home/lycuid/.config/xmobar/xpm/"
+  , iconRoot          = "."
   , allDesktops       = True
   , sepChar           = "%"
   , alignSep          = "}{"
-  , template          = "<fc=white,#30336b> <icon=haskell.xpm/> </fc>%UnsafeStdinReader%}<fc=#9b59b6> %date% </fc>{\
+  , template          = "<fc=white,#30336b><fn=1> >><fc=#55E6C1,#30336b>=</fc> </fn></fc>%UnsafeStdinReader%}<fc=#9b59b6> %date% </fc>{\
                         \ %dynnetwork% <fc=white,#1e272e> %cpu% </fc><fc=white> %memory% (%swap%) </fc><fc=white,#202020> %battery% </fc>"
   , commands          = [
       -- network activity monitor (dynamic interface resolution)
