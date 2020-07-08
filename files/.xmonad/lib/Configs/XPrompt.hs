@@ -14,7 +14,7 @@ import Configs.Colors   (Colors(..), defColors)
 
 
 xpConfig :: XPConfig
-xpConfig = def  { font                  = "xft:BlexMono Nerd Font:size=10"
+xpConfig = def  { font                  = "xft:TerminessTTF NF:size=12"
                 , fgColor               = light defColors
                 , bgColor               = blue defColors
                 , bgHLight              = green defColors
@@ -51,6 +51,6 @@ nvimXPConfig = xpConfig
 nvimXPrompt :: XConfig Layout -> X ()
 nvimXPrompt conf = mkXPrompt Nvim nvimXPConfig (getShellCompl [cmd] $ searchPredicate nvimXPConfig) run
     where
-      run a   = unsafeSpawn $ cmd ++ " " ++ a
-      cmd     = XMonad.terminal conf ++ " -e nvim"
+      run a  = unsafeSpawn $ cmd ++ " " ++ a
+      cmd    = unwords [XMonad.terminal conf, "-e", "nvim"]
 

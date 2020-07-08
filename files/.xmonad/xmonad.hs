@@ -142,11 +142,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   -- named scratchpads keybindings.
   , ((modm .|. controlMask, xK_Return), namedScratchpadAction myScratchpads "term")
   , ((modm .|. controlMask, xK_f),      namedScratchpadAction myScratchpads "fm")
+  , ((modm .|. controlMask, xK_t),      namedScratchpadAction myScratchpads "todo")
   ]
 
 -- Named Scratchpads.
 myScratchpads = [ NS "term" spawnTerminal (title =? "scratchpad-term") centerFloating
                 , NS "fm" "pcmanfm" (className =? "Pcmanfm") centerFloating
+                , NS "todo" "gnome-todo" (className =? "Gnome-todo") centerFloating
                 ]
   where
     spawnTerminal = unwords [myTerminal, "-t", "scratchpad-term"]
@@ -262,8 +264,13 @@ myLogHook proc = dynamicLogWithPP xmobarPP
 --
 -- By default, do nothing.
 myStartupHook = do
+  -- background image program.
   spawnOnce "nitrogen --restore &"
+  -- compositor (transparency).
   spawnOnce "compton &"
+  -- continous key press action delay and speed.
+  spawnOnce "xset r rate 300 40"
+  -- terminal on startup.
   spawnOnce myTerminal
 
 ------------------------------------------------------------------------
