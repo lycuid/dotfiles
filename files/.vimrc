@@ -5,29 +5,24 @@ end
 
 call plug#begin('~/.vim/plugged')
 
-"" Autocompletion.
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-"" File navigation.
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 
-"" SCM.
 Plug 'tpope/vim-fugitive'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 
-"" Display.
 Plug 'ryanoasis/vim-devicons'
 Plug 'Yggdroot/indentLine'
 
-" statusbar.
 Plug 'vim-airline/vim-airline'
 
-" colorscheme.
+Plug 'lycuid/old-school.vim'
 Plug 'sainnhe/edge'
 
-" Syntax.
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'rust-lang/rust.vim'
@@ -48,8 +43,7 @@ filetype plugin indent on
 set autoindent
 set colorcolumn=72                " wrap indicator
 set cursorline                    " highlight current line
-set number                        " line number.
-set relativenumber                " line number (relative).
+set nu relativenumber                " line number (relative).
 set mouse=a                       " mouse click navigation.
 set encoding=utf-8
 set et ts=2 sw=2 softtabstop=0
@@ -68,7 +62,7 @@ set noundofile
 set t_Co=256  "" 256 COLOR
 set background=dark
 set termguicolors
-colorscheme edge
+colorscheme old_school
 
 " Tab navigation
 map <C-w><C-t> :tabnew<CR>
@@ -78,10 +72,6 @@ map <C-PageDown> :tabnext<CR>
 " page navigation.
 map <C-k> <C-y>
 map <C-j> <C-e>
-
-" comments.
-map <C-/> <plug>NERDCommenterToggle
-map <C-/> <plug>NERDCommenterToggle
 
 nnoremap ,, :noh<CR>
 
@@ -119,7 +109,7 @@ autocmd FileType javascript nmap <buffer> <F5> :w<bar>!node %<CR>
 "" Downloaded from: https://github.com/ryanoasis/nerd-fonts/
 " needed this to be available globally as although 'if gvim running?' can
 " be determined but `nvim-qt` cannnot (yet).
-set guifont=BlexMono\ Nerd\ Font:h10
+set guifont=TerminessTTF\ Nerd\ Font:h12
 
 let g:haskell_enable_quantification=1
 let g:haskell_enable_recursivedo=1
