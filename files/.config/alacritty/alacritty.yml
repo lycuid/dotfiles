@@ -245,12 +245,22 @@ colors:
   #
   #indexed_colors: []
 
+  #normal:
+    #black:   '#1d1f21'
+    #red:     '#cc6666'
+    #green:   '#b9ca4a'
+    #yellow:  '#f0c674'
+    #blue:    '#81a2be'
+    #magenta: '#b294bb'
+    #cyan:    '#8abeb7'
+    #white:   '#c5c8c6'
+
   normal:
-    black:   '#1d1f21'
+    black:   '#131313'
     red:     '#cc6666'
-    green:   '#006032'
+    green:   '#29B363'
     yellow:  '#f0c674'
-    blue:    '#81a2be'
+    blue:    '#273c75'
     magenta: '#b294bb'
     cyan:    '#8abeb7'
     white:   '#c5c8c6'
