@@ -15,11 +15,11 @@ import Configs.Colors   (Colors(..), defColors)
 
 xpConfig :: XPConfig
 xpConfig = def  { font                  = "xft:TerminessTTF NF:size=12"
-                , fgColor               = light defColors
+                , fgColor               = white defColors
                 , bgColor               = blue defColors
                 , bgHLight              = green defColors
-                , fgHLight              = dark defColors
-                , borderColor           = teal defColors
+                , fgHLight              = black defColors
+                , borderColor           = cyan defColors
                 , promptBorderWidth     = 2
                 , position              = CenteredAt 0.2 0.5
                 , alwaysHighlight       = False

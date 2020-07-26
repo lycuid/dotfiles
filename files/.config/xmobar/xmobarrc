@@ -1,7 +1,7 @@
 Config
-  { font              = "xft:monospace:size=10"
+  { font              = "xft:monospace:size=9"
   , overrideRedirect  = True
-  , additionalFonts   = ["xft:monospace:size=10:style=Bold"]
+  , additionalFonts   = ["xft:monospace:size=9:style=Bold"]
   , bgColor           = "#131313"
   , fgColor           = "#c5cdd9"
   , alpha             = 255
@@ -16,11 +16,11 @@ Config
   , allDesktops       = True
   , sepChar           = "%"
   , alignSep          = "}{"
-  , template          = "<fc=white,#30336b><fn=1> >><fc=#55E6C1,#30336b>=</fc> </fn></fc>%UnsafeStdinReader%}<fc=#9b59b6> %date% </fc>{\
+  , template          = "<fc=white,#30336b><fn=1> >><fc=#55E6C1,#30336b>=</fc> </fn></fc>%UnsafeStdinReader%}<fc=#9b59b6>%date%</fc>{\
                         \ %dynnetwork% <fc=white,#1e272e> %cpu% </fc><fc=white> %memory% (%swap%) </fc><fc=white,#202020> %battery% </fc>"
   , commands          = [
       -- network activity monitor (dynamic interface resolution)
-      Run DynNetwork  [ "--template" , "<dev>: \x2193 <rx>kb/s \x2191 <tx>kb/s"
+      Run DynNetwork  [ "--template" , "<dev>: \x25bc <rx>kb/s \x25b2 <tx>kb/s"
                       , "--Low"      , "1000"
                       , "--High"     , "5000"
                       , "--low"      , "#4cd137"
@@ -57,9 +57,9 @@ Config
                       , "-o"	, "<left>%<fc=#ffdd59,#202020> (<timeleft>) </fc>"
                       , "-O"	, "<left>%<fc=#ffdd59,#202020> \x26a1 </fc>"
                       , "-i"	, "<left>%<fc=#4cd137,#202020> \x26a1 </fc>"
-                      ] 20
+                      ] 100
     , Run Swap        ["-t","s: <usedratio>%"] 10
-    , Run Date        "%a, %b %d %H:%M:%S" "date" 10
+    , Run Date        "%a, %b %d %H:%M" "date" 600
     , Run UnsafeStdinReader
   ]
 }

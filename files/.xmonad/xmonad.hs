@@ -1,6 +1,5 @@
 import XMonad
 
-
 import XMonad.Util.Run                (spawnPipe, hPutStrLn)
 import XMonad.Util.SpawnOnce          (spawnOnce)
 import XMonad.Util.NamedScratchpad    ( namedScratchpadAction
@@ -27,9 +26,10 @@ import XMonad.Layout.NoBorders        (noBorders)
 import Data.Monoid
 import Text.Printf                    (printf)
 import System.Exit
+import Data.List                      (isInfixOf)
 
 import Configs.Main
-import Configs.XPrompt                (shellXPrompt, nvimXPrompt)
+import Configs.XPrompt                (nvimXPrompt)
 import Configs.Colors                 (Colors(..), defColors)
 
 import qualified XMonad.StackSet as W
@@ -45,12 +45,11 @@ myWorkspaces  = clickAction . map show $ [1..5]
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
---
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
   -- launch a terminal
   --
-  [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+  [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)
 
   -- close focused window
   , ((modm .|. shiftMask, xK_c     ), kill)
@@ -77,7 +76,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   , ((modm,               xK_m     ), windows W.focusMaster  )
 
   -- Swap the focused window and the master window
-  , ((modm,               xK_Return), windows W.swapMaster)
+  , ((modm .|. shiftMask, xK_Return), windows W.swapMaster)
 
   -- Swap the focused window with the next window
   , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )
@@ -136,22 +135,20 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   [ ((modm .|. shiftMask, xK_l), spawn "slock")
 
   -- prompt keybindings.
-  , ((modm, xK_p), shellXPrompt)
+  , ((modm, xK_p), spawn "dmenu_run -g 5 -l 5")
   , ((modm, xK_o), nvimXPrompt conf)
 
   -- named scratchpads keybindings.
   , ((modm .|. controlMask, xK_Return), namedScratchpadAction myScratchpads "term")
   , ((modm .|. controlMask, xK_f),      namedScratchpadAction myScratchpads "fm")
-  , ((modm .|. controlMask, xK_t),      namedScratchpadAction myScratchpads "todo")
   ]
 
 -- Named Scratchpads.
-myScratchpads = [ NS "term" spawnTerminal (title =? "scratchpad-term") centerFloating
+myScratchpads = [ NS "term" spawnTerminal (className =? "scratchpad-term") centerFloating
                 , NS "fm" "pcmanfm" (className =? "Pcmanfm") centerFloating
-                , NS "todo" "gnome-todo" (className =? "Gnome-todo") centerFloating
                 ]
   where
-    spawnTerminal = unwords [myTerminal, "-t", "scratchpad-term"]
+    spawnTerminal = unwords [myTerminal, "-c", "scratchpad-term"]
     centerFloating = customFloating $ W.RationalRect 0.025 0.05 0.95 0.9
 
 
@@ -190,7 +187,7 @@ magnify = renamed [Replace "magnify"]
         $ limitWindows 12
         $ ResizableTall 1 (3/100) (1/2) []
 
-myLayout = avoidStruts $ noBorders Full ||| tiled ||| Mirror tiled ||| magnify
+myLayout = avoidStruts $ tiled ||| noBorders Full ||| Mirror tiled ||| magnify
   where
     -- default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
@@ -219,12 +216,14 @@ myLayout = avoidStruts $ noBorders Full ||| tiled ||| Mirror tiled ||| magnify
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
-myManageHook = composeAll
-    [ className =? "MPlayer"        --> doFloat
-    , className =? "Gimp"           --> doFloat
-    , className =? "Firefox"        --> doShift (myWorkspaces !! 2)
-    , className =? "Google-chrome"  --> doShift (myWorkspaces !! 2)
-    ] <+> namedScratchpadManageHook myScratchpads
+myManageHook = (composeAll . concat $
+  [ [fmap (isInfixOf x) className --> doFloat | x <- myFloating]
+  , [fmap (isInfixOf x) className --> doShift (myWorkspaces !! 2) | x <- myBrowsers]
+  , [fmap (isInfixOf x) className <&&> resource =? "Dialog" --> doFloat | x <- myBrowsers]
+  ]) <+> namedScratchpadManageHook myScratchpads
+    where
+      myBrowsers = ["Firefox", "Firefox-esr", "Google-chrome"]
+      myFloating = ["MPlayer", "Gimp"]
 
 ------------------------------------------------------------------------
 -- Event handling
@@ -244,13 +243,13 @@ myEventHook = mempty
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
 --
 myLogHook proc = dynamicLogWithPP xmobarPP
-  { ppCurrent           = xmobarColor (light defColors) (hlDark defColors)  . wrap " " " "
-  , ppHidden            = xmobarColor (light defColors) "" . wrap " " " "
+  { ppCurrent           = xmobarColor (white defColors) (highlight defColors)  . wrap " " " "
+  , ppHidden            = xmobarColor (white defColors) "" . wrap " " " "
   , ppHiddenNoWindows   = xmobarColor "#353535" "" . wrap " " " "
   , ppVisibleNoWindows  = Just (xmobarColor "red" "" . wrap " " " ")
   , ppUrgent            = xmobarColor (red defColors) "" . wrap " " " "
   , ppTitle             = xmobarColor (green defColors) "" . shorten 30
-  , ppSep               =  "<fc=" ++ (light defColors) ++ "> | </fc>"
+  , ppSep               =  "<fc=" ++ (white defColors) ++ "> | </fc>"
   , ppOrder             = take 3
   , ppOutput            = hPutStrLn proc
   }
@@ -264,14 +263,8 @@ myLogHook proc = dynamicLogWithPP xmobarPP
 --
 -- By default, do nothing.
 myStartupHook = do
-  -- background image program.
-  spawnOnce "nitrogen --restore &"
-  -- compositor (transparency).
-  spawnOnce "compton &"
-  -- continous key press action delay and speed.
-  spawnOnce "xset r rate 300 40"
-  -- terminal on startup.
-  spawnOnce myTerminal
+ spawnOnce "nitrogen --restore &"
+ spawnOnce "compton &"
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
