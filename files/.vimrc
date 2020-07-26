@@ -1,6 +1,6 @@
 if empty(glob('~/.vim/autoload/plug.vim'))
   exec '!mkdir -p ~/.vim/autoload && curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  let g:plug_fresh_install=1
+  autocmd VimEnter * PlugInstall
 end
 
 call plug#begin('~/.vim/plugged')
@@ -32,13 +32,6 @@ Plug 'scrooloose/nerdcommenter'
 
 call plug#end()
 
-if exists('g:plug_fresh_install')
-  silent PlugInstall
-  silent quit
-  unlet g:plug_fresh_install
-end
-
-
 filetype plugin indent on
 set autoindent
 set colorcolumn=72                " wrap indicator
@@ -59,7 +52,7 @@ set noswapfile
 set noundofile
 
 " colorscheme.
-set t_Co=256  "" 256 COLOR
+set t_Co=256
 set background=dark
 set termguicolors
 colorscheme old_school
@@ -105,6 +98,8 @@ autocmd FileType c nmap <buffer> <F5> :w<bar>!gcc -o %:r % && %:r<CR>
 autocmd FileType go nmap <buffer> <F5> :w<bar>!go run %<CR>
 autocmd FileType java nmap <buffer> <F5> :w<bar>!javac % && java %:r<CR>
 autocmd FileType javascript nmap <buffer> <F5> :w<bar>!node %<CR>
+
+autocmd BufWritePost *Xresources !xrdb %
 
 "" Downloaded from: https://github.com/ryanoasis/nerd-fonts/
 " needed this to be available globally as although 'if gvim running?' can

@@ -103,4 +103,7 @@ source $ZSH/oh-my-zsh.sh
 # pscp -i ~/Desktop/private_key.ppk ~/Desktop/desertbox_sql/"finance queries"/#  coll_ticket_created.sql mis@52.77.139.211:/home/mis/sql_files/
 #&& google-chrome 'http://52.77.139.211/cgi-bin/update_data.py?file_name="$2"&action=DATA-UPDATE'
 
+if [[ -f ~/.profile ]] && [[ -o login ]]; then
+  source ~/.profile
+fi
 
