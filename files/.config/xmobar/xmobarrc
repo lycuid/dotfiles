@@ -16,8 +16,10 @@ Config
   , allDesktops       = True
   , sepChar           = "%"
   , alignSep          = "}{"
-  , template          = "<fc=white,#30336b><fn=1> >><fc=#55E6C1,#30336b>=</fc> </fn></fc>%UnsafeStdinReader%}<fc=#9b59b6>%date%</fc>{\
-                        \ %dynnetwork% <fc=white,#1e272e> %cpu% </fc><fc=white> %memory% (%swap%) </fc><fc=white,#202020> %battery% </fc>"
+  , template          = "<fc=white,#30336b><fn=1> >><fc=#55E6C1,#30336b>=</fc> </fn></fc>\
+                        \%UnsafeStdinReader%}<fc=#9b59b6>%date%</fc>{ \
+                        \%dynnetwork% <fc=white,#222222> %cpu% </fc>\
+                        \<fc=white> %memory% (%swap%) </fc><fc=white,#222222> %battery% </fc>"
   , commands          = [
       -- network activity monitor (dynamic interface resolution)
       Run DynNetwork  [ "--template" , "<dev>: \x25bc <rx>kb/s \x25b2 <tx>kb/s"
@@ -32,14 +34,14 @@ Config
     , Run Cpu         [ "--template" , "C: <total>%"
                       , "--Low"      , "50"
                       , "--High"     , "85"
-                      , "--low"      , "#4cd137,#1e272e"
-                      , "--normal"   , "#ffdd59,#1e272e"
-                      , "--high"     , "#ff5e57,#1e272e"
+                      , "--low"      , "#4cd137,#222222"
+                      , "--normal"   , "#ffdd59,#222222"
+                      , "--high"     , "#ff5e57,#222222"
                       ] 10
 
     -- memory usage monitor
     , Run Memory      [ "--template" ,"M: <usedratio>%"
-                      , "--Low"      , "20"
+                      , "--Low"      , "22"
                       , "--High"     , "90"
                       , "--low"      , "#4cd137"
                       , "--normal"   , "#ffdd59"
@@ -48,16 +50,16 @@ Config
 
     -- battery monitor
     , Run Battery     [ "--template" , "<acstatus>"
-                      , "--Low"      , "20"
+                      , "--Low"      , "22"
                       , "--High"     , "80"
-                      , "--low"      , "#ff5e57,#202020"
-                      , "--normal"   , "#ffdd59,#202020"
-                      , "--high"     , "#4cd137,#202020"
+                      , "--low"      , "#ff5e57,#222222"
+                      , "--normal"   , "#ffdd59,#222222"
+                      , "--high"     , "#4cd137,#222222"
                       , "--"
-                      , "-o"	, "<left>%<fc=#ffdd59,#202020> (<timeleft>) </fc>"
-                      , "-O"	, "<left>%<fc=#ffdd59,#202020> \x26a1 </fc>"
-                      , "-i"	, "<left>%<fc=#4cd137,#202020> \x26a1 </fc>"
-                      ] 100
+                      , "-o"	, "<left>%<fc=#ffdd59,#222222> (<timeleft>) </fc>"
+                      , "-O"	, "<left>%<fc=#ffdd59,#222222> \x26a1 </fc>"
+                      , "-i"	, "<left>%<fc=#4cd137,#222222> \x26a1 </fc>"
+                      ] 10
     , Run Swap        ["-t","s: <usedratio>%"] 10
     , Run Date        "%a, %b %d %H:%M" "date" 600
     , Run UnsafeStdinReader

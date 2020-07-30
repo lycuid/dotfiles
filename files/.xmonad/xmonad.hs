@@ -41,7 +41,7 @@ myWorkspaces :: [String]
 myWorkspaces  = clickAction . map show $ [1..5]
   where
     clickAction = map (uncurry action) . zip (map show [1..])
-    action = printf "<action=xdotool key super+%s>%s</action>"
+    action = printf "<action=xdotool key super+%s> %s </action>"
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -149,7 +149,7 @@ myScratchpads = [ NS "term" spawnTerminal (className =? "scratchpad-term") cente
                 ]
   where
     spawnTerminal = unwords [myTerminal, "-c", "scratchpad-term"]
-    centerFloating = customFloating $ W.RationalRect 0.025 0.05 0.95 0.9
+    centerFloating = customFloating $ W.RationalRect (1/10) (1/10) (4/5) (4/5)
 
 
 ------------------------------------------------------------------------
@@ -243,11 +243,11 @@ myEventHook = mempty
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
 --
 myLogHook proc = dynamicLogWithPP xmobarPP
-  { ppCurrent           = xmobarColor (white defColors) (highlight defColors)  . wrap " " " "
-  , ppHidden            = xmobarColor (white defColors) "" . wrap " " " "
-  , ppHiddenNoWindows   = xmobarColor "#353535" "" . wrap " " " "
-  , ppVisibleNoWindows  = Just (xmobarColor "red" "" . wrap " " " ")
-  , ppUrgent            = xmobarColor (red defColors) "" . wrap " " " "
+  { ppCurrent           = xmobarColor (white defColors) (highlight defColors)
+  , ppHidden            = xmobarColor (white defColors) ""
+  , ppHiddenNoWindows   = xmobarColor "#353535" ""
+  , ppVisibleNoWindows  = Just (xmobarColor "red" "")
+  , ppUrgent            = xmobarColor (red defColors) ""
   , ppTitle             = xmobarColor (green defColors) "" . shorten 30
   , ppSep               =  "<fc=" ++ (white defColors) ++ "> | </fc>"
   , ppOrder             = take 3
