@@ -16,6 +16,15 @@
     "command": "workbench.action.terminal.toggleTerminal"
   },
   {
+    "key": "ctrl+shift+q",
+    "command": "workbench.action.toggleMaximizedPanel"
+  },
+  {
+    "key": "ctrl+shift+q",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": "terminalFocus"
+  },
+  {
     "key": "ctrl+pagedown",
     "command": "workbench.action.terminal.focusNext",
     "when": "terminalFocus"
@@ -24,10 +33,6 @@
     "key": "ctrl+pageup",
     "command": "workbench.action.terminal.focusPrevious",
     "when": "terminalFocus"
-  },
-  {
-    "key": "ctrl+shift+q",
-    "command": "workbench.action.toggleMaximizedPanel"
   },
 
   // page scroll and cursor movement settings.
