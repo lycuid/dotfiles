@@ -45,7 +45,7 @@ link() {
   done
 }
 
-delink() {
+unlink() {
   paths=$(
     cd $(dirname $src) && tree --dirsfirst -iaf --noreport $(basename $src) \
       | sed "1d" \
@@ -56,7 +56,7 @@ delink() {
   for path in $paths; do
     d=$dest/$path
     if [ -f $d ]; then
-      echo "$GREEN[+] Delinking: $path$DEFAULT"
+      echo "$GREEN[+] Unlinking: $path$DEFAULT"
       rm $d
     fi
 
@@ -71,8 +71,8 @@ case $query in
   "link")
     link
     ;;
-  "delink")
-    delink
+  "unlink")
+    unlink
     ;;
   *)
     echo "Invalid Query."
