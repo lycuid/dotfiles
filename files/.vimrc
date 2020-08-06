@@ -57,10 +57,7 @@ set background=dark
 set termguicolors
 colorscheme old_school
 
-" Tab navigation
 map <C-w><C-t> :tabnew<CR>
-map <C-PageUp> :tabprevious<CR>
-map <C-PageDown> :tabnext<CR>
 
 " page navigation.
 map <C-k> <C-y>
@@ -104,7 +101,7 @@ autocmd BufWritePost *Xresources !xrdb %
 "" Downloaded from: https://github.com/ryanoasis/nerd-fonts/
 " needed this to be available globally as although 'if gvim running?' can
 " be determined but `nvim-qt` cannnot (yet).
-set guifont=TerminessTTF\ Nerd\ Font:h12
+set guifont=TerminessTTF\ Nerd\ Font:h13
 
 let g:haskell_enable_quantification=1
 let g:haskell_enable_recursivedo=1

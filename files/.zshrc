@@ -6,7 +6,7 @@ export ZSH=~/.oh-my-zsh
 export LC_ALL=en_US.UTF-8
 
 ZSH_THEME_FILE=~/.oh-my-zsh/themes/simple-lambda.zsh-theme
-if [[ ! -f $ZSH_THEME_FILE ]]; then
+if [[ ! -f "$ZSH_THEME_FILE" ]]; then
   THEME_FILE="https://raw.githubusercontent.com/lycuid/simple-lambda-zsh-theme/master/simple-lambda.zsh-theme"
   curl -o $ZSH_THEME_FILE $THEME_FILE 2> /dev/null
   unset THEME_FILE
@@ -16,11 +16,7 @@ unset ZSH_THEME_FILE
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-if [[ -n $INSIDE_EMACS ]] then;
-  ZSH_THEME="simple"
-else
-  ZSH_THEME="simple-lambda"
-fi
+ZSH_THEME="simple-lambda"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
