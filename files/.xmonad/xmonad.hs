@@ -135,8 +135,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   [ ((modm .|. shiftMask, xK_l), spawn "slock")
 
   -- prompt keybindings.
-  , ((modm, xK_p), spawn "dmenu_run -g 5 -l 5")
+  , ((modm, xK_p), spawn "dmenu_run")
   , ((modm, xK_o), nvimXPrompt conf)
+  , ((controlMask .|. shiftMask, xK_o)
+    , spawn . runScript "open.sh" $ [ "--dirmode"
+                                    , "--prompt", "\"open project :\""
+                                    , myProjectsDir
+                                    ])
 
   -- named scratchpads keybindings.
   , ((modm .|. controlMask, xK_Return), namedScratchpadAction myScratchpads "term")
@@ -144,12 +149,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   ]
 
 -- Named Scratchpads.
-myScratchpads = [ NS "term" spawnTerminal (className =? "scratchpad-term") centerFloating
-                , NS "fm" "pcmanfm" (className =? "Pcmanfm") centerFloating
+myScratchpads = [ NS "term" spawnTerminal (resource =? "scratchpad-term") centerFloating
+                , NS "fm" spawnFileManager (resource =? "scratchpad-fm") centerFloating
                 ]
   where
-    spawnTerminal = unwords [myTerminal, "-c", "scratchpad-term"]
-    centerFloating = customFloating $ W.RationalRect (1/10) (1/10) (4/5) (4/5)
+    spawnTerminal     = unwords [myTerminalWithClass, "scratchpad-term"]
+    spawnFileManager  = unwords [myTerminalWithClass, "scratchpad-fm", "-e", "ranger"]
+    centerFloating    = customFloating $ W.RationalRect (1/10) (1/10) (4/5) (4/5)
 
 
 ------------------------------------------------------------------------
@@ -174,14 +180,6 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 ------------------------------------------------------------------------
 -- Layouts:
 
--- You can specify and transform your layouts by modifying these values.
--- If you change layout bindings be sure to use 'mod-shift-space' after
--- restarting (with 'mod-q') to reset your layout state to the new
--- defaults, as xmonad preserves your old layout settings by default.
---
--- The available layouts.  Note that each layout is separated by |||,
--- which denotes layout choice.
---
 magnify = renamed [Replace "magnify"]
         $ magnifier
         $ limitWindows 12
@@ -204,18 +202,6 @@ myLayout = avoidStruts $ tiled ||| noBorders Full ||| Mirror tiled ||| magnify
 ------------------------------------------------------------------------
 -- Window rules:
 
--- Execute arbitrary actions and WindowSet manipulations when managing
--- a new window. You can use this to, for example, always float a
--- particular program, or have a client always appear on a particular
--- workspace.
---
--- To find the property name associated with a program, use
--- > xprop | grep WM_CLASS
--- and click on the client you're interested in.
---
--- To match on the WM_NAME, you can use 'title' in the same way that
--- 'className' and 'resource' are used below.
---
 myManageHook = (composeAll . concat $
   [ [fmap (isInfixOf x) className --> doFloat | x <- myFloating]
   , [fmap (isInfixOf x) className --> doShift (myWorkspaces !! 2) | x <- myBrowsers]
@@ -228,20 +214,11 @@ myManageHook = (composeAll . concat $
 ------------------------------------------------------------------------
 -- Event handling
 
--- * EwmhDesktops users should change this to ewmhDesktopsEventHook
---
--- Defines a custom handler function for X Events. The function should
--- return (All True) if the default handler is to be run afterwards. To
--- combine event hooks use mappend or mconcat from Data.Monoid.
---
 myEventHook = mempty
 
 ------------------------------------------------------------------------
 -- Status bars and logging
 
--- Perform an arbitrary action on each internal state change or X event.
--- See the 'XMonad.Hooks.DynamicLog' extension for examples.
---
 myLogHook proc = dynamicLogWithPP xmobarPP
   { ppCurrent           = xmobarColor (white defColors) (highlight defColors)
   , ppHidden            = xmobarColor (white defColors) ""
@@ -257,19 +234,10 @@ myLogHook proc = dynamicLogWithPP xmobarPP
 ------------------------------------------------------------------------
 -- Startup hook
 
--- Perform an arbitrary action each time xmonad starts or is restarted
--- with mod-q.  Used by, e.g., XMonad.Layout.PerWorkspace to initialize
--- per-workspace layout choices.
---
--- By default, do nothing.
 myStartupHook = do
- spawnOnce "nitrogen --restore &"
- spawnOnce "compton &"
+ spawnOnce (runScript "startup.sh" [])
 
-------------------------------------------------------------------------
--- Now run xmonad with all the defaults we set up.
 
--- Run xmonad with the settings you specify. No need to modify this.
 main = do
   xmobarProc <- spawnPipe "xmobar"
   xmonad $ docks $ def
