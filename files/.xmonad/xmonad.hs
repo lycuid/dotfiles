@@ -138,10 +138,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   , ((modm, xK_p), spawn "dmenu_run")
   , ((modm, xK_o), nvimXPrompt conf)
   , ((controlMask .|. shiftMask, xK_o)
-    , spawn . runScript "open.sh" $ [ "--dirmode"
-                                    , "--prompt", "\"open project :\""
-                                    , myProjectsDir
-                                    ])
+    , spawn . runScript "open" $  [ "--dirmode"
+                                  , "--prompt", "\"open project :\""
+                                  , myProjectsDir
+                                  ])
 
   -- named scratchpads keybindings.
   , ((modm .|. controlMask, xK_Return), namedScratchpadAction myScratchpads "term")
@@ -235,7 +235,7 @@ myLogHook proc = dynamicLogWithPP xmobarPP
 -- Startup hook
 
 myStartupHook = do
- spawnOnce (runScript "startup.sh" [])
+ spawnOnce (runScript "init" [])
 
 
 main = do
