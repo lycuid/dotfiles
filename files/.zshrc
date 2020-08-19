@@ -103,3 +103,5 @@ if [[ -f ~/.profile ]] && [[ -o login ]]; then
   source ~/.profile
 fi
 
+bindkey -v
+
