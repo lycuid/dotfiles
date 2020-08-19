@@ -1,8 +1,8 @@
 {
-  "editor.fontFamily": "'TerminessTTF NF', 'Consolas', 'monospace', 'Droid Sans Fallback'",
+  "editor.fontFamily": "'Consolas', 'monospace', 'Droid Sans Fallback'",
   "editor.fontLigatures": true,
   "extensions.ignoreRecommendations": true,
-  "editor.fontSize": 16,
+  "editor.fontSize": 14,
   "editor.minimap.showSlider": "always",
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.snippetSuggestions": "top",
@@ -90,14 +90,14 @@
   "terminal.integrated.shell.linux": "/usr/bin/zsh",
   "terminal.integrated.fontSize": 18,
   "workbench.iconTheme": "vscode-icons",
-	"workbench.colorCustomizations": {
+  "workbench.colorCustomizations": {
     "editor.background": "#050505",
     "sideBar.background": "#000000",
     "activityBar.background": "#050505",
     "statusBar.background": "#000000",
     "tab.inactiveBackground": "#000000",
-    "titleBar.activeBackground": "#050505",
+    "titleBar.activeBackground": "#050505"
   },
   "vsicons.dontShowNewVersionMessage": true,
-  "window.zoomLevel": 0,
+  "window.zoomLevel": 0
 }
