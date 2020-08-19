@@ -14,28 +14,30 @@ import Configs.Colors   (Colors(..), defColors)
 
 
 xpConfig :: XPConfig
-xpConfig = def  { font                  = "xft:TerminessTTF NF:size=12"
-                , fgColor               = white defColors
-                , bgColor               = blue defColors
-                , bgHLight              = green defColors
-                , fgHLight              = black defColors
-                , borderColor           = cyan defColors
-                , promptBorderWidth     = 2
-                , position              = CenteredAt 0.2 0.5
-                , alwaysHighlight       = False
-                , height                = 30
-                , promptKeymap          = emacsLikeXPKeymap
-                , historySize           = 64
-                , searchPredicate       = isInfixOf
-                , maxComplRows          = Just 5
-                -- , historyFilter :: [String] -> [String]
-                -- , completionKey :: (KeyMask, KeySym)
-                -- , changeModeKey :: KeySym
-                -- , defaultText :: String
-                -- , autoComplete :: Maybe Int
-                -- , showCompletionOnTab :: Bool
-                -- , searchPredicate :: String -> String -> Bool
-                }
+xpConfig =
+    def
+      { font                  = "xft:TerminessTTF NF:size=12"
+      , fgColor               = white defColors
+      , bgColor               = black defColors
+      , bgHLight              = cyan defColors
+      , fgHLight              = black defColors
+      , borderColor           = blue defColors
+      , promptBorderWidth     = 2
+      , position              = CenteredAt 0.2 0.5
+      , alwaysHighlight       = False
+      , height                = 30
+      , promptKeymap          = emacsLikeXPKeymap
+      , historySize           = 64
+      , searchPredicate       = isInfixOf
+      , maxComplRows          = Just 5
+      -- , historyFilter :: [String] -> [String]
+      -- , completionKey :: (KeyMask, KeySym)
+      -- , changeModeKey :: KeySym
+      -- , defaultText :: String
+      -- , autoComplete :: Maybe Int
+      -- , showCompletionOnTab :: Bool
+      -- , searchPredicate :: String -> String -> Bool
+      }
 
 shellXPrompt :: X ()
 shellXPrompt = shellPrompt xpConfig

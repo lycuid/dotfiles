@@ -38,9 +38,9 @@ import qualified Data.Map        as M
 
 {- Making the workspace tabs on xmobar, clickable. -}
 myWorkspaces :: [String]
-myWorkspaces  = clickAction . map show $ [1..5]
+myWorkspaces  = map clickAction [1..5]
   where
-    clickAction = map (uncurry action) . zip (map show [1..])
+    clickAction = (uncurry action) . (\x -> (x, x)) . show
     action = printf "<action=xdotool key super+%s> %s </action>"
 
 ------------------------------------------------------------------------
@@ -138,7 +138,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   , ((modm, xK_p), spawn "dmenu_run")
   , ((modm, xK_o), nvimXPrompt conf)
   , ((controlMask .|. shiftMask, xK_o)
-    , spawn . runScript "open" $  [ "--dirmode"
+    , spawn . runScript "dmenu_open_project" $  [ "--dirmode"
                                   , "--prompt", "\"open project :\""
                                   , myProjectsDir
                                   ])
@@ -219,24 +219,25 @@ myEventHook = mempty
 ------------------------------------------------------------------------
 -- Status bars and logging
 
-myLogHook proc = dynamicLogWithPP xmobarPP
-  { ppCurrent           = xmobarColor (white defColors) (highlight defColors)
-  , ppHidden            = xmobarColor (white defColors) ""
-  , ppHiddenNoWindows   = xmobarColor "#353535" ""
-  , ppVisibleNoWindows  = Just (xmobarColor "red" "")
-  , ppUrgent            = xmobarColor (red defColors) ""
-  , ppTitle             = xmobarColor (green defColors) "" . shorten 30
-  , ppSep               =  "<fc=" ++ (white defColors) ++ "> | </fc>"
-  , ppOrder             = take 3
-  , ppOutput            = hPutStrLn proc
-  }
+
+myLogHook proc = dynamicLogWithPP
+  def
+    { ppCurrent           = xmobarColor (white defColors) (highlight defColors)
+    , ppHidden            = xmobarColor (white defColors) ""
+    , ppHiddenNoWindows   = xmobarColor "#353535" ""
+    , ppVisibleNoWindows  = Just (xmobarColor "red" "")
+    , ppUrgent            = xmobarColor (red defColors) ""
+    , ppTitle             = xmobarColor (green defColors) "" . shorten 30
+    , ppSep               = "<fc=" ++ (white defColors) ++ "> | </fc>"
+    , ppOrder             = take 3
+    , ppOutput            = hPutStrLn proc
+    }
 
 ------------------------------------------------------------------------
 -- Startup hook
 
 myStartupHook = do
- spawnOnce (runScript "init" [])
-
+ spawnOnce (runScript "session_init" [])
 
 main = do
   xmobarProc <- spawnPipe "xmobar"

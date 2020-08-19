@@ -8,12 +8,10 @@ myProjectsDir           = "$HOME/xkcd/scm"
 myFocusFollowsMouse     = False
 myClickJustFocuses      = False
 myBorderWidth           = 1 :: Dimension
-myModMask               = mod4Mask -- super key (windows button).
+myModMask               = mod4Mask
 myFocusedBorderColor    = "#9b59b6"
 myNormalBorderColor     = "#d0d0d0"
 
 runScript :: String -> [String] -> String
-runScript script args = unwords (scriptPath : args)
-  where
-    scriptPath = "${XDG_CONFIG_HOME:-$HOME/.config}/scripts/" ++ script
+runScript comm args =  unwords (comm : args)
 
