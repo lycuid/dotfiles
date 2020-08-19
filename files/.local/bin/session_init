@@ -1,0 +1,9 @@
+#!/bin/sh
+
+xrdb -merge ${XDG_CONFIG_HOME:-$HOME/.config}/X11/Xresources
+xset r rate 300 50
+
+dunst &
+compton &
+nitrogen --restore &
+
