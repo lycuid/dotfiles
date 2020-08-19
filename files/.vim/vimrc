@@ -21,7 +21,6 @@ Plug 'Yggdroot/indentLine'
 Plug 'vim-airline/vim-airline'
 
 Plug 'lycuid/old-school.vim'
-Plug 'sainnhe/edge'
 
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
@@ -96,7 +95,7 @@ autocmd FileType go nmap <buffer> <F5> :w<bar>!go run %<CR>
 autocmd FileType java nmap <buffer> <F5> :w<bar>!javac % && java %:r<CR>
 autocmd FileType javascript nmap <buffer> <F5> :w<bar>!node %<CR>
 
-autocmd BufWritePost *Xresources !xrdb %
+autocmd BufWritePost *Xresources silent! !xrdb %
 
 "" Downloaded from: https://github.com/ryanoasis/nerd-fonts/
 " needed this to be available globally as although 'if gvim running?' can
