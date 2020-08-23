@@ -1,16 +1,15 @@
 Xft.dpi: 96
-XTerm*utf8: 2
-XTerm*locale: true
-XTerm*savelines: 16384
+utf8: 2
+locale: true
 
-*.font: xft:TerminessTTF NF:pixelsize=18
-*.boldFont: xft:TerminessTTF NF:pixelsize=18
-*.italicFont: xft:TerminessTTF NF:pixelsize=18
-*.boldItalicfont: xft:TerminessTTF NF:pixelsize=18
+*.font: xft:TerminessTTF NF:pixelsize=18:antialias=true:autohint=true
+*.boldFont: xft:TerminessTTF NF:pixelsize=18:antialias=true:autohint=true
+*.italicFont: xft:TerminessTTF NF:pixelsize=18:antialias=true:autohint=true
+*.boldItalicfont: xft:TerminessTTF NF:pixelsize=18:antialias=true:autohint=true
 
 *.foreground: #c5cdd9
 *.background: #090909
-*.cursorColor: #afbfbf
+cursorColor: #ffffff
 
 ! black
 *.color0: #090909
@@ -43,3 +42,14 @@ XTerm*savelines: 16384
 ! white
 *.color7: #c5c8c6
 *.color15: #c5c8c6
+
+*.color256: #c5cdd9
+*.color257: #090909
+*.color258: #ffffff
+
+
+st.font: TerminessTTF NF:pixelsize=18:antialias=true:autohint=true
+st.boldFont: TerminessTTF NF:pixelsize=18:antialias=true:autohint=true
+st.italicFont: TerminessTTF NF:pixelsize=18:antialias=true:autohint=true
+st.boldItalicfont: TerminessTTF NF:pixelsize=18:antialias=true:autohint=true
+st.background: #c5cdd9
