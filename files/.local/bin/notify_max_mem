@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+num=${1:-10}
+
+ps ax -o comm,pmem --sort -pmem \
+  | sed 1d \
+  | head -n $num \
+  | paste -sd "\t" \
+  | xargs -i notify-send "MEM (top $num):" "{}"

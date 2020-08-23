@@ -17,8 +17,13 @@ Config
   , alignSep          = "}{"
   , template          = "<fc=white,#30336b><fn=1> >><fc=#55E6C1,#30336b>=</fc> </fn></fc>\
                         \%UnsafeStdinReader%}<fn=1><fc=#9b59b6>%date%</fc></fn>{ \
-                        \%dynnetwork% <fc=white,#222222> %cpu% </fc>\
+                        \%dynnetwork% \
+                        \<action=`notify_max_cpu` button=1>\
+                        \<fc=white,#222222> %cpu% </fc>\
+                        \</action>\
+                        \<action=`notify_max_mem` button=1>\
                         \<fc=white> %memory% </fc>\
+                        \</action>\
                         \<fn=1><fc=#222222,#9b59b6> tmux: %tmuxls% </fc></fn>\
                         \<fc=white,#222222> %battery% </fc>"
   , commands          = [

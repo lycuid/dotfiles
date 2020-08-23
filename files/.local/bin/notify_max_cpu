@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+num=${1:-10}
+
+ps ax -o comm,pcpu --sort -pcpu \
+  | sed 1d \
+  | head -n $num \
+  | paste -sd "\t" \
+  | xargs -i notify-send "CPU (top $num):" "{}"
