@@ -52,6 +52,8 @@ fi
 
 [ -f $project_path ] && dir_path=$(dirname $project_path)
 
-xdotool type --window $current_window "nvim -c \"cd ${dir_path:-$project_path}\" $project_path" && \
+echo "nvim -c \"cd ${dir_path:-$project_path}\" $project_path" | xclip -i
+
+xdotool key --window $current_window Shift+Insert
 xdotool key --window $current_window Return
 
