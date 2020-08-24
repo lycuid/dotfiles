@@ -1,9 +1,12 @@
 #!/bin/sh
 
-current_window=$(xdotool getwindowfocus)
+readonly local current_window=$(xdotool getwindowfocus)
+
 PROMPT=""
 PROJECTS_DIR=""
 DIRMODE=false
+EMBED=false
+dmenu_args=""
 
 if [ $# -eq 0 ]; then
   echo "The Force is not strong with this one!."
@@ -13,11 +16,16 @@ fi
 while [ $# -gt 0 ]; do
   case $1 in
     -p|--prompt)
-      PROMPT="$2"
+      PROMPT="$2";
       shift;shift
       ;;
     -d|--dirmode)
-      DIRMODE=true
+      DIRMODE=true;
+      shift
+      ;;
+    -e|--embed)
+      EMBED=true;
+      dmenu_args="-w $current_window";
       shift
       ;;
     *)
@@ -27,33 +35,41 @@ while [ $# -gt 0 ]; do
   esac
 done
 
-if $DIRMODE; then
-  project_path=$(
-    tree -idf -L 1 --noreport $PROJECTS_DIR \
-      | sed "1d" \
-      | dmenu -p "${PROMPT:-"open :"}" -g 1 -l 5 -w $current_window 2> /dev/null
-  )
-else
-  file=$PROJECTS_DIR
-  while $true; do
-    file=$(
-      tree -iaf -L 1 --dirsfirst --noreport $file \
+get_project_path()
+{
+  if $DIRMODE; then
+    echo $(
+      tree -idfl -L 1 --noreport $PROJECTS_DIR \
         | sed "1d" \
-        | dmenu -p "${PROMPT:-"edit :"}" -g 1 -l 5 -w $current_window 2> /dev/null
+        | dmenu -p "${PROMPT:-"open :"}" -g 1 -l 5 ${dmenu_args:-} 2> /dev/null
     )
-    if [ -f $file ]; then
-      project_path=$file
-      break
-    fi
-  done
-fi
+  else
+    local file=$PROJECTS_DIR
+    while $true; do
+      file=$(
+        tree -iafl -L 1 --dirsfirst --noreport $file \
+          | sed "1d" \
+          | dmenu -p "${PROMPT:-"edit :"}" -g 1 -l 5 ${dmenu_args:-} 2> /dev/null
+      )
+      if [ -f $file ]; then
+        echo $file
+        break
+      fi
+    done
+  fi
+}
+
+project_path="$(get_project_path)"
 
 [ ! $project_path ] && exit 0
-
 [ -f $project_path ] && dir_path=$(dirname $project_path)
 
-echo "nvim -c \"cd ${dir_path:-$project_path}\" $project_path" | xclip -i
+COMMAND="nvim -c \"cd ${dir_path:-$project_path}\" $project_path"
 
-xdotool key --window $current_window Shift+Insert
-xdotool key --window $current_window Return
+if $EMBED; then
+  echo $COMMAND | xclip -i
+  xdotool key --window $current_window --delay 50 Shift+Insert Return
+else
+  eval "${TERMINAL:-st} -e $COMMAND &" > /dev/null 2> /dev/null
+fi
 
