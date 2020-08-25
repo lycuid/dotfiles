@@ -2,8 +2,8 @@ module Configs.Main where
 
 import XMonad
 
-myTerminal              = "alacritty"
-myTerminalWithClass     = unwords [myTerminal, "--class"]
+myTerminal              = "st"
+myTerminalWithResource  = unwords [myTerminal, "-n"]
 myProjectsDir           = "$HOME/xkcd/scm"
 myFocusFollowsMouse     = False
 myClickJustFocuses      = False

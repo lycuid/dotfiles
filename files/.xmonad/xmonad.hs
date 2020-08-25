@@ -138,10 +138,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   , ((modm, xK_p), spawn "dmenu_run")
   , ((modm, xK_o), nvimXPrompt conf)
   , ((controlMask .|. shiftMask, xK_o)
-    , spawn . runScript "dmenu_open_project" $  [ "--dirmode"
-                                  , "--prompt", "\"open project :\""
-                                  , myProjectsDir
-                                  ])
+    , spawn . runScript "dmenu_vim_edit" $
+            [ "--dirmode"
+            , "--embed"
+            , "--prompt", "\"open project :\""
+            , myProjectsDir
+            ])
 
   -- named scratchpads keybindings.
   , ((modm .|. controlMask, xK_Return), namedScratchpadAction myScratchpads "term")
@@ -153,8 +155,8 @@ myScratchpads = [ NS "term" spawnTerminal (resource =? "scratchpad-term") center
                 , NS "fm" spawnFileManager (resource =? "scratchpad-fm") centerFloating
                 ]
   where
-    spawnTerminal     = unwords [myTerminalWithClass, "scratchpad-term"]
-    spawnFileManager  = unwords [myTerminalWithClass, "scratchpad-fm", "-e", "ranger"]
+    spawnTerminal     = unwords [myTerminalWithResource, "scratchpad-term"]
+    spawnFileManager  = unwords [myTerminalWithResource, "scratchpad-fm", "-e", "ranger"]
     centerFloating    = customFloating $ W.RationalRect (1/10) (1/10) (4/5) (4/5)
 
 
@@ -208,7 +210,7 @@ myManageHook = (composeAll . concat $
   , [fmap (isInfixOf x) className <&&> resource =? "Dialog" --> doFloat | x <- myBrowsers]
   ]) <+> namedScratchpadManageHook myScratchpads
     where
-      myBrowsers = ["Firefox", "Firefox-esr", "Google-chrome"]
+      myBrowsers = ["Brave-browser", "Firefox"]
       myFloating = ["MPlayer", "Gimp"]
 
 ------------------------------------------------------------------------
