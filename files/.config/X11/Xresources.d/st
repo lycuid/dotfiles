@@ -1,0 +1,6 @@
+St*font: TerminessTTF NF:pixelsize=18
+St*boldFont: TerminessTTF NF:pixelsize=18
+St*italicFont: TerminessTTF NF:pixelsize=18
+St*boldItalicfont: TerminessTTF NF:pixelsize=18
+St*background: #c5cdd9
+
