@@ -6,7 +6,7 @@ PROMPT=""
 PROJECTS_DIR=""
 DIRMODE=false
 EMBED=false
-dmenu_args=""
+DMENU_ARGS=""
 
 if [ $# -eq 0 ]; then
   echo "The Force is not strong with this one!."
@@ -16,18 +16,12 @@ fi
 while [ $# -gt 0 ]; do
   case $1 in
     -p|--prompt)
-      PROMPT="$2";
-      shift;shift
-      ;;
+      PROMPT="$2";shift;shift;;
     -d|--dirmode)
-      DIRMODE=true;
-      shift
-      ;;
+      DIRMODE=true;shift;;
     -e|--embed)
       EMBED=true;
-      dmenu_args="-w $current_window";
-      shift
-      ;;
+      DMENU_ARGS="-w $current_window"; shift;;
     *)
       [ -z $PROJECTS_DIR ] && PROJECTS_DIR=$1 || exit 1
       shift
@@ -35,33 +29,42 @@ while [ $# -gt 0 ]; do
   esac
 done
 
-get_project_path()
+dirmode_search()
 {
-  if $DIRMODE; then
-    echo $(
-      tree -idfl -L 1 --noreport $PROJECTS_DIR \
-        | sed "1d" \
-        | dmenu -p "${PROMPT:-"open :"}" -g 1 -l 5 ${dmenu_args:-} 2> /dev/null
+  while true; do
+    dir=$(
+      ls $PROJECTS_DIR \
+        | dmenu -p "${PROMPT:-"edit :"}" -g 1 -l 5 ${DMENU_ARGS:-} 2> /dev/null
     )
-  else
-    local file=$PROJECTS_DIR
-    while $true; do
-      file=$(
-        tree -iafl -L 1 --dirsfirst --noreport $file \
-          | sed "1d" \
-          | dmenu -p "${PROMPT:-"edit :"}" -g 1 -l 5 ${dmenu_args:-} 2> /dev/null
-      )
-      if [ -f $file ]; then
-        echo $file
-        break
-      fi
-    done
-  fi
+    # handling the escape key press in dmenu.
+    [ ! $? -eq 0 ] && exit 1;
+    if [ -d "$PROJECTS_DIR/$dir" ]; then echo "$PROJECTS_DIR/$dir"; break; fi
+  done
 }
 
-project_path="$(get_project_path)"
+file_search()
+{
+  local dir=$PROJECTS_DIR
+  while true; do
+    file=$(
+      ls $dir \
+        | dmenu -p "${PROMPT:-"open :"}" -g 1 -l 5 ${DMENU_ARGS:-} 2> /dev/null
+    )
+    # handling the escape key press in dmenu.
+    [ ! $? -eq 0 ] && exit 1;
+    if [ -f "$dir/$file" ];
+    then
+      echo "$dir/$file"
+      break
+    elif [ -d "$dir/$file" ];
+    then
+      dir="$dir/$file"
+    fi
+  done
+}
 
-[ ! $project_path ] && exit 0
+if $DIRMODE; then project_path=$(dirmode_search); else project_path=$(file_search); fi
+# This is in case we wanna open a single file.
 [ -f $project_path ] && dir_path=$(dirname $project_path)
 
 COMMAND="nvim -c \"cd ${dir_path:-$project_path}\" $project_path"
