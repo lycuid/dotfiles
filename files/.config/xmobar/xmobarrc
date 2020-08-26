@@ -1,6 +1,7 @@
 Config
-  { font              = "xft:monospace:size=9,FontAwesome:size=9" , overrideRedirect  = True
-  , additionalFonts   = ["xft:monospace:size=9:style=Bold,FontAwesome:size=9"]
+  { font              = "xft:Liberation Mono:size=10,FontAwesome:size=9"
+  , overrideRedirect  = True
+  , additionalFonts   = ["xft:Liberation Mono:size=10:style=Bold,FontAwesome:size=9"]
   , bgColor           = "#131313"
   , fgColor           = "#c5cdd9"
   , alpha             = 255
@@ -16,16 +17,30 @@ Config
   , sepChar           = "%"
   , alignSep          = "}{"
   , template          = "<fc=white,#30336b><fn=1> >><fc=#55E6C1,#30336b>=</fc> </fn></fc>\
+
                         \%UnsafeStdinReader%}<fn=1><fc=#9b59b6>%date%</fc></fn>{ \
-                        \%dynnetwork% \
-                        \<action=`notify_max_cpu` button=1>\
-                        \<fc=white,#222222> %cpu% </fc>\
-                        \</action>\
-                        \<action=`notify_max_mem` button=1>\
-                        \<fc=white> %memory% </fc>\
-                        \</action>\
-                        \<fn=1><fc=#222222,#9b59b6> tmux: %tmuxls% </fc></fn>\
-                        \<fc=white,#222222> %battery% </fc>"
+
+                        \<box type=Bottom width=2 color=#c5cdd9>\
+                        \ %dynnetwork% \
+                        \</box> \
+
+                        \<fc=white><action=`notify_max_cpu` button=1>\
+                        \<box type=Bottom width=2 color=#cc6666> %cpu% </box>\
+                        \</action></fc> \
+
+                        \<fc=white><action=`notify_max_mem` button=1>\
+                        \<box type=Bottom width=2 color=#30336b>\
+                        \ %memory% \
+                        \</box></action></fc> \
+
+                        \<fn=1><fc=#222222,#9b59b6>\
+                        \ tmux: %tmuxls% \
+                        \</fc></fn> \
+
+                        \<fc=white,#222222>\
+                        \<box type=Bottom width=2 color=#4cd137>\
+                        \ %battery% \
+                        \</box></fc>"
   , commands          = [
       -- network activity monitor (dynamic interface resolution)
       Run DynNetwork  [ "--template" , "<dev>: \x25bc <rx>kb/s \x25b2 <tx>kb/s"
@@ -33,16 +48,16 @@ Config
                       , "--High"     , "5000"
                       , "--low"      , "#4cd137"
                       , "--normal"   , "#ffdd59"
-                      , "--high"     , "#ff5e57"
+                      , "--high"     , "#cc6666"
                       ] 10
 
     -- cpu activity monitor
     , Run Cpu         [ "--template" , "\xf108 <total>%"
                       , "--Low"      , "25"
-                      , "--High"     , "85"
+                      , "--High"     , "65"
                       , "--low"      , "#4cd137,#222222"
                       , "--normal"   , "#ffdd59,#222222"
-                      , "--high"     , "#ff5e57,#222222"
+                      , "--high"     , "#cc6666,#222222"
                       ] 10
 
     -- memory usage monitor
@@ -51,20 +66,20 @@ Config
                       , "--High"     , "65"
                       , "--low"      , "#4cd137"
                       , "--normal"   , "#ffdd59"
-                      , "--high"     , "#ff5e57"
+                      , "--high"     , "#cc6666"
                       ] 10
 
     -- battery monitor
     , Run Battery     [ "--template" , "<acstatus>"
                       , "--Low"      , "22"
                       , "--High"     , "80"
-                      , "--low"      , "#ff5e57,#222222"
+                      , "--low"      , "#cc6666,#222222"
                       , "--normal"   , "#ffdd59,#222222"
                       , "--high"     , "#4cd137,#222222"
                       , "--"
                       , "-o"	, "<left>%<fc=#ffdd59,#222222> (<timeleft>) </fc>"
-                      , "-O"	, "<left>%<fc=#ffdd59,#222222> \x26a1 </fc>"
-                      , "-i"	, "<left>%<fc=#4cd137,#222222> \x26a1 </fc>"
+                      , "-O"	, "<left>%<fc=#ffdd59,#222222> \xf0e7 </fc>"
+                      , "-i"	, "<left>%<fc=#4cd137,#222222> \xf0e7 </fc>"
                       ] 10
     , Run Date        "\xf073 %a, %b %d %H:%M" "date" 600
     , Run Com         "sh" ["/home/lycuid/.config/xmobar/scripts/tmuxls"] "tmuxls" 10
