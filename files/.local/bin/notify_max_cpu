@@ -2,8 +2,6 @@
 
 num=${1:-10}
 
-ps ax -o comm,pcpu --sort -pcpu \
-  | sed 1d \
-  | head -n $num \
-  | paste -sd "\t" \
-  | xargs -i notify-send "CPU (top $num):" "{}"
+command=$(ps axh -o comm,pcpu --sort=-pcpu | head -n $num)
+notify-send "CPU (top $num):" "$command"
+

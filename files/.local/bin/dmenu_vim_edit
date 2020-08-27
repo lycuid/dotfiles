@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# exit on error.
+set -e
+
 readonly local current_window=$(xdotool getwindowfocus)
 
 PROMPT=""
@@ -36,8 +39,6 @@ dirmode_search()
       ls $PROJECTS_DIR \
         | dmenu -p "${PROMPT:-"edit :"}" -g 1 -l 5 ${DMENU_ARGS:-} 2> /dev/null
     )
-    # handling the escape key press in dmenu.
-    [ ! $? -eq 0 ] && exit 1;
     if [ -d "$PROJECTS_DIR/$dir" ]; then echo "$PROJECTS_DIR/$dir"; break; fi
   done
 }
@@ -50,8 +51,6 @@ file_search()
       ls $dir \
         | dmenu -p "${PROMPT:-"open :"}" -g 1 -l 5 ${DMENU_ARGS:-} 2> /dev/null
     )
-    # handling the escape key press in dmenu.
-    [ ! $? -eq 0 ] && exit 1;
     if [ -f "$dir/$file" ];
     then
       echo "$dir/$file"
