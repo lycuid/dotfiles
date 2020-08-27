@@ -5,6 +5,7 @@ import XMonad
 myTerminal              = "st"
 myTerminalWithResource  = unwords [myTerminal, "-n"]
 myProjectsDir           = "$HOME/xkcd/scm"
+
 myFocusFollowsMouse     = False
 myClickJustFocuses      = False
 myBorderWidth           = 1 :: Dimension

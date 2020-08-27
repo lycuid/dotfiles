@@ -1,7 +1,7 @@
 Config
-  { font              = "xft:Liberation Mono:size=10,FontAwesome:size=9"
+  { font              = "xft:Liberation Mono:size=9,FontAwesome:size=9"
   , overrideRedirect  = True
-  , additionalFonts   = ["xft:Liberation Mono:size=10:style=Bold,FontAwesome:size=9"]
+  , additionalFonts   = ["xft:Liberation Mono:size=9:style=Bold,FontAwesome:size=9"]
   , bgColor           = "#131313"
   , fgColor           = "#c5cdd9"
   , alpha             = 255

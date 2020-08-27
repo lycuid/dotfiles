@@ -225,6 +225,7 @@ myEventHook = mempty
 myLogHook proc = dynamicLogWithPP
   def
     { ppCurrent           = xmobarColor (white defColors) (highlight defColors)
+                          . wrap ("<box type=Bottom width=2 color=" ++ (cyan defColors) ++ ">") "</box>"
     , ppHidden            = xmobarColor (white defColors) ""
     , ppHiddenNoWindows   = xmobarColor "#353535" ""
     , ppVisibleNoWindows  = Just (xmobarColor "red" "")
