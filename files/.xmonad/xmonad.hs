@@ -18,6 +18,14 @@ import XMonad.Hooks.DynamicLog        ( dynamicLogWithPP
                                       )
 
 import XMonad.Layout.LimitWindows     (limitWindows)
+import XMonad.Layout.Tabbed
+import XMonad.Layout.Spacing          ( spacingRaw
+                                      , incWindowSpacing
+                                      , decWindowSpacing
+                                      , incScreenSpacing
+                                      , decScreenSpacing
+                                      , Border(..))
+
 import XMonad.Layout.Magnifier        (magnifier)
 import XMonad.Layout.ResizableTile    (ResizableTall(..))
 import XMonad.Layout.Renamed          (renamed, Rename(Replace))
@@ -29,8 +37,8 @@ import System.Exit
 import Data.List                      (isInfixOf)
 
 import Configs.Main
-import Configs.XPrompt                (nvimXPrompt)
-import Configs.Colors                 (Colors(..), defColors)
+import Configs.XPrompt                (editorXPrompt)
+import Configs.Colors                 (Colors(..))
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -135,15 +143,20 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   [ ((modm .|. shiftMask, xK_l), spawn "slock")
 
   -- prompt keybindings.
-  , ((modm, xK_p), spawn "dmenu_run")
-  , ((modm, xK_o), nvimXPrompt conf)
-  , ((controlMask .|. shiftMask, xK_o)
-    , spawn . runScript "dmenu_vim_edit" $
-            [ "--dirmode"
-            , "--embed"
-            , "--prompt", "\"open project :\""
-            , myProjectsDir
-            ])
+  , ((modm,                      xK_p), spawn "dmenu_run")
+  , ((modm,                      xK_o), editorXPrompt conf)
+  , ((controlMask .|. shiftMask, xK_o), spawn
+      . runScript "dmenu_vim_edit" $
+      [ "--dirmode"
+      , "--embed"
+      , "--prompt", "\"open project :\""
+      , myProjectsDir
+      ])
+
+  , ((modm .|. controlMask, xK_k   ), incWindowSpacing 1)
+  , ((modm .|. controlMask, xK_j   ), decWindowSpacing 1)
+  , ((modm .|. controlMask, xK_l   ), incScreenSpacing 1)
+  , ((modm .|. controlMask, xK_h   ), decScreenSpacing 1)
 
   -- named scratchpads keybindings.
   , ((modm .|. controlMask, xK_Return), namedScratchpadAction myScratchpads "term")
@@ -187,7 +200,7 @@ magnify = renamed [Replace "magnify"]
         $ limitWindows 12
         $ ResizableTall 1 (3/100) (1/2) []
 
-myLayout = avoidStruts $ tiled ||| noBorders Full ||| Mirror tiled ||| magnify
+myLayout = avoidStruts $ customSpacing $ tiled ||| simpleTabbedBottom ||| noBorders Full ||| Mirror tiled ||| magnify
   where
     -- default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
@@ -200,6 +213,7 @@ myLayout = avoidStruts $ tiled ||| noBorders Full ||| Mirror tiled ||| magnify
 
     -- Percent of screen to increment by when resizing panes
     delta   = 3/100
+    customSpacing = spacingRaw True (Border 3 3 3 3) True (Border 3 3 3 3) True
 
 ------------------------------------------------------------------------
 -- Window rules:
@@ -224,14 +238,14 @@ myEventHook = mempty
 
 myLogHook proc = dynamicLogWithPP
   def
-    { ppCurrent           = xmobarColor (white defColors) (highlight defColors)
-                          . wrap ("<box type=Bottom width=2 color=" ++ (cyan defColors) ++ ">") "</box>"
-    , ppHidden            = xmobarColor (white defColors) ""
+    { ppCurrent           = xmobarColor (white def) (highlight def)
+                          . wrap ("<box type=Bottom width=2 color=" ++ (cyan def) ++ ">") "</box>"
+    , ppHidden            = xmobarColor (white def) ""
     , ppHiddenNoWindows   = xmobarColor "#353535" ""
     , ppVisibleNoWindows  = Just (xmobarColor "red" "")
-    , ppUrgent            = xmobarColor (red defColors) ""
-    , ppTitle             = xmobarColor (green defColors) "" . shorten 30
-    , ppSep               = "<fc=" ++ (white defColors) ++ "> | </fc>"
+    , ppUrgent            = xmobarColor (red def) ""
+    , ppTitle             = xmobarColor (green def) "" . shorten 30
+    , ppSep               = "<fc=" ++ (white def) ++ "> | </fc>"
     , ppOrder             = take 3
     , ppOutput            = hPutStrLn proc
     }

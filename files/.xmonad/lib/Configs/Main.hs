@@ -2,7 +2,10 @@ module Configs.Main where
 
 import XMonad
 
-myTerminal              = "st"
+myTerminal              = "$TERMINAL"
+myEditor                = "$EDITOR"
+myBrowser               = "$BROWSER"
+
 myTerminalWithResource  = unwords [myTerminal, "-n"]
 myProjectsDir           = "$HOME/xkcd/scm"
 

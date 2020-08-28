@@ -1,6 +1,6 @@
 module Configs.XPrompt
   ( shellXPrompt
-  , nvimXPrompt
+  , editorXPrompt
   ) where
 
 import XMonad
@@ -10,18 +10,19 @@ import XMonad.Util.Run          (unsafeSpawn)
 
 import Data.List                (isInfixOf)
 
-import Configs.Colors   (Colors(..), defColors)
+import Configs.Main             (myEditor)
+import Configs.Colors           (Colors(..))
 
 
 xpConfig :: XPConfig
 xpConfig =
     def
       { font                  = "xft:TerminessTTF NF:size=12"
-      , fgColor               = white defColors
-      , bgColor               = black defColors
-      , bgHLight              = cyan defColors
-      , fgHLight              = black defColors
-      , borderColor           = blue defColors
+      , fgColor               = white def
+      , bgColor               = black def
+      , bgHLight              = cyan def
+      , fgHLight              = black def
+      , borderColor           = blue def
       , promptBorderWidth     = 2
       , position              = CenteredAt 0.2 0.5
       , alwaysHighlight       = False
@@ -42,17 +43,17 @@ xpConfig =
 shellXPrompt :: X ()
 shellXPrompt = shellPrompt xpConfig
 
-data Nvim = Nvim
+data Editor = Editor
 
-instance XPrompt Nvim where
-  showXPrompt Nvim = "edit: "
+instance XPrompt Editor where
+  showXPrompt Editor = "edit: "
 
-nvimXPConfig = xpConfig
+editorXPConfig = xpConfig
 
 {- @TODO: write a custom 'getShellCompl' function. -}
-nvimXPrompt :: XConfig Layout -> X ()
-nvimXPrompt conf = mkXPrompt Nvim nvimXPConfig (getShellCompl [cmd] $ searchPredicate nvimXPConfig) run
+editorXPrompt :: XConfig Layout -> X ()
+editorXPrompt conf = mkXPrompt Editor editorXPConfig (getShellCompl [cmd] $ searchPredicate editorXPConfig) run
     where
       run a  = unsafeSpawn $ cmd ++ " " ++ a
-      cmd    = unwords [XMonad.terminal conf, "-e", "nvim"]
+      cmd    = unwords [XMonad.terminal conf, "-e", myEditor]
 
