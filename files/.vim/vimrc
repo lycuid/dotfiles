@@ -52,9 +52,12 @@ set noundofile
 
 " colorscheme.
 set t_Co=256
-set background=dark
 set termguicolors
 colorscheme old_school
+"
+" https://github.com/vim/vim/issues/993#issuecomment-255651605
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"        " set foreground color
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"        " set background color
 
 map <C-w><C-t> :tabnew<CR>
 
@@ -95,7 +98,7 @@ autocmd FileType go nmap <buffer> <F5> :w<bar>!go run %<CR>
 autocmd FileType java nmap <buffer> <F5> :w<bar>!javac % && java %:r<CR>
 autocmd FileType javascript nmap <buffer> <F5> :w<bar>!node %<CR>
 
-autocmd BufWritePost *Xresources silent! !xrdb %
+autocmd BufWritePost *Xresources,*Xdefaults silent! !xrdb %
 
 "" Downloaded from: https://github.com/ryanoasis/nerd-fonts/
 " needed this to be available globally as although 'if gvim running?' can
