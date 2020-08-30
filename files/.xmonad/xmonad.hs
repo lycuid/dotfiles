@@ -18,7 +18,10 @@ import XMonad.Hooks.DynamicLog        ( dynamicLogWithPP
                                       )
 
 import XMonad.Layout.LimitWindows     (limitWindows)
-import XMonad.Layout.Tabbed
+import XMonad.Layout.Tabbed           ( tabbedBottom
+                                      , shrinkText
+                                      , Theme(..))
+
 import XMonad.Layout.Spacing          ( spacingRaw
                                       , incWindowSpacing
                                       , decWindowSpacing
@@ -153,10 +156,15 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
       , myProjectsDir
       ])
 
+  -- layout spacing update keybindings.
   , ((modm .|. controlMask, xK_k   ), incWindowSpacing 1)
   , ((modm .|. controlMask, xK_j   ), decWindowSpacing 1)
   , ((modm .|. controlMask, xK_l   ), incScreenSpacing 1)
   , ((modm .|. controlMask, xK_h   ), decScreenSpacing 1)
+
+  -- Master Volume Control keybindings.
+  , ((modm ,               xK_equal), spawn "amixer set Master 5%+")
+  , ((modm ,               xK_minus), spawn "amixer set Master 5%-")
 
   -- named scratchpads keybindings.
   , ((modm .|. controlMask, xK_Return), namedScratchpadAction myScratchpads "term")
@@ -195,12 +203,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 ------------------------------------------------------------------------
 -- Layouts:
 
-magnify = renamed [Replace "magnify"]
-        $ magnifier
-        $ limitWindows 12
-        $ ResizableTall 1 (3/100) (1/2) []
-
-myLayout = avoidStruts $ customSpacing $ tiled ||| simpleTabbedBottom ||| noBorders Full ||| Mirror tiled ||| magnify
+myLayout = avoidStruts $ customSpacing $ tiled ||| bottomtabbed ||| noBorders Full ||| Mirror tiled ||| magnify
   where
     -- default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
@@ -213,6 +216,20 @@ myLayout = avoidStruts $ customSpacing $ tiled ||| simpleTabbedBottom ||| noBord
 
     -- Percent of screen to increment by when resizing panes
     delta   = 3/100
+
+    bottomtabbed = noBorders $ tabbedBottom shrinkText def
+      { activeColor           = highlight def
+      , inactiveColor         = black def
+      , activeBorderColor     = black def
+      , inactiveBorderColor   = black def
+      , fontName              = "xft:Liberation Mono-9"
+      }
+
+    magnify = renamed [Replace "magnify"]
+            $ magnifier
+            $ limitWindows 12
+            $ ResizableTall 1 (3/100) (1/2) []
+
     customSpacing = spacingRaw True (Border 3 3 3 3) True (Border 3 3 3 3) True
 
 ------------------------------------------------------------------------
