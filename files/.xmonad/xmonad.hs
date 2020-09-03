@@ -163,8 +163,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   , ((modm .|. controlMask, xK_h   ), decScreenSpacing 1)
 
   -- Master Volume Control keybindings.
-  , ((modm ,               xK_equal), spawn "amixer set Master 5%+")
-  , ((modm ,               xK_minus), spawn "amixer set Master 5%-")
+  , ((modm ,                 xK_equal), spawn "amixer set Master 1%+")
+  , ((modm ,                 xK_minus), spawn "amixer set Master 1%-")
+  , ((modm .|. controlMask,  xK_equal), spawn "amixer set Master 5%+")
+  , ((modm .|. controlMask,  xK_minus), spawn "amixer set Master 5%-")
+  , ((modm ,                     xK_m), spawn "amixer set Master toggle")
 
   -- named scratchpads keybindings.
   , ((modm .|. controlMask, xK_Return), namedScratchpadAction myScratchpads "term")
