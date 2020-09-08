@@ -245,7 +245,7 @@ myManageHook = (composeAll . concat $
   ]) <+> namedScratchpadManageHook myScratchpads
     where
       myBrowsers = ["Brave-browser", "Firefox"]
-      myFloating = ["MPlayer", "Gimp"]
+      myFloating = ["MPlayer", "Gimp", "mpv", "vlc"]
 
 ------------------------------------------------------------------------
 -- Event handling
