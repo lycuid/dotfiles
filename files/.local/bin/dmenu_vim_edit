@@ -5,16 +5,11 @@ set -e
 
 readonly local current_window=$(xdotool getwindowfocus)
 
+PROJECTS_DIR="$HOME"
 PROMPT=""
-PROJECTS_DIR=""
 DIRMODE=false
 EMBED=false
 DMENU_ARGS=""
-
-if [ $# -eq 0 ]; then
-  echo "The Force is not strong with this one!."
-  exit 1;
-fi
 
 while [ $# -gt 0 ]; do
   case $1 in
@@ -26,7 +21,7 @@ while [ $# -gt 0 ]; do
       EMBED=true;
       DMENU_ARGS="-w $current_window"; shift;;
     *)
-      [ -z $PROJECTS_DIR ] && PROJECTS_DIR=$1 || exit 1
+      PROJECTS_DIR=$1
       shift
       ;;
   esac
@@ -34,13 +29,12 @@ done
 
 dirmode_search()
 {
-  while true; do
-    dir=$(
-      ls $PROJECTS_DIR \
-        | dmenu -p "${PROMPT:-"edit :"}" -g 1 -l 5 ${DMENU_ARGS:-} 2> /dev/null
-    )
-    if [ -d "$PROJECTS_DIR/$dir" ]; then echo "$PROJECTS_DIR/$dir"; break; fi
-  done
+  cd $PROJECTS_DIR
+  dir=$(
+    ls -d */ \
+      | dmenu -p "${PROMPT:-"edit :"}" -g 1 -l 5 ${DMENU_ARGS:-} 2> /dev/null
+  )
+  echo "$PROJECTS_DIR/$dir"
 }
 
 file_search()
@@ -66,12 +60,12 @@ if $DIRMODE; then project_path=$(dirmode_search); else project_path=$(file_searc
 # This is in case we wanna open a single file.
 [ -f $project_path ] && dir_path=$(dirname $project_path)
 
-COMMAND="nvim -c \"cd ${dir_path:-$project_path}\" $project_path"
+COMMAND="vi --cmd \"cd ${dir_path:-$project_path}\" $project_path"
 
 if $EMBED; then
   echo $COMMAND | xclip -i
   xdotool key --window $current_window --delay 50 Shift+Insert Return
 else
-  eval "${TERMINAL:-st} -e $COMMAND &" > /dev/null 2> /dev/null
+  $(echo $COMMAND | xargs ${TERMINAL:-st} -e) &
 fi
 
