@@ -18,21 +18,19 @@ import XMonad.Hooks.DynamicLog        ( dynamicLogWithPP
                                       )
 
 import XMonad.Layout.LimitWindows     (limitWindows)
+import XMonad.Layout.Magnifier        (magnifier)
+import XMonad.Layout.ResizableTile    (ResizableTall(..))
+import XMonad.Layout.Renamed          (renamed, Rename(Replace))
+import XMonad.Layout.NoBorders        (noBorders)
 import XMonad.Layout.Tabbed           ( tabbedBottom
                                       , shrinkText
                                       , Theme(..))
-
 import XMonad.Layout.Spacing          ( spacingRaw
                                       , incWindowSpacing
                                       , decWindowSpacing
                                       , incScreenSpacing
                                       , decScreenSpacing
                                       , Border(..))
-
-import XMonad.Layout.Magnifier        (magnifier)
-import XMonad.Layout.ResizableTile    (ResizableTall(..))
-import XMonad.Layout.Renamed          (renamed, Rename(Replace))
-import XMonad.Layout.NoBorders        (noBorders)
 
 import Data.Monoid
 import Text.Printf                    (printf)
@@ -49,9 +47,9 @@ import qualified Data.Map        as M
 
 {- Making the workspace tabs on xmobar, clickable. -}
 myWorkspaces :: [String]
-myWorkspaces  = map clickAction [1..5]
+myWorkspaces  = clickAction ["I", "II", "III", "IV", "V"]
   where
-    clickAction = (uncurry action) . (\x -> (x, x)) . show
+    clickAction = map (uncurry action) . zip (map show [1..])
     action = printf "<action=xdotool key super+%s> %s </action>"
 
 ------------------------------------------------------------------------
@@ -180,7 +178,7 @@ myScratchpads = [ NS "term" spawnTerminal (resource =? "scratchpad-term") center
                 ]
   where
     spawnTerminal     = unwords [myTerminalWithResource, "scratchpad-term"]
-    spawnFileManager  = unwords [myTerminalWithResource, "scratchpad-fm", "-e", "ranger"]
+    spawnFileManager  = unwords [myTerminalWithResource, "scratchpad-fm", "-e", "vifm", "$HOME"]
     centerFloating    = customFloating $ W.RationalRect (1/10) (1/10) (4/5) (4/5)
 
 
@@ -206,34 +204,30 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 ------------------------------------------------------------------------
 -- Layouts:
 
-myLayout = avoidStruts $ customSpacing $ tiled ||| bottomtabbed ||| noBorders Full ||| Mirror tiled ||| magnify
+myLayout  = avoidStruts $ customSpacing
+          $ master_slave
+          ||| tabbed_bottom
+          ||| full
+          ||| mirrored
+          ||| magnify
   where
-    -- default tiling algorithm partitions the screen into two panes
-    tiled   = Tall nmaster delta ratio
-
-    -- The default number of windows in the master pane
-    nmaster = 1
-
-    -- Default proportion of screen occupied by master pane
-    ratio   = 1/2
-
-    -- Percent of screen to increment by when resizing panes
-    delta   = 3/100
-
-    bottomtabbed = noBorders $ tabbedBottom shrinkText def
-      { activeColor           = highlight def
-      , inactiveColor         = black def
-      , activeBorderColor     = black def
-      , inactiveBorderColor   = black def
-      , fontName              = "xft:Liberation Mono-9"
-      }
-
-    magnify = renamed [Replace "magnify"]
-            $ magnifier
-            $ limitWindows 12
-            $ ResizableTall 1 (3/100) (1/2) []
-
     customSpacing = spacingRaw True (Border 3 3 3 3) True (Border 3 3 3 3) True
+
+    master_slave  = renamed [Replace "MasterSlave"] $ Tall 1 (3/100) (1/2)
+    tabbed_bottom = renamed [Replace "BottomTabbed"]
+                  $ noBorders $ tabbedBottom shrinkText def
+                  { activeColor           = highlight def
+                  , inactiveColor         = black def
+                  , activeBorderColor     = black def
+                  , inactiveBorderColor   = black def
+                  , fontName              = "xft:Liberation Mono-9"
+                  }
+    full          = renamed [Replace "Full"] $ noBorders Full
+    mirrored      = renamed [Replace "Mirrored"] $ Mirror master_slave
+    magnify       = renamed [Replace "Magnify"]
+                  $ magnifier
+                  $ limitWindows 12
+                  $ ResizableTall 1 (3/100) (1/2) []
 
 ------------------------------------------------------------------------
 -- Window rules:
@@ -243,9 +237,6 @@ myManageHook = (composeAll . concat $
   , [fmap (isInfixOf x) className --> doShift (myWorkspaces !! 2) | x <- myBrowsers]
   , [fmap (isInfixOf x) className <&&> resource =? "Dialog" --> doFloat | x <- myBrowsers]
   ]) <+> namedScratchpadManageHook myScratchpads
-    where
-      myBrowsers = ["Brave-browser", "Firefox"]
-      myFloating = ["MPlayer", "Gimp", "mpv", "vlc"]
 
 ------------------------------------------------------------------------
 -- Event handling

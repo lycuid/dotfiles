@@ -5,9 +5,11 @@ import XMonad
 myTerminal              = "$TERMINAL"
 myEditor                = "$EDITOR"
 myBrowser               = "$BROWSER"
-
 myTerminalWithResource  = unwords [myTerminal, "-n"]
 myProjectsDir           = "$HOME/xkcd/scm"
+
+myBrowsers = ["Brave-browser", "Firefox"]
+myFloating = ["MPlayer", "Gimp", "mpv", "vlc"]
 
 myFocusFollowsMouse     = False
 myClickJustFocuses      = False
