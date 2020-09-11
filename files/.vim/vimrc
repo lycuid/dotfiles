@@ -89,6 +89,7 @@ vnoremap <S-k> :m '<-2<CR>gv=gv
 vnoremap <S-j> :m '>+1<CR>gv=gv
 
 autocmd BufWritePost *Xresources,*Xdefaults silent! !xrdb %
+"
 "" Downloaded from: https://github.com/ryanoasis/nerd-fonts/
 
 " needed this setting to be available globally as, although,
