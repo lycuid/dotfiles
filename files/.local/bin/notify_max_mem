@@ -3,5 +3,5 @@
 num=${1:-10}
 
 command=$(ps axh -o comm,pmem --sort=-pmem | head -n $num)
-notify-send "MEM (top $num):" "$command"
+notify-send -u low "MEM (top $num):" "$command"
 

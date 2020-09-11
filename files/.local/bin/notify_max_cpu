@@ -3,5 +3,5 @@
 num=${1:-10}
 
 command=$(ps axh -o comm,pcpu --sort=-pcpu | head -n $num)
-notify-send "CPU (top $num):" "$command"
+notify-send -u low "CPU (top $num):" "$command"
 
