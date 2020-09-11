@@ -1,47 +1,49 @@
 #include "Xresources.d/st"
 
-Xft.dpi: 96
 utf8: 2
 locale: true
 
-*font: xft:TerminessTTF NF:pixelsize=18
-*boldFont: xft:TerminessTTF NF:pixelsize=18
-*italicFont: xft:TerminessTTF NF:pixelsize=18
-*boldItalicfont: xft:TerminessTTF NF:pixelsize=18
+Xft.dpi: 96
+Xft.antialias: true
+Xft.autohint: true
 
-*.foreground: #c5cdd9
-*.background: #090909
-cursorColor: #ffffff
+*font: TerminessTTF NF:pixelsize=18
+*boldFont: TerminessTTF NF:pixelsize=18
+*italicFont: TerminessTTF NF:pixelsize=18
+*boldItalicfont: TerminessTTF NF:pixelsize=18
+
+*foreground: #c5cdd9
+*background: #090909
 
 ! black
 *.color0: #090909
-*.color8: #090909
+*.color8: #353535
 
 ! red
 *.color1: #cc6666
-*.color9: #cc6666
+*.color9: #ff4d4d
 
 ! green
-*.color2: #29B363
+*.color2: #1e824c
 *.color10: #29B363
 
 ! yellow
 *.color3: #f0c674
-*.color11: #f0c674
+*.color11: #f7ca18
 
 ! blue
-*.color4: #30336b
-*.color12: #30336b
+*.color4: #22709f
+*.color12: #6f93af
 
 ! magenta
-*.color5: #b294bb
+*.color5: #D980FA
 *.color13: #b294bb
 
 ! cyan
-*.color6: #8abeb7
+*.color6: #6cb6eb
 *.color14: #8abeb7
 
 ! white
 *.color7: #c5c8c6
-*.color15: #c5c8c6
+*.color15: #dddddd
 

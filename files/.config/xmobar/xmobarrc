@@ -17,23 +17,26 @@ Config
   , sepChar           = "%"
   , alignSep          = "}{"
   , template          = "<fc=white,#30336b><fn=1> >><fc=#55E6C1,#30336b>=</fc> </fn></fc>\
+                        \%UnsafeStdinReader%\
+                        \}\
 
-                        \%UnsafeStdinReader%}<fn=1><fc=#9b59b6>%date%</fc></fn>{ \
+                        \<fn=1><fc=#9b59b6>%date%</fc></fn>\
 
+                        \{\
                         \<box type=Bottom width=2 color=#c5cdd9>\
                         \ %dynnetwork% \
-                        \</box> \
-
+                        \</box>\
+                        \ | \
                         \<fc=white><action=`notify_max_cpu` button=1>\
                         \<box type=Bottom width=2 color=#cc6666> %cpu% </box>\
-                        \</action></fc> \
-
+                        \</action></fc>\
+                        \ | \
                         \<fc=white><action=`notify_max_mem` button=1>\
-                        \<box type=Bottom width=2 color=#30336b>\
+                        \<box type=Bottom width=2 color=#cc6666>\
                         \ %memory% \
-                        \</box></action></fc> \
-
-                        \<fc=white><action=`amixer set Master toggle` button=1>\
+                        \</box></action></fc>\
+                        \ | \
+                        \<fc=white,#222222><action=`amixer set Master toggle` button=1>\
                         \<box type=Bottom width=2 color=#9b59b6> %amixer% </box>\
                         \</action></fc> \
 
@@ -59,9 +62,9 @@ Config
     , Run Cpu         [ "--template" , "\xf108 <total>%"
                       , "--Low"      , "25"
                       , "--High"     , "65"
-                      , "--low"      , "#4cd137,#222222"
-                      , "--normal"   , "#ffdd59,#222222"
-                      , "--high"     , "#cc6666,#222222"
+                      , "--low"      , "#4cd137"
+                      , "--normal"   , "#ffdd59"
+                      , "--high"     , "#cc6666"
                       ] 10
 
     -- memory usage monitor

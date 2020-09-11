@@ -4,13 +4,13 @@ amixer get Master | awk '\
 BEGIN {
   sound=0;\
   speaker=0;\
-  mute="";\
+  mute="";\
 }\
 match($0, /[[:digit:]]+%/) {\
   sound+=substr($0, RSTART, RLENGTH - 1);\
   speakers+=1;\
   if ($6 == "[off]") {\
-    mute="";\
+    mute="";\
   }\
 }\
 END {\

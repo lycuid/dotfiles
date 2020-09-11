@@ -9,6 +9,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/goyo.vim'
 Plug 'scrooloose/nerdtree'
 
 Plug 'tpope/vim-fugitive'
@@ -35,14 +36,14 @@ filetype plugin indent on
 set autoindent
 set colorcolumn=72                " wrap indicator
 set cursorline                    " highlight current line
-set nu relativenumber                " line number (relative).
+set nu relativenumber             " line number (relative).
 set mouse=a                       " mouse click navigation.
 set encoding=utf-8
 set et ts=2 sw=2 softtabstop=0
 set incsearch                     " highlight search as you type.
 set hlsearch                      " highlight search words.
 set fileformat=unix
-set list listchars=tab:↦\ ,eol:¬
+set list listchars=tab:--,eol:¬
 
 "" no swap and backup files.
 set nobackup
@@ -54,64 +55,45 @@ set noundofile
 set t_Co=256
 set termguicolors
 colorscheme old_school
-"
+
 " https://github.com/vim/vim/issues/993#issuecomment-255651605
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"        " set foreground color
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"        " set background color
 
 map <C-w><C-t> :tabnew<CR>
 
-" page navigation.
-map <C-k> <C-y>
-map <C-j> <C-e>
-
 nnoremap ,, :noh<CR>
 
 " edit my vimrc
-nnoremap <C-F6> :e $MYVIMRC<CR>
+nnoremap <F6> :e $MYVIMRC<CR>
 
 " reloading
-nnoremap <C-F5> :source $MYVIMRC<CR>
+nnoremap <F5> :source $MYVIMRC<CR>
 
 " force of habit (sometimes).
 nnoremap <C-s> :w<CR>
 
-nnoremap <C-Up> <C-y>
-nnoremap <C-Down> <C-e>
+" reloading
+nnoremap <F11> :Goyo<CR>
+
+" page navigation.
+noremap <C-k> <C-y>
+noremap <C-j> <C-e>
 
 " code/code-block navigation.
-nnoremap <C-S-Up> :m .-2<CR>==
-nnoremap <C-S-Down> :m .+1<CR>==
-inoremap <C-S-Up> <ESC>:m .-2<CR>==gi
-inoremap <C-S-Down> <ESC>:m .+1<CR>==gi
-vnoremap <C-S-Up> :m '<-2<CR>gv=gv
-vnoremap <C-S-Down> :m '>+1<CR>gv=gv
-
-"" Build.
-autocmd FileType python nmap <buffer> <F5> :w<bar>!python3 %<CR>
-autocmd FileType ruby nmap <buffer> <F5> :w<bar>!ruby %<CR>
-autocmd FileType haskell nmap <buffer> <F5> :w<bar>!runhaskell %<CR>
-autocmd FileType lisp nmap <buffer> <F5> :w<bar>!clisp %<CR>
-autocmd FileType cpp nmap <buffer> <F5> :w<bar>!g++ -std=c++11 -o %:r % && ./%:r<CR>
-autocmd FileType c nmap <buffer> <F5> :w<bar>!gcc -o %:r % && %:r<CR>
-autocmd FileType go nmap <buffer> <F5> :w<bar>!go run %<CR>
-autocmd FileType java nmap <buffer> <F5> :w<bar>!javac % && java %:r<CR>
-autocmd FileType javascript nmap <buffer> <F5> :w<bar>!node %<CR>
+nnoremap <S-k> :m .-2<CR>==
+nnoremap <S-j> :m .+1<CR>==
+inoremap <S-k> <ESC>:m .-2<CR>==gi
+inoremap <S-j> <ESC>:m .+1<CR>==gi
+vnoremap <S-k> :m '<-2<CR>gv=gv
+vnoremap <S-j> :m '>+1<CR>gv=gv
 
 autocmd BufWritePost *Xresources,*Xdefaults silent! !xrdb %
-
 "" Downloaded from: https://github.com/ryanoasis/nerd-fonts/
-" needed this to be available globally as although 'if gvim running?' can
-" be determined but `nvim-qt` cannnot (yet).
-set guifont=TerminessTTF\ Nerd\ Font:h13
 
-let g:haskell_enable_quantification=1
-let g:haskell_enable_recursivedo=1
-let g:haskell_enable_arrowsyntax=1
-let g:haskell_enable_pattern_synonyms=1
-let g:haskell_enable_typeroles=1
-let g:haskell_enable_static_pointers=1
-let g:haskell_backpack=1
+" needed this setting to be available globally as, although,
+" 'if gvim running?' can be determined but, `nvim-qt` cannnot be (yet).
+set guifont=TerminessTTF\ NF:h13
 
 "" GVIM settings.
 if has("gui_running")
@@ -131,15 +113,9 @@ if has("gui_running")
   set go-=m  "" REMOVES MENUBAR
 endif
 
-" coc.
 source ~/.vim/plugins.cfg.d/coc.cfg.vim
-
-" airline.
 source ~/.vim/plugins.cfg.d/airline.cfg.vim
-
-" nerdtree/nerdcommenter.
 source ~/.vim/plugins.cfg.d/nerdtree.cfg.vim
-
-" rest.
+source ~/.vim/plugins.cfg.d/build_systems.cfg.vim
 source ~/.vim/plugins.cfg.d/plugins.cfg.vim
 
