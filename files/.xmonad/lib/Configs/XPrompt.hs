@@ -17,7 +17,7 @@ import Configs.Colors           (Colors(..))
 xpConfig :: XPConfig
 xpConfig =
     def
-      { font                  = "xft:TerminessTTF NF:size=12"
+      { font                  = "xft:FiraCode NF-11"
       , fgColor               = white def
       , bgColor               = black def
       , bgHLight              = cyan def

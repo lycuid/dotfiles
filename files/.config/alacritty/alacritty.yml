@@ -88,25 +88,25 @@
 
 # Font configuration
 font:
-  size: 13.0
+  size: 11.0
 
   normal:
-    family: TerminessTTF NF
+    family: FiraCode NF
     style: Regular
 
   # Bold font face
   bold:
-    family: TerminessTTF NF
+    family: FiraCode NF
     style: Bold
 
   # Italic font face
   italic:
-    family: TerminessTTF NF
+    family: FiraCode NF
     style: Italic
 
   # Bold italic font face
   bold_italic:
-    family: TerminessTTF NF
+    family: FiraCode NF
     style: Bold Italic
 
   # Offset is the extra space around each character. `offset.y` can be thought of
@@ -134,9 +134,9 @@ font:
 # Colors (Tomorrow Night)
 colors:
   # Default colors
-  #primary:
-    #background: '#1d1f21'
-    #foreground: '#c5c8c6'
+  primary:
+    background: '#090909'
+    foreground: '#c5c8c6'
 
     # Bright and dim foreground colors
     #
@@ -182,6 +182,16 @@ colors:
     #cyan:    '#8abeb7'
     #white:   '#c5c8c6'
 
+  normal:
+    black:   '#090909'
+    red:     '#cc6666'
+    green:   '#29B363'
+    yellow:  '#f0c674'
+    blue:    '#30336b'
+    magenta: '#b294bb'
+    cyan:    '#8abeb7'
+    white:   '#c5c8c6'
+
   # Bright colors
   #bright:
     #black:   '#666666'
@@ -217,25 +227,6 @@ colors:
   #
   #indexed_colors: []
 
-  #normal:
-    #black:   '#1d1f21'
-    #red:     '#cc6666'
-    #green:   '#b9ca4a'
-    #yellow:  '#f0c674'
-    #blue:    '#81a2be'
-    #magenta: '#b294bb'
-    #cyan:    '#8abeb7'
-    #white:   '#c5c8c6'
-
-  normal:
-    black:   '#090909'
-    red:     '#cc6666'
-    green:   '#29B363'
-    yellow:  '#f0c674'
-    blue:    '#30336b'
-    magenta: '#b294bb'
-    cyan:    '#8abeb7'
-    white:   '#c5c8c6'
 # Visual Bell
 #
 # Any time the BEL code is received, Alacritty "rings" the visual bell. Once
@@ -266,7 +257,7 @@ colors:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.9
+background_opacity: 0.95
 #selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
 
@@ -291,7 +282,7 @@ cursor:
   # the style of the active value of the normal cursor.
   #
   # See `cursor.style` for available options.
-  vi_mode_style: Underline
+  vi_mode_style: Block
 
   # If this is `true`, the cursor will be rendered as a hollow box when the
   # window is not focused.

@@ -7,33 +7,34 @@ Xft.dpi: 96
 Xft.antialias: true
 Xft.autohint: true
 
-*font: TerminessTTF NF:pixelsize=18
-*boldFont: TerminessTTF NF:pixelsize=18
-*italicFont: TerminessTTF NF:pixelsize=18
-*boldItalicfont: TerminessTTF NF:pixelsize=18
+*faceName: FiraCode NF-11
+*font: FiraCode NF-11
+*boldFont: FiraCode NF-11
+*italicFont: FiraCode NF-11
+*boldItalicfont: FiraCode NF-11
 
 *foreground: #c5cdd9
 *background: #090909
 
 ! black
 *.color0: #090909
-*.color8: #353535
+*.color8: #252525
 
 ! red
 *.color1: #cc6666
 *.color9: #ff4d4d
 
 ! green
-*.color2: #1e824c
-*.color10: #29B363
+*.color2: #1dd1a1
+*.color10: #1e824c
 
 ! yellow
 *.color3: #f0c674
 *.color11: #f7ca18
 
 ! blue
-*.color4: #30336b
-*.color12: #22709f
+*.color4: #22709f
+*.color12: #6f93af
 
 ! magenta
 *.color5: #D980FA
@@ -45,5 +46,5 @@ Xft.autohint: true
 
 ! white
 *.color7: #c5c8c6
-*.color15: #dddddd
+*.color15: #efefef
 
