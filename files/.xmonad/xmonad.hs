@@ -4,7 +4,9 @@ import XMonad.Util.Run                (spawnPipe, hPutStrLn)
 import XMonad.Util.SpawnOnce          (spawnOnce)
 import XMonad.Util.NamedScratchpad    (namedScratchpadManageHook)
 
-import XMonad.Hooks.ManageDocks       (docks, avoidStruts)
+import XMonad.Hooks.ManageDocks       ( docks
+                                      , avoidStruts
+                                      , ToggleStruts(..))
 import XMonad.Hooks.DynamicLog        ( dynamicLogWithPP
                                       , wrap
                                       , shorten
@@ -17,10 +19,10 @@ import XMonad.Layout.Magnifier        (magnifier)
 import XMonad.Layout.ResizableTile    (ResizableTall(..))
 import XMonad.Layout.Renamed          (renamed, Rename(Replace))
 import XMonad.Layout.NoBorders        (noBorders)
+import XMonad.Layout.Spacing          (spacingRaw, Border(..))
 import XMonad.Layout.Tabbed           ( tabbedBottom
                                       , shrinkText
                                       , Theme(..))
-import XMonad.Layout.Spacing          (spacingRaw, Border(..))
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -35,18 +37,18 @@ import Configs.KeyBindings            (keymod, myCustomKeyBindings)
 import Configs.Scratchpad             (myScratchpads)
 import Configs.Colors                 (Colors(..))
 
-{- Making the workspace tabs on xmobar, clickable. -}
+------------------------------------------------------------------------
+-- Workspaces.
 myWorkspaces :: [String]
-myWorkspaces  = clickAction ["I", "II", "III", "IV", "V"]
+myWorkspaces  = clickAction . map show $ [1..5]
+  {- Making the workspace tabs on xmobar, clickable. -}
   where
     clickAction = map (uncurry action) . zip (map show [1..])
     action = printf "<action=xdotool key super+%s> %s </action>"
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
-
-modMaps conf@(XConfig {XMonad.modMask = modm}) = map (keymod modm)
-  -- launch a terminal
+modMaps conf@(XConfig {XMonad.modMask = modm}) = map (keymod modm) -- launch a terminal
   [ (xK_Return  , spawn $ XMonad.terminal conf)
   -- Move focus to the next window
   , (xK_j       , windows W.focusDown)
@@ -72,10 +74,7 @@ modMaps conf@(XConfig {XMonad.modMask = modm}) = map (keymod modm)
   , (xK_period  , sendMessage (IncMasterN (-1)))
   -- Restart xmonad
   , (xK_q       , spawn "xmonad --recompile; xmonad --restart")
-  -- Toggle the status bar gap
-  -- Use this binding with avoidStruts from Hooks.ManageDocks.
-  -- See also the statusBar function from Hooks.DynamicLog.
-  -- , (xK_b, sendMessage ToggleStruts)
+  , (xK_b       , sendMessage ToggleStruts)
   ]
 
 modShiftMaps conf@(XConfig {XMonad.modMask = modm}) = map (keymod (modm .|. shiftMask))
@@ -99,16 +98,15 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   myCustomKeyBindings conf ++
   -- mod-[1..9], Switch to workspace N
   -- mod-shift-[1..9], Move client to workspace N
-  [((m .|. modm, k), windows $ f i)
-      | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-      , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+  [((modm .|. mask, key), windows $ f i)
+      | (i, key)  <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
+      , (f, mask) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
   ++
   -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
   -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
-  --
-  [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
+  [((modm .|. mask, key), screenWorkspace sc >>= flip whenJust (windows . f))
       | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
-      , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+      , (f, mask) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
@@ -127,7 +125,6 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 
 ------------------------------------------------------------------------
 -- Layouts:
-
 myLayout  = avoidStruts $ customSpacing
           $ master_slave
           ||| tabbed_bottom
@@ -137,7 +134,7 @@ myLayout  = avoidStruts $ customSpacing
   where
     customSpacing = spacingRaw True (Border 3 3 3 3) True (Border 3 3 3 3) True
 
-    master_slave  = renamed [Replace "MasterSlave"] $ Tall 1 (3/100) (1/2)
+    master_slave  = renamed [Replace "MasterStack"] $ Tall 1 (3/100) (1/2)
     tabbed_bottom = renamed [Replace "BottomTabbed"]
                   $ noBorders $ tabbedBottom shrinkText def
                   { activeColor           = highlight def
@@ -155,21 +152,18 @@ myLayout  = avoidStruts $ customSpacing
 
 ------------------------------------------------------------------------
 -- Window rules:
-
 myManageHook = (composeAll . concat $
   [ [fmap (isInfixOf x) className --> doFloat | x <- myFloating]
   , [fmap (isInfixOf x) className --> doShift (myWorkspaces !! 2) | x <- myBrowsers]
   , [fmap (isInfixOf x) className <&&> resource =? "Dialog" --> doFloat | x <- myBrowsers]
-  ]) <+> namedScratchpadManageHook myScratchpads
+  ])
 
 ------------------------------------------------------------------------
 -- Event handling
-
 myEventHook = mempty
 
 ------------------------------------------------------------------------
 -- Status bars and logging
-
 myLogHook proc = dynamicLogWithPP
   def
     { ppCurrent           = xmobarColor (white def) (highlight def)
@@ -186,7 +180,6 @@ myLogHook proc = dynamicLogWithPP
 
 ------------------------------------------------------------------------
 -- Startup hook
-
 myStartupHook = do
  spawnOnce (runScript "session_init" [])
 
@@ -204,9 +197,10 @@ main = do
     , keys               = myKeys
     , mouseBindings      = myMouseBindings
     , layoutHook         = myLayout
-    , manageHook         = myManageHook
     , handleEventHook    = myEventHook
     , logHook            = myLogHook xmobarProc
     , startupHook        = myStartupHook
+    , manageHook         = myManageHook
+                        <+> namedScratchpadManageHook myScratchpads
     }
 
