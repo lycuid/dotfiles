@@ -24,7 +24,7 @@ if exists('g:loaded_webdevicons')
 endif
 
 "" Nerdtree git icons (nerdtree-git-plugin).
-let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
     \ "Untracked" : "✭",

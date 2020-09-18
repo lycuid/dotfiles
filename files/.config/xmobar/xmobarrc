@@ -1,14 +1,14 @@
 Config
-  { font              = "xft:monospace-9,FontAwesome-9"
+  { font              = "xft:FiraCode-9,FontAwesome-9"
+  , additionalFonts   = ["xft:FiraCode-9:style=Bold,FontAwesome-9"]
   , overrideRedirect  = True
-  , additionalFonts   = ["xft:monospace-9:style=Bold,FontAwesome-9"]
   , bgColor           = "#131313"
   , fgColor           = "#c5cdd9"
   , alpha             = 255
   , position          = Bottom
   , textOffset        = -1
   , iconOffset        = -1
-  , lowerOnStart      = False
+  , lowerOnStart      = True
   , pickBroadest      = False
   , persistent        = False
   , hideOnStart       = False
@@ -41,7 +41,9 @@ Config
                         \</action></fc> \
 
                         \<fn=1><fc=#000000,#9b59b6>\
+                        \<action=`notify_tmux_ls` button=1>\
                         \  %tmuxls% \
+                        \</action>\
                         \</fc></fn> \
 
                         \<fc=white,#222222>\
@@ -89,8 +91,8 @@ Config
                       , "-i"	, "<left>%<fc=#4cd137,#222222> \xf0e7 </fc>"
                       ] 10
     , Run Date        "\xf073 %a, %b %d %H:%M" "date" 600
-    , Run Com         "sh" ["/home/lycuid/.config/xmobar/scripts/tmuxls"] "tmuxls" 10
-    , Run Com         "sh" ["/home/lycuid/.config/xmobar/scripts/amixer_master"] "amixer" 1
+    , Run Com         "sh" ["/home/lycuid/.config/xmobar/scripts/tmuxls.sh"] "tmuxls" 10
+    , Run Com         "sh" ["/home/lycuid/.config/xmobar/scripts/amixer_master.sh"] "amixer" 1
     , Run UnsafeStdinReader
   ]
 }

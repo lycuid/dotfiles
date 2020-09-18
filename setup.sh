@@ -7,7 +7,7 @@ if [ $# -lt 2 ]; then
 fi
 
 getRelativePath() {
-  echo $(cd $(dirname $1); pwd)/$(basename $1)
+  echo "$(cd $(dirname $1); pwd)/$(basename $1)"
 }
 
 query=$1
@@ -68,14 +68,8 @@ unlink() {
 }
 
 case $query in
-  "link")
-    link
-    ;;
-  "unlink")
-    unlink
-    ;;
-  *)
-    echo "Invalid Query."
-    exit 1
-    ;;
+  "link"    ) link ;;
+  "unlink"  ) unlink ;;
+  *         ) echo "Invalid Query."; exit 1 ;;
 esac
+

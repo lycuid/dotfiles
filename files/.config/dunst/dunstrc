@@ -1,7 +1,7 @@
 # vim: filetype=config
 
 [global]
-  font                = "TerminessTTF NF 13"
+  font                = "FiraCode NF 10"
   plain_text          = no
   markup              = yes
   format              = "<b>%s</b>\n%b"
@@ -22,6 +22,7 @@
   show_indicators     = no
   line_height         = 8
   separator_height    = 1
+  separator_color     = "#aeaeae"
   padding             = 8
   horizontal_padding  = 15
 
@@ -33,5 +34,17 @@
 
 [frame]
   width = 1
-  color = "#090909"
+  color = "#252525"
+
+[urgency_low]
+    background = "#dddddd"
+    foreground = "#090909"
+
+[urgency_normal]
+    background = "#22709f"
+    foreground = "#ffffff"
+
+[urgency_critical]
+    background = "#ff4d4d"
+    foreground = "#ffffff"
 
