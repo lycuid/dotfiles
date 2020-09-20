@@ -1,7 +1,4 @@
-#!/bin/sh
-
-# exit on error.
-set -e
+#!/bin/sh -e
 
 readonly local current_window=$(xdotool getwindowfocus)
 
@@ -60,7 +57,7 @@ if $DIRMODE; then project_path=$(dirmode_search); else project_path=$(file_searc
 # This is in case we wanna open a single file.
 [ -f $project_path ] && dir_path=$(dirname $project_path)
 
-COMMAND="vi --cmd \"cd ${dir_path:-$project_path}\" $project_path"
+COMMAND="vi --cmd \"cd ${dir_path:-$project_path}\" $project_path && clear"
 
 if $EMBED; then
   echo $COMMAND | xclip -i

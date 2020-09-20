@@ -1,6 +1,0 @@
-#!/bin/sh
-
-dunst &
-compton &
-nitrogen --restore &
-

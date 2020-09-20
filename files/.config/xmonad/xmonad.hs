@@ -181,7 +181,7 @@ myLogHook proc = dynamicLogWithPP
 ------------------------------------------------------------------------
 -- Startup hook
 myStartupHook = do
- spawnOnce (runScript "session_init" [])
+  spawnOnce "notify-send '=====# Welcome #=====' $(whoami)"
 
 main = do
   xmobarProc <- spawnPipe "xmobar"

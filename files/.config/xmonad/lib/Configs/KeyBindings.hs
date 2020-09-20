@@ -1,4 +1,5 @@
 {-# LANGUAGE FlexibleContexts #-}
+
 module Configs.KeyBindings where
 
 import XMonad

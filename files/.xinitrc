@@ -1,8 +1,13 @@
 #!/bin/sh
 
-xrdb -merge ${XDG_CONFIG_HOME:-$HOME/.config}/X11/Xresources &
-xset r rate 300 50 &
-xsetroot -cursor_name left_ptr &
+xrdb $XDG_CONFIG_HOME/X11/Xresources &
 
-exec xmonad
+xset r rate 300 50 &              # increase x rate.
+xsetroot -cursor_name left_ptr &  # good'ol left arrow.
+
+dunst &                           # notification daemon.
+compton &                         # compositior (for transparency).
+$HOME/.fehbg &                    # setting wallpaper.
+
+exec xmonad                       # window manager.
 
