@@ -1,0 +1,15 @@
+#!/bin/bash
+
+get_color()
+{
+  local color="color$1:"
+  xrdb -query all | grep $color | awk '{print $2}' | xargs echo
+}
+
+dmenu -p "sudo password: " \
+  -fn "FiraCode-14" \
+  -nf "$(get_color 0)" \
+  -nb "$(get_color 0)" \
+  -sf "$(get_color 15)" \
+  -sb "$(get_color 9)" <&-
+#

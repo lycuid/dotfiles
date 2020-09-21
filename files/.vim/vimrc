@@ -26,7 +26,7 @@ call plug#end()
 
 filetype plugin indent on
 set autoindent
-set colorcolumn=72                " wrap indicator
+set colorcolumn=81                " wrap indicator
 set cursorline                    " highlight current line
 set nu relativenumber             " line number (relative).
 set mouse=a                       " mouse click navigation.

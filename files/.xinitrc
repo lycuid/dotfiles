@@ -7,6 +7,7 @@ xsetroot -cursor_name left_ptr &  # good'ol left arrow.
 
 dunst &                           # notification daemon.
 compton &                         # compositior (for transparency).
+sxhkd &                           # hotkey daemon.
 $HOME/.fehbg &                    # setting wallpaper.
 
 exec xmonad                       # window manager.

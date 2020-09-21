@@ -14,9 +14,6 @@ import XMonad.Hooks.DynamicLog        ( dynamicLogWithPP
                                       , PP(..)
                                       )
 
-import XMonad.Layout.LimitWindows     (limitWindows)
-import XMonad.Layout.Magnifier        (magnifier)
-import XMonad.Layout.ResizableTile    (ResizableTall(..))
 import XMonad.Layout.Renamed          (renamed, Rename(Replace))
 import XMonad.Layout.NoBorders        (noBorders)
 import XMonad.Layout.Spacing          (spacingRaw, Border(..))
@@ -49,9 +46,8 @@ myWorkspaces  = clickAction . map show $ [1..5]
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 modMaps conf@(XConfig {XMonad.modMask = modm}) = map (keymod modm) -- launch a terminal
-  [ (xK_Return  , spawn $ XMonad.terminal conf)
   -- Move focus to the next window
-  , (xK_j       , windows W.focusDown)
+  [ (xK_j       , windows W.focusDown)
   -- Move focus to the previous window
   , (xK_k       , windows W.focusUp  )
   -- Rotate through the available layout algorithms
@@ -99,14 +95,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   -- mod-[1..9], Switch to workspace N
   -- mod-shift-[1..9], Move client to workspace N
   [((modm .|. mask, key), windows $ f i)
-      | (i, key)  <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-      , (f, mask) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+    | (i, key)  <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
+    , (f, mask) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
   ++
   -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
   -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
   [((modm .|. mask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-      | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
-      , (f, mask) <- [(W.view, 0), (W.shift, shiftMask)]]
+    | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
+    , (f, mask) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
@@ -127,28 +123,23 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- Layouts:
 myLayout  = avoidStruts $ customSpacing
           $ master_slave
-          ||| tabbed_bottom
           ||| full
+          ||| tabbed_bottom
           ||| mirrored
-          ||| magnify
   where
     customSpacing = spacingRaw True (Border 3 3 3 3) True (Border 3 3 3 3) True
 
-    master_slave  = renamed [Replace "MasterStack"] $ Tall 1 (3/100) (1/2)
-    tabbed_bottom = renamed [Replace "BottomTabbed"]
+    master_slave  = renamed [Replace "[]="] $ Tall 1 (3/100) (1/2)
+    full          = renamed [Replace "[M]"] $ noBorders Full
+    tabbed_bottom = renamed [Replace "_*_"]
                   $ noBorders $ tabbedBottom shrinkText def
                   { activeColor           = highlight def
                   , inactiveColor         = black def
                   , activeBorderColor     = black def
                   , inactiveBorderColor   = black def
-                  , fontName              = "xft:Liberation Mono-9"
+                  , fontName              = "xft:FiraCode-9"
                   }
-    full          = renamed [Replace "Full"] $ noBorders Full
-    mirrored      = renamed [Replace "Mirrored"] $ Mirror master_slave
-    magnify       = renamed [Replace "Magnify"]
-                  $ magnifier
-                  $ limitWindows 12
-                  $ ResizableTall 1 (3/100) (1/2) []
+    mirrored      = renamed [Replace "[||]"] $ Mirror master_slave
 
 ------------------------------------------------------------------------
 -- Window rules:

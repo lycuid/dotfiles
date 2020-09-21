@@ -1,0 +1,24 @@
+# misc.
+super + Return
+  $TERMINAL
+super + ctrl + b
+  $BROWSER
+super + ctrl + l
+  $LOCKER
+super + p
+  $LAUNCHER
+ctrl + shift + o
+  dmenu_vim_edit --dirmode --embed --prompt "open project :" $PROJECTS_DIR
+
+# system audio kekybindings.
+super + {_, ctrl +} equal
+  amixer set Master {1, 5}%+
+super + {_, ctrl +} minus
+  amixer set Master {1, 5}%-
+super + ctrl + m
+  amixer set Master toggle
+
+# shutdown, reboot.
+super + ctrl + {s, r}
+  sudo -A {shutdown, reboot} now
+
