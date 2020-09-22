@@ -6,6 +6,7 @@ xset r rate 300 50 &              # increase x rate.
 xsetroot -cursor_name left_ptr &  # good'ol left arrow.
 
 dunst &                           # notification daemon.
+xautolock &                       # auto lock (configs in Xresources).
 compton &                         # compositior (for transparency).
 sxhkd &                           # hotkey daemon.
 $HOME/.fehbg &                    # setting wallpaper.

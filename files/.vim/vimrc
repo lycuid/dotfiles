@@ -10,7 +10,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
-
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
@@ -62,7 +61,7 @@ nnoremap <F11> :Goyo<CR>
 noremap <C-k> <C-y>
 noremap <C-j> <C-e>
 
-autocmd BufWritePost *Xresources,*Xdefaults silent! !xrdb %
+autocmd Filetype xdefaults autocmd BufWritePost <buffer> silent! !xrdb $XDG_CONFIG_HOME/X11/Xresources
 "
 " needed this setting to be available globally as, although,
 " 'if gvim running?' can be determined but, `nvim-qt` cannnot be (yet).
