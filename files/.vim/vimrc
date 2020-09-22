@@ -85,9 +85,9 @@ if has("gui_running")
   set go-=m  "" REMOVES MENUBAR
 endif
 
-source ~/.vim/plugins.cfg.d/coc.cfg.vim
-source ~/.vim/plugins.cfg.d/airline.cfg.vim
-source ~/.vim/plugins.cfg.d/nerdtree.cfg.vim
-source ~/.vim/plugins.cfg.d/build_systems.cfg.vim
-source ~/.vim/plugins.cfg.d/plugins.cfg.vim
+source ~/.vim/vimrc.d/coc.vim
+source ~/.vim/vimrc.d/airline.vim
+source ~/.vim/vimrc.d/nerdtree.vim
+source ~/.vim/vimrc.d/build_systems.vim
+source ~/.vim/vimrc.d/plugins.vim
 
