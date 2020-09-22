@@ -4,11 +4,11 @@ super + Return
 super + ctrl + b
   $BROWSER
 super + ctrl + l
-  $LOCKER
+  $SCREENLOCK
 super + p
   $LAUNCHER
-ctrl + shift + o
-  dmenu_vim_edit --dirmode --embed --prompt "open project :" $PROJECTS_DIR
+super + ctrl + o
+  dmenu_vim_edit --dirmode --embed --prompt "open project :" $PROJECTS
 
 # system audio kekybindings.
 super + {_, ctrl +} equal

@@ -41,7 +41,7 @@ myWorkspaces  = clickAction . map show $ [1..5]
   {- Making the workspace tabs on xmobar, clickable. -}
   where
     clickAction = map (uncurry action) . zip (map show [1..])
-    action = printf "<action=xdotool key super+%s> %s </action>"
+    action = printf "<fn=1><action=xdotool key super+%s> %s </action></fn>"
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.

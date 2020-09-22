@@ -20,6 +20,6 @@ instance Default Colors where
     , green       = "#2ed573"
     , blue        = "#30336b"
     , cyan        = "#00b894"
-    , white       = "#c5cdd9"
+    , white       = "#ffffff"
     }
 
