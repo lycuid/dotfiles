@@ -1,6 +1,5 @@
 ! vim: filetype=xdefaults
 
-Xautolock.time: 1
+Xautolock.time:   1
 Xautolock.locker: slock
-
 
