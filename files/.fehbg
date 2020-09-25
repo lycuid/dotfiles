@@ -4,5 +4,10 @@
 [ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ] && \
   . $XDG_CONFIG_HOME/user-dirs.dirs
 
-feh --no-fehbg --bg-fill -- ${XDG_PICTURES_DIR:-$HOME/Pictures}/wallpaper.jpg
+basedir=${XDG_PICTURES_DIR:-$HOME/Pictures}
+
+ls $basedir \
+  | shuf \
+  | head -n 1 \
+  | xargs -i feh --no-fehbg --bg-fill $basedir/{}
 
