@@ -1,5 +1,4 @@
 import XMonad
-
 import XMonad.Util.Run                (spawnPipe, hPutStrLn)
 import XMonad.Util.SpawnOnce          (spawnOnce)
 import XMonad.Util.NamedScratchpad    (namedScratchpadManageHook)
@@ -41,7 +40,7 @@ myWorkspaces  = clickAction . map show $ [1..5]
   {- Making the workspace tabs on xmobar, clickable. -}
   where
     clickAction = map (uncurry action) . zip (map show [1..])
-    action = printf "<fn=1><action=xdotool key super+%s> %s </action></fn>"
+    action = printf "<action=xdotool key super+%s> %s </action>"
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -122,14 +121,14 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 ------------------------------------------------------------------------
 -- Layouts:
 myLayout  = avoidStruts $ customSpacing
-          $ master_slave
+          $ master_stack
           ||| full
           ||| tabbed_bottom
           ||| mirrored
   where
     customSpacing = spacingRaw True (Border 3 3 3 3) True (Border 3 3 3 3) True
 
-    master_slave  = renamed [Replace "[]="] $ Tall 1 (3/100) (1/2)
+    master_stack  = renamed [Replace "[]="] $ Tall 1 (3/100) (1/2)
     full          = renamed [Replace "[M]"] $ noBorders Full
     tabbed_bottom = renamed [Replace "_*_"]
                   $ noBorders $ tabbedBottom shrinkText def
@@ -139,7 +138,7 @@ myLayout  = avoidStruts $ customSpacing
                   , inactiveBorderColor   = black def
                   , fontName              = "xft:FiraCode-9"
                   }
-    mirrored      = renamed [Replace "[||]"] $ Mirror master_slave
+    mirrored      = renamed [Replace "[||]"] $ Mirror master_stack
 
 ------------------------------------------------------------------------
 -- Window rules:
@@ -164,7 +163,8 @@ myLogHook proc = dynamicLogWithPP
     , ppVisibleNoWindows  = Just (xmobarColor "red" "")
     , ppUrgent            = xmobarColor (red def) ""
     , ppTitle             = xmobarColor (green def) "" . shorten 30
-    , ppSep               = "<fc=" ++ (white def) ++ "> | </fc>"
+    , ppSep               = "  "
+    , ppLayout            = myXmobarLayoutStyle
     , ppOrder             = take 3
     , ppOutput            = hPutStrLn proc
     }
