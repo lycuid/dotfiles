@@ -20,5 +20,7 @@ super + ctrl + m
 
 # shutdown, reboot.
 super + ctrl + {s, r}
-  sudo -A {shutdown, reboot} now
+  command={shutdown,reboot};\
+  notify-send -u critical $(echo $command) &;\
+  sudo -A $command now
 
