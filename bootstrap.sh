@@ -1,5 +1,7 @@
 #!/bin/sh
 
+IGNORE_EXTENSIONS="hi o"
+IGNORE_PATTERN=$(echo $IGNORE_EXTENSIONS | tr ' ' '|' | xargs -i echo "\.{}$")
 
 if [ $# -lt 2 ]; then
   echo "Not enough arguments."
@@ -11,8 +13,8 @@ getRelativePath() {
 }
 
 query=$1
-src=$(getRelativePath $2)
-[ $3 ] && dest=$(getRelativePath $3) || dest=$HOME
+SRC=$(getRelativePath $2)
+[ $3 ] && DEST=$(getRelativePath $3) || DEST=$HOME
 
 DEFAULT="\033[0m"
 GREEN="\033[92m"
@@ -22,14 +24,14 @@ BLUE="\033[94m"
 
 link() {
   paths=$(
-    cd $(dirname $src) && tree -iaf --noreport $(basename $src) \
+    cd $(dirname $SRC) && tree -iaf --noreport $(basename $SRC) \
       | sed "1d" \
       | cut -d \/ -f 2-
   )
 
   for path in $paths; do
-    s=$src/$path
-    d=$dest/$path
+    s=$SRC/$path
+    d=$DEST/$path
 
     if [ -f $s ]; then
       echo "$GREEN[+] Linking: $path$DEFAULT"
@@ -47,20 +49,20 @@ link() {
 
 unlink() {
   paths=$(
-    cd $(dirname $src) && tree --dirsfirst -iaf --noreport $(basename $src) \
+    cd $(dirname $SRC) && tree --dirsfirst -iaf --noreport $(basename $SRC) \
       | sed "1d" \
       | cut -d \/ -f 2- \
       | sed '1!G;h;$!d'
   )
 
   for path in $paths; do
-    d=$dest/$path
+    d=$DEST/$path
     if [ -f $d ]; then
       echo "$GREEN[+] Unlinking: $path$DEFAULT"
       rm $d
     fi
 
-    if [ -d $d ] && [ $(ls $d | wc -l) -eq 0 ]; then
+    if [ -d $d ] && [ $(ls $d | egrep -v $IGNORE_PATTERN | wc -l) -eq 0 ]; then
       echo "$BLUE[+] Removing Empty Directory: $path$DEFAULT"
       rm -rf $d
     fi
