@@ -125,7 +125,7 @@ myLayout  = avoidStruts $ master_stack
                         ||| tabbed_bottom
                         ||| mirrored
   where
-    customSpacing = spacingRaw False (Border 3 3 3 3) True (Border 3 3 3 3) True
+    customSpacing = spacingRaw True (Border 3 3 3 3) True (Border 3 3 3 3) True
 
     master_stack  = customSpacing . renamed [Replace "[]="] $ Tall 1 (3/100) (1/2)
     full          = renamed [Replace "[M]"] $ noBorders Full
@@ -190,7 +190,6 @@ main = do
     , handleEventHook    = myEventHook
     , logHook            = myLogHook xmobarProc
     , startupHook        = myStartupHook
-    , manageHook         = myManageHook
-                        <+> namedScratchpadManageHook myScratchpads
+    , manageHook         = myManageHook <+> namedScratchpadManageHook myScratchpads
     }
 

@@ -19,8 +19,6 @@ super + ctrl + m
   amixer set Master toggle
 
 # shutdown, reboot.
-super + ctrl + {s, r}
-  command={shutdown,reboot};\
-  notify-send -u critical $(echo $command) &;\
-  sudo -A $command now
+super + ctrl + s
+  dmenu_shutdown
 
