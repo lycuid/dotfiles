@@ -1,9 +1,11 @@
+-- vim: filetype=haskell
+
 Config
-  { font              = "xft:FiraCode-9,FontAwesome-9"
-  , additionalFonts   = ["xft:FiraCode-9:style=Bold,FontAwesome-9"]
+  { font              = "xft:FiraCode-10,FontAwesome-10,monospace-13"
+  , additionalFonts   = ["xft:FiraCode-9:style=Bold,FontAwesome-10:style=Bold,monospace-13"]
   , overrideRedirect  = True
-  , bgColor           = "#131313"
-  , fgColor           = "#c5cdd9"
+  , bgColor           = "#191919"
+  , fgColor           = "#bdc3c7"
   , alpha             = 255
   , position          = Bottom
   , textOffset        = -1
@@ -16,79 +18,85 @@ Config
   , allDesktops       = True
   , sepChar           = "%"
   , alignSep          = "}{"
-  , template          = "<fc=white,#30336b><fn=1> >><fc=#55E6C1,#30336b>=</fc> </fn></fc>\
+  , template          = "\
                         \%UnsafeStdinReader%\
                         \}\
 
-                        \<fn=1><fc=#9b59b6>%date%</fc></fn>\
+                        \<fc=white>%date%</fc>\
 
                         \{\
-                        \<box type=Bottom width=2 color=#c5cdd9>\
+                        \<fc=white,#292929><box type=Bottom width=2 color=white>\
                         \ %dynnetwork% \
-                        \</box>\
-                        \ | \
-                        \<fc=white><action=`notify_max_cpu` button=1>\
+                        \</box></fc>\
+                        \ \
+
+                        \<fc=white,#292929><action=`notify_max_cpu` button=1>\
                         \<box type=Bottom width=2 color=#cc6666> %cpu% </box>\
                         \</action></fc>\
-                        \ | \
-                        \<fc=white><action=`notify_max_mem` button=1>\
+                        \ \
+
+                        \<fc=white,#292929><action=`notify_max_mem` button=1>\
                         \<box type=Bottom width=2 color=#cc6666>\
                         \ %memory% \
                         \</box></action></fc>\
-                        \ | \
-                        \<fc=white,#222222><action=`amixer set Master toggle` button=1>\
-                        \<box type=Bottom width=2 color=#9b59b6> %amixer% </box>\
-                        \</action></fc> \
+                        \ \
+                        \<fc=white,#292929>\
+                        \<action=`amixer set Master toggle` button=1>\
+                        \<box type=Bottom width=2 color=#cc6666>\
+                        \ %amixer% \
+                        \</box></action></fc>\
+                        \ \
 
                         \<fn=1><fc=#000000,#9b59b6>\
                         \<action=`notify_tmux_ls` button=1>\
                         \  %tmuxls% \
-                        \</action>\
-                        \</fc></fn> \
+                        \</action></fc></fn>\
+                        \ \
 
-                        \<fc=white,#222222>\
+                        \<fc=white,#292929>\
                         \<box type=Bottom width=2 color=#4cd137>\
                         \ %battery% \
-                        \</box></fc>"
+                        \</box></fc>\
+                        \"
   , commands          = [
       -- network activity monitor (dynamic interface resolution)
       Run DynNetwork  [ "--template" , "<dev>: \x25bc <rx>kb/s \x25b2 <tx>kb/s"
                       , "--Low"      , "1000"
                       , "--High"     , "5000"
-                      , "--low"      , "#4cd137"
-                      , "--normal"   , "#ffdd59"
-                      , "--high"     , "#cc6666"
+                      , "--low"      , "#4cd137,#292929"
+                      , "--normal"   , "#ffdd59,#292929"
+                      , "--high"     , "#cc6666,#292929"
                       ] 10
 
     -- cpu activity monitor
     , Run Cpu         [ "--template" , "\xf108 <total>%"
                       , "--Low"      , "25"
                       , "--High"     , "65"
-                      , "--low"      , "#4cd137"
-                      , "--normal"   , "#ffdd59"
-                      , "--high"     , "#cc6666"
+                      , "--low"      , "#4cd137,#292929"
+                      , "--normal"   , "#ffdd59,#292929"
+                      , "--high"     , "#cc6666,#292929"
                       ] 10
 
     -- memory usage monitor
     , Run Memory      [ "--template" ,"\xf233 <usedratio>%"
                       , "--Low"      , "25"
                       , "--High"     , "65"
-                      , "--low"      , "#4cd137"
-                      , "--normal"   , "#ffdd59"
-                      , "--high"     , "#cc6666"
+                      , "--low"      , "#4cd137,#292929"
+                      , "--normal"   , "#ffdd59,#292929"
+                      , "--high"     , "#cc6666,#292929"
                       ] 10
 
     -- battery monitor
     , Run Battery     [ "--template" , "<acstatus>"
                       , "--Low"      , "22"
                       , "--High"     , "80"
-                      , "--low"      , "#cc6666,#222222"
-                      , "--normal"   , "#ffdd59,#222222"
-                      , "--high"     , "#4cd137,#222222"
+                      , "--low"      , "#cc6666,#292929"
+                      , "--normal"   , "#ffdd59,#292929"
+                      , "--high"     , "#4cd137,#292929"
                       , "--"
-                      , "-o"	, "<left>%<fc=#ffdd59,#222222> (<timeleft>) </fc>"
-                      , "-O"	, "<left>%<fc=#ffdd59,#222222> \xf0e7 </fc>"
-                      , "-i"	, "<left>%<fc=#4cd137,#222222> \xf0e7 </fc>"
+                      , "-o"	, "<left>% <fc=#ffdd59,#292929>(<timeleft>)</fc>"
+                      , "-O"	, "<left>% <fc=#ffdd59,#292929>\xf0e7</fc>"
+                      , "-i"	, "<left>% <fc=#4cd137,#292929>\xf0e7</fc>"
                       ] 10
     , Run Date        "\xf073 %a, %b %d %H:%M" "date" 600
     , Run Com         "sh" ["/home/lycuid/.config/xmobar/scripts/tmuxls.sh"] "tmuxls" 10
