@@ -1,8 +1,8 @@
 -- vim: filetype=haskell
 
 Config
-  { font              = "xft:FiraCode-10,FontAwesome-10,monospace-13"
-  , additionalFonts   = ["xft:FiraCode-9:style=Bold,FontAwesome-10:style=Bold,monospace-13"]
+  { font              = "xft:FiraCode Nerd Font-10,monospace-13"
+  , additionalFonts   = ["xft:FiraCode Nerd Font-10:style=Bold,monospace-13"]
   , overrideRedirect  = True
   , bgColor           = "#191919"
   , fgColor           = "#bdc3c7"
@@ -69,7 +69,7 @@ Config
                       ] 10
 
     -- cpu activity monitor
-    , Run Cpu         [ "--template" , "\xf108 <total>%"
+    , Run Cpu         [ "--template" , "\xf108  <total>%"
                       , "--Low"      , "25"
                       , "--High"     , "65"
                       , "--low"      , "#4cd137,#292929"
@@ -78,7 +78,7 @@ Config
                       ] 10
 
     -- memory usage monitor
-    , Run Memory      [ "--template" ,"\xf233 <usedratio>%"
+    , Run Memory      [ "--template" ,"\xf233  <usedratio>%"
                       , "--Low"      , "25"
                       , "--High"     , "65"
                       , "--low"      , "#4cd137,#292929"
