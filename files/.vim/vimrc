@@ -51,30 +51,32 @@ colorscheme old_school
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"        " set foreground color
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"        " set background color
 
-map <C-w><C-t> :tabnew<CR>
-nnoremap ,, :noh<CR>
-" edit my vimrc
-nnoremap <C-F6> :e $MYVIMRC<CR>
+nnoremap <leader><C-t> :tabnew<CR>
+nnoremap <leader>, :noh<CR>
+" edit vimrc
+nnoremap <leader>v :e $MYVIMRC<CR>
+" reload vimrc.
+nnoremap <leader>r :source $MYVIMRC<CR>
 " reloading
 nnoremap <F11> :Goyo<CR>
 " page navigation.
-noremap <C-k> <C-y>
 noremap <C-j> <C-e>
+noremap <C-k> <C-y>
+noremap <C-h> :bp<CR>
+noremap <C-l> :bn<CR>
 
 autocmd Filetype xdefaults autocmd BufWritePost <buffer> silent! !xrdb $XDG_CONFIG_HOME/X11/Xresources
 "
 " needed this setting to be available globally as, although,
 " 'if gvim running?' can be determined but, `nvim-qt` cannnot be (yet).
 set guifont=FiraCode\ NF:h11
+set guicursor=
 
 "" GVIM settings.
 if has("gui_running")
 
   "" auto fullscreen on gvim
   autocmd GUIEnter * simalt ~x
-
-  "" underscore cursor
-  set guicursor+=i:hor20-Cursor/lCursor
 
   "" ctrl+F1 toggle mebubar
   nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
