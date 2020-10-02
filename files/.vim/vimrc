@@ -36,6 +36,9 @@ set hlsearch                      " highlight search words.
 set fileformat=unix
 set list listchars=tab:--,eol:¬
 
+" copy/paste from system clipboard.
+set clipboard=unnamedplus
+
 "" no swap and backup files.
 set nobackup
 set nowritebackup
@@ -51,7 +54,7 @@ colorscheme old_school
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"        " set foreground color
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"        " set background color
 
-nnoremap <leader><C-t> :tabnew<CR>
+nnoremap <leader>t :tabnew<CR>
 nnoremap <leader>, :noh<CR>
 " edit vimrc
 nnoremap <leader>v :e $MYVIMRC<CR>
@@ -70,7 +73,6 @@ autocmd Filetype xdefaults autocmd BufWritePost <buffer> silent! !xrdb $XDG_CONF
 " needed this setting to be available globally as, although,
 " 'if gvim running?' can be determined but, `nvim-qt` cannnot be (yet).
 set guifont=FiraCode\ NF:h11
-set guicursor=
 
 "" GVIM settings.
 if has("gui_running")
