@@ -1,4 +1,4 @@
-autocmd FileType python nmap <buffer> <F5> :w<bar>!python3 %<CR>
+autocmd FileType python nmap <buffer> <F5> :w<bar>!python %<CR>
 autocmd FileType haskell nmap <buffer> <F5> :w<bar>!runhaskell %<CR>
 autocmd FileType rust nmap <buffer> <F5> :w<bar>!rustc % && ./%:r<CR>
 autocmd FileType go nmap <buffer> <F5> :w<bar>!go run %<CR>

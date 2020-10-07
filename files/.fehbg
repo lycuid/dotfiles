@@ -1,13 +1,9 @@
 #!/bin/sh
 
-# prioritize xdg user dirs, if exists.
-[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ] && \
-  . $XDG_CONFIG_HOME/user-dirs.dirs
+BASEDIR="$XDG_DATA_HOME/wallpapers"
 
-basedir=${XDG_PICTURES_DIR:-$HOME/Pictures}
-
-ls $basedir \
+ls $BASEDIR \
   | shuf \
   | head -n 1 \
-  | xargs -i feh --no-fehbg --bg-fill $basedir/{}
+  | xargs -i feh --no-fehbg --bg-fill "$BASEDIR/{}"
 

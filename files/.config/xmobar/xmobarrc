@@ -56,8 +56,7 @@ Config
                         \<fc=white,#292929>\
                         \<box type=Bottom width=2 color=#4cd137>\
                         \ %battery% \
-                        \</box></fc>\
-                        \"
+                        \</box></fc>"
   , commands          = [
       -- network activity monitor (dynamic interface resolution)
       Run DynNetwork  [ "--template" , "<dev>: \x25bc <rx>kb/s \x25b2 <tx>kb/s"

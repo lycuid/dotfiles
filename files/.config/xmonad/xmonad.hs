@@ -121,14 +121,14 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 ------------------------------------------------------------------------
 -- Layouts:
 myLayout  = avoidStruts $ master_stack
-                        ||| full
+                        ||| monocle
                         ||| tabbed_bottom
                         ||| mirrored
   where
     customSpacing = spacingRaw True (Border 3 3 3 3) True (Border 3 3 3 3) True
 
     master_stack  = customSpacing . renamed [Replace "[]="] $ Tall 1 (3/100) (1/2)
-    full          = renamed [Replace "[M]"] $ noBorders Full
+    monocle       = renamed [Replace "[1]"] $ noBorders Full
     tabbed_bottom = renamed [Replace "_*_"] . noBorders
                   $ tabbedBottom shrinkText def
                   { activeColor           = highlight def

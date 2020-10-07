@@ -1,6 +1,7 @@
 #include "Xresources.d/st"
 #include "Xresources.d/dmenu"
 #include "Xresources.d/xautolock"
+#include "Xresources.d/urxvt"
 
 utf8: 2
 locale: true
@@ -9,11 +10,11 @@ Xft.dpi: 96
 Xft.antialias: true
 Xft.autohint: true
 
-*faceName: FiraCode NF-11
-*font: FiraCode NF-11
-*boldFont: FiraCode NF-11
-*italicFont: FiraCode NF-11
-*boldItalicfont: FiraCode NF-11
+*faceName: FiraCode Nerd Font-11
+*font: FiraCode Nerd Font-11
+*boldFont: FiraCode Nerd Font-11
+*italicFont: FiraCode Nerd Font-11
+*boldItalicfont: FiraCode Nerd Font-11
 
 *foreground: #c5cdd9
 *background: #090909
