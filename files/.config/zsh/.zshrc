@@ -1,10 +1,15 @@
-export ZSH=~/.oh-my-zsh
 export LC_ALL=en_US.UTF-8
+export ZSH="$ZDOTDIR/oh-my-zsh"
 
 # Download oh my zsh, if not exist
-[ ! -d "$ZSH" ] && curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
+if [ ! -d "$ZSH" ];
+then
+  curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
+  echo "cleaning up orphan '.zshrc' files."
+  rm -rf $HOME/.zshrc*
+fi
 
-ZSH_THEME_FILE=~/.oh-my-zsh/themes/simple-lambda.zsh-theme
+ZSH_THEME_FILE="$ZSH/themes/simple-lambda.zsh-theme"
 if [ ! -f "$ZSH_THEME_FILE" ];
 then
   THEME_FILE="https://raw.githubusercontent.com/lycuid/simple-lambda-zsh-theme/master/simple-lambda.zsh-theme"
@@ -14,12 +19,8 @@ fi
 unset ZSH_THEME_FILE
 
 ZSH_THEME="simple-lambda"
-plugins=(git)
-
+plugins=(git vi-mode)
 source $ZSH/oh-my-zsh.sh
 
-alias rm="rm -riv"
-alias server="python3 -m http.server"
-alias mx="tmux"
-alias ls="exa --git --icons"
+[ -f "$XDG_CONFIG_HOME/shell/aliases" ] && . "$XDG_CONFIG_HOME/shell/aliases"
 

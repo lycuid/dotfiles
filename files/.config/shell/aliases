@@ -1,0 +1,8 @@
+# vim: filetype=sh
+
+alias ls="lsd"
+alias rm="rm -riv"
+alias server="python3 -m http.server"
+alias mx="tmux"
+alias vis="vim -u $HOME/.vim/smallrc"
+

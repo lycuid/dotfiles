@@ -5,3 +5,8 @@ dmenu.selbackground: #8e44ad
 dmenu.selhighlightbackground: #8e44ad
 dmenu.selhighlightforeground: #f1c40f
 
+dmenu.font: FiraCode-10
+dmenu.boldFont: FiraCode-10
+dmenu.italicFont: FiraCode-10
+dmenu.boldItalicfont: FiraCode-10
+
