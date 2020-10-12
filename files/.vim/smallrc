@@ -1,0 +1,44 @@
+" vim: filetype=vim
+
+filetype plugin indent on
+syntax on
+
+set nocompatible
+set autoindent
+set nu rnu
+set mouse=a                       " mouse click navigation.
+set encoding=utf-8
+set et ts=2 sw=2 softtabstop=0
+set incsearch                     " highlight search as you type.
+set hlsearch                      " highlight search words.
+set fileformat=unix
+set list listchars=tab:--,eol:¬
+set noshowcmd
+
+" copy/paste from system clipboard.
+set clipboard=unnamedplus
+
+"" no swap and backup files.
+set nobackup
+set nowritebackup
+set noswapfile
+set noundofile
+
+" https://github.com/vim/vim/issues/993#issuecomment-255651605
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"  " set foreground color
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"  " set background color
+
+nnoremap <leader>t :tabnew<CR>
+nnoremap <leader>v :e $MYVIMRC<CR>
+nnoremap <leader>r :source $MYVIMRC<CR>
+nnoremap ,, :noh<CR>
+
+noremap <C-j> <C-e>
+noremap <C-k> <C-y>
+noremap <C-h> :bp<CR>
+noremap <C-l> :bn<CR>
+
+autocmd Filetype xdefaults autocmd BufWritePost <buffer> silent !xrdb $XDG_CONFIG_HOME/X11/Xresources
+
+runtime vimrc.d/build_systems.vim
+
