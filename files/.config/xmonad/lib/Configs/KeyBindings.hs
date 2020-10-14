@@ -29,6 +29,7 @@ myCustomKeyBindings conf@(XConfig {XMonad.modMask = modm}) =
   -- named scratchpads keybindings.
   , ((modm .|. controlMask,   xK_Return), scratchpad "term")
   , ((modm .|. controlMask,   xK_f),      scratchpad "fm")
+  , ((modm .|. controlMask,   xK_n),      scratchpad "nm")
   ]
     where
       ws = XMonad.workspaces conf

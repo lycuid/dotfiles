@@ -25,9 +25,11 @@ Config
                         \<fc=white>%date%</fc>\
 
                         \{\
-                        \<fc=white,#292929><box type=Bottom width=2 color=white>\
+                        \<fc=white,#292929>\
+                        \<action=`xdotool key super+ctrl+n` button=1>\
+                        \<box type=Bottom width=2 color=white>\
                         \ %dynnetwork% \
-                        \</box></fc>\
+                        \</box></action></fc>\
                         \ \
 
                         \<fc=white,#292929><action=`notify_max_cpu` button=1>\
