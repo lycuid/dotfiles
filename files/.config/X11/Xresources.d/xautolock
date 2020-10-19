@@ -1,6 +1,6 @@
 ! vim: filetype=xdefaults
 
-Xautolock.time: 2
+Xautolock.time: 5
 Xautolock.locker: slock
 Xautolock.notify: 15
 Xautolock.notifier: notify-send -u critical -t 15000 "**** Inactivity alert ****" "lock screen in 15 secs."

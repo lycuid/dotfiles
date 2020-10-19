@@ -18,6 +18,9 @@ myModMask               = mod4Mask
 myFocusedBorderColor    = "#9b59b6"
 myNormalBorderColor     = "#000000"
 
-myXmobarLayoutStyle = xmobarColor "white" "#282828"
-                    . wrap ("<box type=Bottom width=2 color=" ++ (green def) ++ "> ") " </box>"
+myXmobarLayoutStyle = cycleLayoutAction . whiteColor . greenBox
+  where
+    cycleLayoutAction = wrap "<action=xdotool key super+space>" "</action>"
+    whiteColor = xmobarColor "white" "#282828"
+    greenBox = wrap ("<box type=Bottom width=2 color=" ++ (green def) ++ "> ") " </box>"
 

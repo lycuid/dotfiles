@@ -135,7 +135,7 @@ myLayout  = avoidStruts $ master_stack
                   , inactiveColor         = black def
                   , activeBorderColor     = black def
                   , inactiveBorderColor   = black def
-                  , fontName              = "xft:FiraCode-9"
+                  , fontName              = "xft:IBM Plex Mono-9"
                   }
     mirrored      = customSpacing . renamed [Replace "[||]"] $ Mirror master_stack
 

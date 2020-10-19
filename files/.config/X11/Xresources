@@ -10,11 +10,11 @@ Xft.dpi: 96
 Xft.antialias: true
 Xft.autohint: true
 
-*faceName: FiraCode Nerd Font-11
-*font: FiraCode Nerd Font-11
-*boldFont: FiraCode Nerd Font-11
-*italicFont: FiraCode Nerd Font-11
-*boldItalicfont: FiraCode Nerd Font-11
+*faceName: BlexMono Nerd Font-11
+*font: BlexMono Nerd Font-11
+*boldFont: BlexMono Nerd Font-11
+*italicFont: BlexMono Nerd Font-11
+*boldItalicfont: BlexMono Nerd Font-11
 
 *foreground: #c5cdd9
 *background: #090909
