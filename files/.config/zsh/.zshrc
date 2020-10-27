@@ -1,7 +1,6 @@
 export LC_ALL=en_US.UTF-8
-export ZSH="$ZDOTDIR/oh-my-zsh"
 
-# Download oh my zsh, if not exist
+############################## 'oh my zsh' stuff. ##############################
 if [ ! -d "$ZSH" ];
 then
   curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
@@ -18,9 +17,11 @@ then
 fi
 unset ZSH_THEME_FILE
 
-ZSH_THEME="simple-lambda"
-plugins=(git vi-mode)
+plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 [ -f "$XDG_CONFIG_HOME/shell/aliases" ] && . "$XDG_CONFIG_HOME/shell/aliases"
+
+# vim mode.
+bindkey -v
 

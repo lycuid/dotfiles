@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+last_login=$(last $(whoami) | grep tty | awk 'NR == 2 {print $2, $3, $4, $5, $6}')
+
+msg=$([ -z "$last_login" ] && \
+  echo "$(whoami)<br /><small>First Login.</small>" || \
+  echo "$(whoami)<br /><small>Last Login: $last_login.</small>")
+
+notify-send "========# Welcome #========" "$msg"
+

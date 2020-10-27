@@ -1,5 +1,6 @@
 if empty(glob('~/.vim/autoload/plug.vim'))
-  exec '!mkdir -p ~/.vim/autoload && curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim' autocmd VimEnter * PlugInstall
+  exec '!mkdir -p ~/.vim/autoload && curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall
 end
 
 call plug#begin('~/.vim/plugged')
@@ -21,34 +22,9 @@ Plug 'peitalin/vim-jsx-typescript'
 
 call plug#end()
 
-set colorcolumn=81  " wrap indicator
-set cursorline      " highlight current line
-set guifont=FiraCode\ NF:h10
-
-" colorscheme.
-if expand("$TERM") !~ "rxvt"
-  set termguicolors
-end
-set t_Co=256
-colorscheme old_school
-
-nnoremap <F11> :Goyo<CR>
-
-"" GVIM settings.
-if has("gui_running")
-
-  "" ctrl+F1 toggle mebubar
-  nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
-
-  set go-=T  "" REMOVES TOOLBAR
-  set go-=r  "" REMOVES RIGHT SCROLLBAR
-  set go-=L  "" REMOVES LEFT SCROLLBAR
-  set go-=m  "" REMOVES MENUBAR
-endif
-
 runtime smallrc
+runtime vimrc.d/misc.vim
 runtime vimrc.d/coc.vim
 runtime vimrc.d/airline.vim
 runtime vimrc.d/nerdtree.vim
-runtime vimrc.d/misc.vim
 
