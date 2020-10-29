@@ -1,0 +1,20 @@
+My Personal Dotfiles (mediocre rice).
+
+X Dependencies:
+  - xclip
+  - xdotool
+  - xautolock
+
+Dependencies:
+  - tree
+  - xmonad
+  - xmobar (>= 0.36)
+  - vifm
+  - sxhkd
+  - feh
+  - pulseaudio
+  - tmux (>= 3.1)
+  - neovim (>= 0.5)
+
+And some suckless programs.
+
