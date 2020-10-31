@@ -2,7 +2,7 @@
 
 COMPILED_EXTENSIONS="hi o"
 
-USAGE="usage: bootstrap [option] src dest
+USAGE="usage: $0 [option] src dest
 options:
   link      sync with symlinks from 'src' dir to 'dest' dir.
   unlink    remove all 'src' dir symlinks from 'dest' dir."
@@ -29,9 +29,10 @@ BLUE="\033[94m"
 link()
 {
   paths=$(
-    cd $(dirname $SRC) && tree -iaf --noreport $(basename $SRC) \
-      | sed "1d" \
-      | cut -d \/ -f 2-
+    cd $(dirname $SRC)/$(basename $SRC) && tree -iaf --noreport . \
+      | cut -d \/ -f 2- \
+      | egrep "^\.\w+" \
+      | egrep -v "^\.git"
   )
 
   for path in $paths; do
@@ -55,9 +56,10 @@ link()
 unlink()
 {
   paths=$(
-    cd $(dirname $SRC) && tree --dirsfirst -iaf --noreport $(basename $SRC) \
-      | sed "1d" \
+    cd $(dirname $SRC)/$(basename $SRC) && tree --dirsfirst -iaf --noreport . \
       | cut -d \/ -f 2- \
+      | egrep "^\.\w+" \
+      | egrep -v "^\.git" \
       | sed '1!G;h;$!d'
   )
 
