@@ -1,8 +1,0 @@
-{
-	"Import React": {
-		"prefix": "imr",
-		"description": "Import React",
-		"scope": "javascript,javascriptreact,typescriptreact",
-		"body": ["import React from 'react';"],
-	},
-}
