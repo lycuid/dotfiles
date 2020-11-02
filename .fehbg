@@ -1,9 +1,4 @@
 #!/bin/sh
 
-BASEDIR="$XDG_DATA_HOME/wallpapers"
-
-ls $BASEDIR \
-  | shuf \
-  | head -n 1 \
-  | xargs -i feh --no-fehbg --bg-fill "$BASEDIR/{}"
+[ -n "$DISPLAY" ] && feh --no-fehbg --randomize --bg-fill "$WALLPAPERS" || exit 0;
 
