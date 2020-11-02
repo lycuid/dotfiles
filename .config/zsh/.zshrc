@@ -24,4 +24,11 @@ source $ZSH/oh-my-zsh.sh
 
 # vim mode.
 bindkey -v
+bindkey -M vicmd "k" up-line-or-beginning-search
+bindkey -M vicmd "j" down-line-or-beginning-search
+bindkey -M vicmd "^V" edit-command-line
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
 
