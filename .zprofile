@@ -30,7 +30,7 @@ export HISTFILE="$XDG_DATA_HOME/zsh/zsh_history"
 export ZSH="$ZDOTDIR/oh-my-zsh"
 export ZSH_THEME="simple-lambda"
 
-# Setting Path.
+# Path Settings.
 [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
 [ -d "$HOME/.cabal/bin" ] && PATH="$HOME/.cabal/bin:$PATH"
 [ -d "$CARGO_HOME" ] && PATH="$CARGO_HOME/bin:$PATH"

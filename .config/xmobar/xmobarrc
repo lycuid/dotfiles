@@ -61,7 +61,7 @@ Config
                         \</box></fc>"
   , commands          = [
       -- network activity monitor (dynamic interface resolution)
-      Run DynNetwork  [ "--template" , "<dev>: \x25bc <rx>kb/s \x25b2 <tx>kb/s"
+      Run DynNetwork  [ "--template" , "<dev>: \xf063 <rx>kb/s \xf062 <tx>kb/s"
                       , "--Low"      , "1000"
                       , "--High"     , "5000"
                       , "--low"      , "#4cd137,#292929"

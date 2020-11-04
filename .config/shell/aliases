@@ -4,5 +4,6 @@ alias ls="lsd"
 alias rm="rm -riv"
 alias server="python3 -m http.server"
 alias mx="tmux"
+alias vi="nvim"
 alias vis="vim -u $HOME/.vim/smallrc"
 

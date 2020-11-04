@@ -1,5 +1,7 @@
 [user]
+	name  = Abhishek Kadam
 	email = abhishekk19@gmail.com
-	name = Abhishek Kadam
 [core]
-	editor = vim
+	editor = nvim
+[pull]
+	rebase = false
