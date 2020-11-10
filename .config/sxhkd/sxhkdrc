@@ -5,18 +5,18 @@ super + ctrl + b
   $BROWSER
 super + ctrl + l
   $SCREENLOCK
-super + p
+super + ctrl + p
   $LAUNCHER
 super + ctrl + o
   dmenu_vim_edit --dirmode --embed --prompt "open project :" $PROJECTS
 
-# system audio kekybindings.
+# system audio keybindings.
 super + {_, ctrl +} equal
-  amixer set Master {1, 5}%+
+  pactl set-sink-volume @DEFAULT_SINK@ +{1,5}%
 super + {_, ctrl +} minus
-  amixer set Master {1, 5}%-
+  pactl set-sink-volume @DEFAULT_SINK@ -{1,5}%
 super + ctrl + m
-  amixer set Master toggle
+  pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # shutdown, reboot.
 super + ctrl + s

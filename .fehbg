@@ -1,4 +1,3 @@
 #!/bin/sh
 
 [ -n "$DISPLAY" ] && feh --no-fehbg --randomize --bg-fill "$WALLPAPERS" || exit 0
-

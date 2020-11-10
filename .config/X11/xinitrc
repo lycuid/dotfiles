@@ -8,7 +8,7 @@ xautolock &                       # auto lock (configs in Xresources).
 dunst &                           # notification daemon.
 picom -b &                           # compositior (for transparency).
 sxhkd &                           # hotkey daemon.
-wallset &                         # setting wallpaper.
+~/.fehbg &                        # setting wallpaper.
 
 # This is a fix for https://github.com/xmonad/xmonad/issues/164
 [ -e "$HOME/.xmonad" ] && rm -rf $HOME/.xmonad

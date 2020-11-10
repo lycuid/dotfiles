@@ -43,9 +43,9 @@ Config
                         \</box></action></fc>\
                         \ \
                         \<fc=white,#292929>\
-                        \<action=`amixer set Master toggle` button=1>\
+                        \<action=`pactl set-sink-mute @DEFAULT_SINK@ toggle` button=1>\
                         \<box type=Bottom width=2 color=#cc6666>\
-                        \ %amixer% \
+                        \ %sound% \
                         \</box></action></fc>\
                         \ \
 
@@ -101,7 +101,7 @@ Config
                       ] 10
     , Run Date        "\xf073 %a, %b %d %H:%M" "date" 600
     , Run Com         "sh" ["/home/lycuid/.config/xmobar/scripts/tmuxls.sh"] "tmuxls" 10
-    , Run Com         "sh" ["/home/lycuid/.config/xmobar/scripts/amixer_master.sh"] "amixer" 1
+    , Run Com         "sh" ["/home/lycuid/.config/xmobar/scripts/sound.sh"] "sound" 1
     , Run UnsafeStdinReader
   ]
 }

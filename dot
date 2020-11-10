@@ -40,13 +40,13 @@ link()
     d=$DEST/$path
 
     if [ -f $s ]; then
-      echo "$GREEN[+] Linking: $path$DEFAULT"
+      echo -e "$GREEN[+] Linking: $path$DEFAULT"
       ln -rsf $s $d
     else
       if [ -d $d ]; then
-        echo "$YELLOW[?] Ignoring directory: $path$DEFAULT"
+        echo -e "$YELLOW[?] Ignoring directory: $path$DEFAULT"
       else
-        echo "$BLUE[+] Creating directory: $path$DEFAULT"
+        echo -e "$BLUE[+] Creating directory: $path$DEFAULT"
         mkdir $d
       fi
     fi
@@ -68,12 +68,12 @@ unlink()
   for path in $paths; do
     d=$DEST/$path
     if [ -f $d ]; then
-      echo "$GREEN[+] Unlinking: $path$DEFAULT"
+      echo -e "$GREEN[+] Unlinking: $path$DEFAULT"
       rm $d
     fi
 
     if [ -d $d ] && [ $(ls $d | egrep -v $IGNORE_PATTERN | wc -l) -eq 0 ]; then
-      echo "$YELLOW[+] Removing Empty Directory: $path$DEFAULT"
+      echo -e "$YELLOW[+] Removing Empty Directory: $path$DEFAULT"
       rm -rf $d
     fi
   done
