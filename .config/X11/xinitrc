@@ -3,10 +3,10 @@
 xrdb -load $XDG_CONFIG_HOME/X11/Xresources
 xsetroot -cursor_name left_ptr &  # good'ol left arrow.
 xset r rate 300 50 &              # increase x rate.
-xautolock &                       # auto lock (configs in Xresources).
 
+xautolock &                       # auto lock (configs in Xresources).
 dunst &                           # notification daemon.
-picom &                           # compositior (for transparency).
+picom -b &                           # compositior (for transparency).
 sxhkd &                           # hotkey daemon.
 wallset &                         # setting wallpaper.
 

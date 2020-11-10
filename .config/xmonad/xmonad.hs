@@ -44,7 +44,7 @@ myWorkspaces  = clickAction . map show $ [1..5]
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
-modMaps conf@(XConfig {XMonad.modMask = modm}) = map (keymod modm) -- launch a terminal
+modMaps conf@(XConfig {XMonad.modMask = modm}) = map (keymod modm)
   -- Move focus to the next window
   [ (xK_j       , windows W.focusDown)
   -- Move focus to the previous window
@@ -128,7 +128,7 @@ myLayout  = avoidStruts $ master_stack
     customSpacing = spacingRaw True (Border 3 3 3 3) True (Border 3 3 3 3) True
 
     master_stack  = customSpacing . renamed [Replace "[]="] $ Tall 1 (3/100) (1/2)
-    monocle       = renamed [Replace "[1]"] $ noBorders Full
+    monocle       = renamed [Replace "[*]"] $ noBorders Full
     tabbed_bottom = renamed [Replace "_*_"] . noBorders
                   $ tabbedBottom shrinkText def
                   { activeColor           = highlight def
