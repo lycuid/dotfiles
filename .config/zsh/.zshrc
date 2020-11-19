@@ -20,7 +20,7 @@ unset ZSH_THEME_FILE
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
-[ -f "$XDG_CONFIG_HOME/shell/aliases" ] && . "$XDG_CONFIG_HOME/shell/aliases"
+[ -f "$XDG_CONFIG_HOME/aliases" ] && . "$XDG_CONFIG_HOME/aliases"
 
 # vim mode.
 bindkey -v

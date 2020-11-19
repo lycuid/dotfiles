@@ -1,8 +1,8 @@
 -- vim: filetype=haskell
 
 Config
-  { font              = "xft:BlexMono Nerd Font-10,monospace-13"
-  , additionalFonts   = ["xft:BlexMono Nerd Font-10:style=Bold,monospace-13"]
+  { font              = "xft:BlexMono Nerd Font-9,monospace-14"
+  , additionalFonts   = ["xft:BlexMono Nerd Font-9:style=Bold,monospace-14"]
   , overrideRedirect  = True
   , bgColor           = "#191919"
   , fgColor           = "#bdc3c7"
@@ -33,18 +33,18 @@ Config
                         \ \
 
                         \<fc=white,#292929><action=`notify_max_cpu` button=1>\
-                        \<box type=Bottom width=2 color=#cc6666> %cpu% </box>\
+                        \<box type=Bottom width=2 color=#787878> %cpu% </box>\
                         \</action></fc>\
                         \ \
 
                         \<fc=white,#292929><action=`notify_max_mem` button=1>\
-                        \<box type=Bottom width=2 color=#cc6666>\
+                        \<box type=Bottom width=2 color=#787878>\
                         \ %memory% \
                         \</box></action></fc>\
                         \ \
                         \<fc=white,#292929>\
                         \<action=`pactl set-sink-mute @DEFAULT_SINK@ toggle` button=1>\
-                        \<box type=Bottom width=2 color=#cc6666>\
+                        \<box type=Bottom width=2 color=#787878>\
                         \ %sound% \
                         \</box></action></fc>\
                         \ \
@@ -99,7 +99,7 @@ Config
                       , "-O"	, "<left>% <fc=#ffdd59,#292929>\xf0e7</fc>"
                       , "-i"	, "<left>% <fc=#4cd137,#292929>\xf0e7</fc>"
                       ] 10
-    , Run Date        "\xf073 %a, %b %d %H:%M" "date" 600
+    , Run Date        "\xf073  %a, %b %d %H:%M" "date" 600
     , Run Com         "sh" ["/home/lycuid/.config/xmobar/scripts/tmuxls.sh"] "tmuxls" 10
     , Run Com         "sh" ["/home/lycuid/.config/xmobar/scripts/sound.sh"] "sound" 1
     , Run UnsafeStdinReader

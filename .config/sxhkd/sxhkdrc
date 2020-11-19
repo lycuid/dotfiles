@@ -1,14 +1,16 @@
 # misc.
+super + p
+  $LAUNCHER
 super + Return
   $TERMINAL
 super + ctrl + b
   $BROWSER
 super + ctrl + l
   $SCREENLOCK
-super + ctrl + p
-  $LAUNCHER
+super + ctrl + c
+  dmenu_ssh
 super + ctrl + o
-  dmenu_vim_edit --dirmode --embed --prompt "open project :" $PROJECTS
+  dmenu_vim_edit --dirmode --embed --prompt "open project :" $SCM
 
 # system audio keybindings.
 super + {_, ctrl +} equal

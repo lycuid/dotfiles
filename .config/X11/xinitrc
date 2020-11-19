@@ -6,9 +6,9 @@ xset r rate 300 50 &              # increase x rate.
 
 xautolock &                       # auto lock (configs in Xresources).
 dunst &                           # notification daemon.
-picom -b &                           # compositior (for transparency).
+picom -b &                        # compositior (for transparency).
 sxhkd &                           # hotkey daemon.
-~/.fehbg &                        # setting wallpaper.
+$HOME/.fehbg &                    # setting wallpaper.
 
 # This is a fix for https://github.com/xmonad/xmonad/issues/164
 [ -e "$HOME/.xmonad" ] && rm -rf $HOME/.xmonad

@@ -19,7 +19,7 @@ export BROWSER="brave-browser"
 export LAUNCHER="dmenu_launcher"
 export SCREENLOCK="slock"
 
-export PROJECTS="$HOME/xkcd/scm"
+export SCM="$HOME/xkcd/scm"
 export WALLPAPERS="$XDG_DATA_HOME/wallpapers"
 
 # zsh key delay (mostly for vi mode).
@@ -29,6 +29,9 @@ export HISTFILE="$XDG_DATA_HOME/zsh/zsh_history"
 # oh-my-zsh stuff.
 export ZSH="$ZDOTDIR/oh-my-zsh"
 export ZSH_THEME="simple-lambda"
+
+export LESSHISTFILE=/dev/null
+export FZF_DEFAULT_OPTS="--border"
 
 # Path Settings.
 [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
