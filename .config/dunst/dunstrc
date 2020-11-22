@@ -11,18 +11,20 @@
   word_wrap           = yes
   ignore_newline      = no
   stack_duplicates    = yes
-  geometry            = "300x50-40+40"
+  geometry            = "340x50-40+40"
+  icon_path           = "/home/lycuid/.local/share/icons/32x32/status"
+  icon_position       = "left"
+  max_icon_size       = 32
   corner_radius       = 3
   shrink              = yes
   transparency        = 3
   idle_threshold      = 0
   follow              = none
   sticky_history      = yes
-  history_length      = 15
+  history_length      = 16
   show_indicators     = no
   line_height         = 8
   separator_height    = 1
-  separator_color     = "#aeaeae"
   padding             = 8
   horizontal_padding  = 15
 
@@ -34,19 +36,19 @@
 
 [frame]
   width = 1
-  color = "#252525"
 
 [urgency_low]
-    background = "#dddddd"
-    foreground = "#090909"
+  background  = "#252525"
+  foreground  = "#ffffff"
+  frame_color = "#cccccc"
 
 [urgency_normal]
-    background  = "#22709f"
-    foreground  = "#ffffff"
-    frame_color = "#ffffff"
+  background  = "#252525"
+  foreground  = "#ffffff"
+  frame_color = "#22709f"
 
 [urgency_critical]
-    background  = "#ff4d4d"
-    foreground  = "#ffffff"
-    frame_color = "#ffffff"
+  background  = "#252525"
+  foreground  = "#ffffff"
+  frame_color = "#ff4d4d"
 

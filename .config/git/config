@@ -1,7 +1,10 @@
 [user]
-	name  = Abhishek Kadam
-	email = abhishekk19@gmail.com
+	name        = Abhishek Kadam
+	email       = abhishekk19@gmail.com
+	signingkey  = CDC4141CA207D747
 [core]
 	editor = nvim
 [pull]
 	rebase = false
+[commit]
+	gpgsign = true

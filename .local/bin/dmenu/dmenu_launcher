@@ -1,4 +1,4 @@
 #!/bin/sh
 
-dmenu_run -c -l 10 -bw 1 -h 28
+dmenu_run -h 22 -p "run: "
 
