@@ -3,5 +3,5 @@
 SSH_CONFIG="$HOME/.ssh/config"
 [ -f "$SSH_CONFIG" ] && HOSTS=$(cat "$SSH_CONFIG" | egrep '^\s+?Host\s' | awk '{print $2}') || exit 0;
 
-echo "$HOSTS" | dmenu -h 28 -p 'ssh:' | xargs -i ${TERMINAL} -e ssh {} & disown
+echo "$HOSTS" | dmenu -h 22 -b -p 'ssh:' | xargs -i ${TERMINAL} -e ssh {} & disown
 

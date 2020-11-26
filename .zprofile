@@ -31,12 +31,13 @@ export ZSH="$ZDOTDIR/oh-my-zsh"
 export ZSH_THEME="simple-lambda"
 
 export LESSHISTFILE=/dev/null
-export FZF_DEFAULT_OPTS="--border"
+export FZF_DEFAULT_OPTS="--reverse --border"
 
 # Path Settings.
 [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
 [ -d "$HOME/.cabal/bin" ] && PATH="$HOME/.cabal/bin:$PATH"
 [ -d "$CARGO_HOME" ] && PATH="$CARGO_HOME/bin:$PATH"
+[ -d "$GOPATH" ] && PATH="$GOPATH/bin:$PATH"
 
 LOCAL_BIN="$HOME/.local/bin"
 if [ -d "$LOCAL_BIN" ];

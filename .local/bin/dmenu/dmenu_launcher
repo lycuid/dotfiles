@@ -1,4 +1,4 @@
 #!/bin/sh
 
-dmenu_run -h 22 -p "run: "
+dmenu_run -h 22 -p "run: " -b
 
