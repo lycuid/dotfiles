@@ -38,6 +38,13 @@ noremap <C-k> <C-y>
 noremap <C-h> :bp<CR>
 noremap <C-l> :bn<CR>
 
+command W w
+command Q q
+
+" formatter.
+autocmd Filetype rust nnoremap <leader>f :w<CR>:silent !rustfmt %<CR>:e<CR>
+autocmd Filetype go nnoremap <leader>f :w<CR>:silent !gofmt -w %<CR>:e<CR>
+
 autocmd Filetype xdefaults autocmd BufWritePost <buffer> silent !xrdb $XDG_CONFIG_HOME/X11/Xresources
 
 runtime vimrc.d/build_systems.vim

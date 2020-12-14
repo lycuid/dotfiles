@@ -127,7 +127,7 @@ myLayout  = avoidStruts $ master_stack
   where
     customSpacing = spacingRaw True (Border 3 3 3 3) True (Border 3 3 3 3) True
 
-    master_stack  = customSpacing . renamed [Replace "[]="] $ Tall 1 (3/100) (1/2)
+    master_stack  = renamed [Replace "[]="] . customSpacing $ Tall 1 (3/100) (1/2)
     monocle       = renamed [Replace "[*]"] $ noBorders Full
     tabbed_bottom = renamed [Replace "_*_"] . noBorders
                   $ tabbedBottom shrinkText def
@@ -137,7 +137,7 @@ myLayout  = avoidStruts $ master_stack
                   , inactiveBorderColor   = black def
                   , fontName              = "xft:IBM Plex Mono-9"
                   }
-    mirrored      = customSpacing . renamed [Replace "[||]"] $ Mirror master_stack
+    mirrored      = renamed [Replace "[||]"] . customSpacing $ Mirror master_stack
 
 ------------------------------------------------------------------------
 -- Window rules:

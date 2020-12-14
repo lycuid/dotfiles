@@ -115,10 +115,6 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 let g:coc_global_extensions = [
-  \ 'coc-snippets',
-  \ 'coc-pairs',
-  \ 'coc-highlight',
-  \ 'coc-rls',
   \ 'coc-tsserver',
   \ 'coc-eslint',
   \ 'coc-json',

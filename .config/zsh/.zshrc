@@ -1,5 +1,3 @@
-export LC_ALL=en_US.UTF-8
-
 ############################## 'oh my zsh' stuff. ##############################
 if [ ! -d "$ZSH" ];
 then

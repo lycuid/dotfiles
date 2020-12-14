@@ -1,6 +1,8 @@
 # vim: filetype=sh
 
-alias ls="lsd"
+alias ls="exa --git --icons"
+alias la="ls -aa"
+alias l1="ls -aa1"
 alias rm="rm -riv"
 alias server="python3 -m http.server"
 alias mx="tmux"
