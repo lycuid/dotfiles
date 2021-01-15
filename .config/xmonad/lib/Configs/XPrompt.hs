@@ -17,7 +17,7 @@ import Configs.Colors           (Colors(..))
 xpConfig :: XPConfig
 xpConfig =
   def
-    { font                  = "xft:IBM Plex Mono-11"
+    { font                  = "xft:Fira Code-11"
     , fgColor               = white def
     , bgColor               = black def
     , bgHLight              = cyan def

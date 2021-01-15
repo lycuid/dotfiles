@@ -1,8 +1,8 @@
 -- vim: filetype=haskell
 
 Config
-  { font              = "xft:BlexMono Nerd Font-9,monospace-14"
-  , additionalFonts   = ["xft:BlexMono Nerd Font-9:style=Bold,monospace-14"]
+  { font              = "xft:FiraCode Nerd Font-8,monospace-14"
+  , additionalFonts   = ["xft:FiraCode Nerd Font-8:style=Bold,monospace-14"]
   , overrideRedirect  = True
   , bgColor           = "#191919"
   , fgColor           = "#bdc3c7"

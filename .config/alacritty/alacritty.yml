@@ -91,22 +91,22 @@ font:
   size: 11.0
 
   normal:
-    family: BlexMono Nerd Font
+    family: FiraCode Nerd Font
     style: Regular
 
   # Bold font face
   bold:
-    family: BlexMono Nerd Font
+    family: FiraCode Nerd Font
     style: Bold
 
   # Italic font face
   italic:
-    family: BlexMono Nerd Font
+    family: FiraCode Nerd Font
     style: Italic
 
   # Bold italic font face
   bold_italic:
-    family: BlexMono Nerd Font
+    family: FiraCode Nerd Font
     style: Bold Italic
 
   # Offset is the extra space around each character. `offset.y` can be thought of
@@ -256,7 +256,7 @@ cursor:
   # the style of the active value of the normal cursor.
   #
   # See `cursor.style` for available options.
-  vi_mode_style: Block
+  vi_mode_style: Underline
 
   # If this is `true`, the cursor will be rendered as a hollow box when the
   # window is not focused.
