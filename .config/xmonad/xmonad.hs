@@ -13,25 +13,25 @@ import XMonad.Hooks.DynamicLog        ( dynamicLogWithPP
                                       , PP(..)
                                       )
 
-import XMonad.Layout.Renamed          (renamed, Rename(Replace))
-import XMonad.Layout.NoBorders        (noBorders)
-import XMonad.Layout.Spacing          (spacingRaw, Border(..))
-import XMonad.Layout.Tabbed           ( tabbedBottom
-                                      , shrinkText
-                                      , Theme(..))
-
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
-import Data.Monoid
-import Text.Printf                    (printf)
-import System.Exit
-import Data.List                      (isInfixOf)
+-- Layouts.
+import XMonad.Layout.Renamed          (renamed, Rename(Replace))
+import XMonad.Layout.NoBorders        (noBorders)
+import XMonad.Layout.Spacing          (spacingRaw, Border(..))
 
+-- User Configs.
 import Configs.Main
 import Configs.KeyBindings            (keymod, myCustomKeyBindings)
 import Configs.Scratchpad             (myScratchpads)
 import Configs.Colors                 (Colors(..))
+
+-- misc.
+import Data.Monoid
+import Text.Printf                    (printf)
+import System.Exit
+import Data.List                      (isInfixOf)
 
 ------------------------------------------------------------------------
 -- Workspaces.
@@ -120,24 +120,13 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 
 ------------------------------------------------------------------------
 -- Layouts:
-myLayout  = avoidStruts $ master_stack
-                        ||| monocle
-                        ||| tabbed_bottom
-                        ||| mirrored
+myLayout  = avoidStruts $ master_stack ||| monocle ||| mirrored
   where
-    customSpacing = spacingRaw True (Border 3 3 3 3) True (Border 3 3 3 3) True
+    spacing = spacingRaw True (Border 3 3 3 3) True (Border 3 3 3 3) True
 
-    master_stack  = renamed [Replace "[]="] . customSpacing $ Tall 1 (3/100) (1/2)
-    monocle       = renamed [Replace "[*]"] $ noBorders Full
-    tabbed_bottom = renamed [Replace "_*_"] . noBorders
-                  $ tabbedBottom shrinkText def
-                  { activeColor           = highlight def
-                  , inactiveColor         = black def
-                  , activeBorderColor     = black def
-                  , inactiveBorderColor   = black def
-                  , fontName              = "xft:IBM Plex Mono-9"
-                  }
-    mirrored      = renamed [Replace "[||]"] . customSpacing $ Mirror master_stack
+    master_stack  = renamed [Replace "="] . spacing $ Tall 1 (3/100) (1/2)
+    monocle       = renamed [Replace ""] $ noBorders Full
+    mirrored      = renamed [Replace ">"] . spacing $ Mirror master_stack
 
 ------------------------------------------------------------------------
 -- Window rules:
@@ -153,8 +142,9 @@ myEventHook = mempty
 
 ------------------------------------------------------------------------
 -- Status bars and logging
-myLogHook proc = dynamicLogWithPP
-  def
+myLogHook proc = do
+  ws <- gets $ show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+  dynamicLogWithPP $ def
     { ppCurrent           = xmobarColor (white def) (highlight def)
                           . wrap ("<box type=Bottom width=2 color=" ++ (cyan def) ++ ">") "</box>"
     , ppHidden            = xmobarColor (white def) ""
@@ -163,7 +153,7 @@ myLogHook proc = dynamicLogWithPP
     , ppUrgent            = xmobarColor (red def) ""
     , ppTitle             = xmobarColor (green def) "" . shorten 30
     , ppSep               = "  "
-    , ppLayout            = myXmobarLayoutStyle
+    , ppLayout            = myXmobarLayoutStyle . (++) (wrap "[" "]" ws)
     , ppOrder             = take 3
     , ppOutput            = hPutStrLn proc
     }
