@@ -12,6 +12,7 @@ export STACK_ROOT="$XDG_DATA_HOME/stack"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GOPATH="$XDG_DATA_HOME/go"
+export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
 
 export TERMINAL="st"
 export EDITOR="nvim"
