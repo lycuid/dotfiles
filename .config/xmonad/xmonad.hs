@@ -37,7 +37,7 @@ import Data.List                      (isInfixOf)
 -- Workspaces.
 myWorkspaces :: [String]
 myWorkspaces  = clickAction . map show $ [1..5]
-  {- Making the workspace tabs on xmobar, clickable. -}
+  -- Making the workspace tabs on xmobar, clickable.
   where
     clickAction = map (uncurry action) . zip (map show [1..])
     action = printf "<action=xdotool key super+%s> %s </action>"
@@ -48,7 +48,7 @@ modMaps conf@(XConfig {XMonad.modMask = modm}) = map (keymod modm)
   -- Move focus to the next window
   [ (xK_j       , windows W.focusDown)
   -- Move focus to the previous window
-  , (xK_k       , windows W.focusUp  )
+  , (xK_k       , windows W.focusUp)
   -- Rotate through the available layout algorithms
   , (xK_space   , sendMessage NextLayout)
   -- Resize viewed windows to the correct size
@@ -56,7 +56,7 @@ modMaps conf@(XConfig {XMonad.modMask = modm}) = map (keymod modm)
   -- Move focus to the next window
   , (xK_Tab     , windows W.focusDown)
   -- Move focus to the master window
-  , (xK_m       , windows W.focusMaster  )
+  , (xK_m       , windows W.focusMaster)
   -- Shrink the master area
   , (xK_h       , sendMessage Shrink)
   -- Expand the master area
@@ -80,9 +80,9 @@ modShiftMaps conf@(XConfig {XMonad.modMask = modm}) = map (keymod (modm .|. shif
   -- Swap the focused window and the master window
   , (xK_Return  , windows W.swapMaster)
   -- Swap the focused window with the next window
-  , (xK_j       , windows W.swapDown  )
+  , (xK_j       , windows W.swapDown)
   -- Swap the focused window with the previous window
-  , (xK_k       , windows W.swapUp    )
+  , (xK_k       , windows W.swapUp)
   -- Quit xmonad
   , (xK_q       , io (exitWith ExitSuccess))
   ]
@@ -143,7 +143,7 @@ myEventHook = mempty
 ------------------------------------------------------------------------
 -- Status bars and logging
 myLogHook proc = do
-  ws <- gets $ show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+  noOfWs' <- gets $ show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
   dynamicLogWithPP $ def
     { ppCurrent           = xmobarColor (white def) (highlight def)
                           . wrap ("<box type=Bottom width=2 color=" ++ (cyan def) ++ ">") "</box>"
@@ -153,7 +153,7 @@ myLogHook proc = do
     , ppUrgent            = xmobarColor (red def) ""
     , ppTitle             = xmobarColor (green def) "" . shorten 30
     , ppSep               = "  "
-    , ppLayout            = myXmobarLayoutStyle . (++) (wrap "[" "]" ws)
+    , ppLayout            = myXmobarLayoutStyle . (++) (wrap "[" "]" noOfWs')
     , ppOrder             = take 3
     , ppOutput            = hPutStrLn proc
     }

@@ -53,7 +53,7 @@ config
 
                         \<fn=1><fc=#000000,#9b59b6>\
                         \<action=`notify_tmux_ls` button=1>\
-                        \ %tmuxls% \
+                        \ \xf120 %tmuxls% \
                         \</action></fc></fn>\
                         \ \
 
