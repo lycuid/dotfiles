@@ -1,0 +1,20 @@
+#!/bin/sh -e
+
+if [ ! -x "$1" ];
+then
+  # put the object files in temp dir (delete after binary is compiled).
+  temp_dir=$(mktemp -d)
+  temp_args=(-odir "$temp_dir" -hidir "$temp_dir")
+
+  # compile options from 'src/Xmobar/App/Compile.hs'.
+  build_args=(-dynamic -threaded -i -ilib -fforce-recomp -main-is main -v0)
+
+  # rebuild everytime.
+  ghc --make xmobar.hs -o "$1" "${build_args[@]}" "${temp_args[@]}"
+
+  rm -rf "$temp_dir"
+fi
+
+$1
+
+# vim: ft=sh

@@ -1,6 +1,8 @@
--- vim: filetype=haskell
+import Xmobar
 
-Config
+config :: Config
+config
+  = defaultConfig
   { font              = "xft:FiraCode Nerd Font-8,monospace-14"
   , additionalFonts   = ["xft:FiraCode Nerd Font-8:style=Bold,monospace-14"]
   , overrideRedirect  = True
@@ -51,7 +53,7 @@ Config
 
                         \<fn=1><fc=#000000,#9b59b6>\
                         \<action=`notify_tmux_ls` button=1>\
-                        \  %tmuxls% \
+                        \ %tmuxls% \
                         \</action></fc></fn>\
                         \ \
 
@@ -61,7 +63,7 @@ Config
                         \</box></fc>"
   , commands          = [
       -- network activity monitor (dynamic interface resolution)
-      Run DynNetwork  [ "--template" , "<dev>: \xf063 <rx>kb/s \xf062 <tx>kb/s"
+      Run $ DynNetwork  [ "--template" , "<dev>: \xf063 <rx>kb/s \xf062 <tx>kb/s"
                       , "--Low"      , "1000"
                       , "--High"     , "5000"
                       , "--low"      , "#4cd137,#292929"
@@ -70,7 +72,7 @@ Config
                       ] 10
 
     -- cpu activity monitor
-    , Run Cpu         [ "--template" , "\xf108  <total>%"
+    , Run $ Cpu         [ "--template" , "\xf108  <total>%"
                       , "--Low"      , "25"
                       , "--High"     , "65"
                       , "--low"      , "#4cd137,#292929"
@@ -79,7 +81,7 @@ Config
                       ] 10
 
     -- memory usage monitor
-    , Run Memory      [ "--template" ,"\xf233  <usedratio>%"
+    , Run $ Memory      [ "--template" ,"\xf233  <usedratio>%"
                       , "--Low"      , "25"
                       , "--High"     , "65"
                       , "--low"      , "#4cd137,#292929"
@@ -88,20 +90,23 @@ Config
                       ] 10
 
     -- battery monitor
-    , Run Battery     [ "--template" , "<acstatus>"
+    , Run $ Battery     [ "--template" , "<acstatus>"
                       , "--Low"      , "22"
                       , "--High"     , "80"
                       , "--low"      , "#cc6666,#292929"
                       , "--normal"   , "#ffdd59,#292929"
                       , "--high"     , "#4cd137,#292929"
                       , "--"
-                      , "-o"	, "<left>% <fc=#ffdd59,#292929>(<timeleft>)</fc>"
-                      , "-O"	, "<left>% <fc=#ffdd59,#292929>\xf0e7</fc>"
-                      , "-i"	, "<left>% <fc=#4cd137,#292929>\xf0e7</fc>"
+                      , "-o", "<left>% <fc=#ffdd59,#292929>(<timeleft>)</fc>"
+                      , "-O", "<left>% <fc=#ffdd59,#292929>\xf0e7</fc>"
+                      , "-i", "<left>% <fc=#4cd137,#292929>\xf0e7</fc>"
                       ] 10
-    , Run Date        "\xf073  %a, %b %d %H:%M" "date" 600
-    , Run Com         "sh" ["/home/lycuid/.config/xmobar/scripts/tmuxls.sh"] "tmuxls" 10
-    , Run Com         "sh" ["/home/lycuid/.config/xmobar/scripts/sound.sh"] "sound" 1
-    , Run UnsafeStdinReader
+    , Run $ Date        "\xf073  %a, %b %d %H:%M" "date" 600
+    , Run $ Com         "sh" ["/home/lycuid/.config/xmobar/scripts/tmuxls.sh"] "tmuxls" 10
+    , Run $ Com         "sh" ["/home/lycuid/.config/xmobar/scripts/sound.sh"] "sound" 1
+    , Run $ UnsafeStdinReader
   ]
 }
+
+main :: IO ()
+main = xmobar config
