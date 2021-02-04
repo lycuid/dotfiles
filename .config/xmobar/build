@@ -1,20 +1,47 @@
-#!/bin/sh -e
+#!/bin/sh
 
-if [ ! -x "$1" ];
+BIN=$1
+
+modified_time()
+{
+  stat -L $1 | awk '/^Modify/ {print $2, $3, $4}' | xargs -i date +"%s" --date="{}"
+}
+
+should_recompile()
+{
+  if [ ! -f $BIN ]; then echo 1; exit 0; fi
+
+  bin_mod=$(modified_time $BIN)
+  latest_mod=$(modified_time xmobar.hs)
+
+  for file in $(tree -iaf --noreport lib)
+  do
+    if [ -f "$file" ];
+    then
+      file_mod=$(modified_time $file)
+      latest_mod=$(( $file_mod > $latest_mod ? $file_mod : $latest_mod ))
+    fi
+  done
+
+  echo $(( $latest_mod > $bin_mod ))
+}
+
+if [[ $(should_recompile) -eq 1 ]];
 then
+  echo "[+] recompiling xmobar."
+
   # put the object files in temp dir (delete after binary is compiled).
   temp_dir=$(mktemp -d)
-  temp_args=(-odir "$temp_dir" -hidir "$temp_dir")
+  temp_flags=(-odir "$temp_dir" -hidir "$temp_dir")
 
   # compile options from 'src/Xmobar/App/Compile.hs'.
-  build_args=(-dynamic -threaded -i -ilib -fforce-recomp -main-is main -v0)
+  build_flags=(-o $BIN -dynamic -threaded -i -ilib -fforce-recomp -main-is main -v0)
 
-  # rebuild everytime.
-  ghc --make xmobar.hs -o "$1" "${build_args[@]}" "${temp_args[@]}"
+  ghc --make xmobar.hs "${build_flags[@]}" "${temp_flags[@]}"
 
   rm -rf "$temp_dir"
 fi
 
-$1
+$BIN
 
 # vim: ft=sh
