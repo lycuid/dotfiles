@@ -29,7 +29,7 @@ BLUE="\033[94m"
 link()
 {
   paths=$(
-    cd $(dirname $SRC)/$(basename $SRC) && tree -iaf --noreport . \
+    cd $(dirname $SRC)/$(basename $SRC) && tree -iafI "\.git" --noreport . \
       | cut -d \/ -f 2- \
       | egrep "^\.\w+" \
       | egrep -v "^\.git"
@@ -56,7 +56,7 @@ link()
 unlink()
 {
   paths=$(
-    cd $(dirname $SRC)/$(basename $SRC) && tree --dirsfirst -iaf --noreport . \
+    cd $(dirname $SRC)/$(basename $SRC) && tree --dirsfirst -iafI "\.git" --noreport . \
       | cut -d \/ -f 2- \
       | egrep "^\.\w+" \
       | egrep -v "^\.git" \
