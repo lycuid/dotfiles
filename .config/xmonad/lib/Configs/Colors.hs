@@ -3,8 +3,7 @@ module Configs.Colors where
 import XMonad
 
 data Colors = Colors
-  { highlight   :: String
-  , black       :: String
+  { black       :: String
   , red         :: String
   , green       :: String
   , blue        :: String
@@ -14,8 +13,7 @@ data Colors = Colors
 
 instance Default Colors where
   def = Colors
-    { highlight   = "#2f3640"
-    , black       = "#131313"
+    { black       = "#131313"
     , red         = "#eb2f06"
     , green       = "#2ed573"
     , blue        = "#30336b"

@@ -21,6 +21,6 @@ myNormalBorderColor     = "#000000"
 myXmobarLayoutStyle = cycleLayoutAction . whiteColor . greenBox
   where
     cycleLayoutAction = wrap "<action=xdotool key super+space>" "</action>"
-    whiteColor = xmobarColor "white" "#282828"
-    greenBox = wrap ("<box type=Bottom width=2 color=" ++ (green def) ++ "> ") " </box>"
+    whiteColor = xmobarColor "white" ""
+    greenBox = wrap ("<box type=Bottom width=1 color=" ++ (green def) ++ "> ") " </box>"
 

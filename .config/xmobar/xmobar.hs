@@ -6,6 +6,25 @@ import Sections.Cpu
 import Sections.Memory
 import Sections.Network
 
+import Data.List (intercalate)
+
+
+tmplLeft :: String
+tmplLeft = "%UnsafeStdinReader%"
+
+tmplCenter :: String
+tmplCenter = "<fc=white>%date%</fc>"
+
+tmplRight :: String
+tmplRight = intercalate " <box type=Left width=2 color=#303030> </box>"
+          [ templateNetwork
+          , templateCpu
+          , templateMemory
+          , templateSound
+          , templateTmuxls
+          , templateBattery
+          ]
+
 config :: Config
 config
   = defaultConfig
@@ -14,7 +33,7 @@ config
   , overrideRedirect  = True
   , bgColor           = "#191919"
   , fgColor           = "#bdc3c7"
-  , alpha             = 255
+  , alpha             = 225
   , position          = Bottom
   , textOffset        = -1
   , iconOffset        = -1
@@ -26,13 +45,7 @@ config
   , allDesktops       = True
   , sepChar           = "%"
   , alignSep          = "}{"
-  , template          = "%UnsafeStdinReader%}<fc=white>%date%</fc>{"
-                      ++ templateNetwork
-                      ++ templateCpu
-                      ++ templateMemory
-                      ++ templateSound
-                      ++ templateTmuxls
-                      ++ templateBattery
+  , template          = tmplLeft ++ "}" ++ tmplCenter ++ "{" ++ tmplRight
   , commands          = [ commandNetwork
                         , commandCpu
                         , commandMemory

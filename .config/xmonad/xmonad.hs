@@ -40,7 +40,7 @@ myWorkspaces  = clickAction . map show $ [1..5]
   -- Making the workspace tabs on xmobar, clickable.
   where
     clickAction = map (uncurry action) . zip (map show [1..])
-    action = printf "<action=xdotool key super+%s> %s </action>"
+    action = printf "<action=xdotool key super+%s>%s</action>"
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -145,14 +145,15 @@ myEventHook = mempty
 myLogHook proc = do
   noOfWs' <- gets $ show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
   dynamicLogWithPP $ def
-    { ppCurrent           = xmobarColor (white def) (highlight def)
+    { ppCurrent           = xmobarColor (white def) ""
                           . wrap ("<box type=Bottom width=2 color=" ++ (cyan def) ++ ">") "</box>"
-    , ppHidden            = xmobarColor (white def) ""
-    , ppHiddenNoWindows   = xmobarColor "#353535" ""
+                          . wrap " " " "
+    , ppHidden            = xmobarColor (white def) "" . wrap " " " "
+    , ppHiddenNoWindows   = xmobarColor "#353535" "" . wrap " " " "
     , ppVisibleNoWindows  = Just (xmobarColor "red" "")
     , ppUrgent            = xmobarColor (red def) ""
     , ppTitle             = xmobarColor (green def) "" . shorten 30
-    , ppSep               = "  "
+    , ppSep               = " <box type=Left width=2 color=#303030> </box>"
     , ppLayout            = myXmobarLayoutStyle . (++) (wrap "[" "]" noOfWs')
     , ppOrder             = take 3
     , ppOutput            = hPutStrLn proc

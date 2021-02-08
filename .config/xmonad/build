@@ -1,0 +1,47 @@
+#!/bin/sh
+
+BIN=$1
+
+modified_time()
+{
+  stat -L $1 | awk '/^Modify/ {print $2, $3, $4}' | xargs -i date +"%s" --date="{}"
+}
+
+should_recompile()
+{
+  if [ ! -f $BIN ]; then echo 1; exit 0; fi
+
+  bin_mod=$(modified_time $BIN)
+  latest_mod=$(modified_time xmonad.hs)
+
+  for file in $(tree -iaf --noreport lib)
+  do
+    if [ -f "$file" ];
+    then
+      file_mod=$(modified_time $file)
+      latest_mod=$(( $file_mod > $latest_mod ? $file_mod : $latest_mod ))
+    fi
+  done
+
+  echo $(( $latest_mod > $bin_mod ))
+}
+
+if [[ $(should_recompile) -eq 1 ]];
+then
+  echo "[+] recompiling xmonad."
+
+  # put the object files in temp dir (delete after binary is compiled).
+  temp_dir=$(mktemp -d)
+  temp_flags=(-odir "$temp_dir" -hidir "$temp_dir")
+
+  # compile options from 'src/Xmobar/App/Compile.hs'.
+  build_flags=(-o $BIN -i -ilib -dynamic -fforce-recomp -main-is main -v0)
+
+  ghc --make xmonad.hs "${build_flags[@]}" "${temp_flags[@]}"
+
+  rm -rf "$temp_dir"
+fi
+
+$BIN disown &
+
+# vim: ft=sh
