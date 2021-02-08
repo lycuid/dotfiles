@@ -43,5 +43,3 @@ then
 fi
 
 $BIN disown &
-
-# vim: ft=sh

@@ -43,5 +43,3 @@ then
 fi
 
 $BIN
-
-# vim: ft=sh
