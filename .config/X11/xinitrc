@@ -1,6 +1,8 @@
 #!/bin/sh
 
-[ -f "$XDG_CONFIG_HOME/X11/Xresources" ] && xrdb -load "$XDG_CONFIG_HOME/X11/Xresources"
+[ -f "$XDG_CONFIG_HOME/X11/Xresources" ] &&
+  xrdb -load "$XDG_CONFIG_HOME/X11/Xresources"
+
 xsetroot -cursor_name left_ptr &  # good'ol left arrow.
 xset r rate 300 50 &              # increase x rate.
 
@@ -8,23 +10,17 @@ xautolock &                       # auto lock (configs in Xresources).
 dunst &                           # notification daemon.
 sxhkd &                           # hotkey daemon.
 
-# unnecessary stuff (stuff, that i "CAN" live without).
-picom -b &                        # compositior (for transparency).
-"$HOME"/.fehbg &                    # setting wallpaper.
+if [ -d $XDG_CONFIG_HOME/X11/xinitrc.d ]; then
+  for file in $XDG_CONFIG_HOME/X11/xinitrc.d/*.sh ; do
+    [ -x "$file" ] && . $file
+  done
+  unset f
+fi
 
-# This is a fix for https://github.com/xmonad/xmonad/issues/164
-[ -d "$HOME/.xmonad" ] && rm -rf $HOME/.xmonad
-exec xmonad                       # window manager.
-
-# while :;
-# do
-#   DATE=$(date +'%a, %b %d %H:%M:%S')
-#   MEM=$(free | awk '/Mem/ {printf "%.f\n", (($3+$5)/$2)*100}')
-#
-#   xsetroot -name " [mem: $MEM%] | $DATE"
-#   sleep 1
-# done &
-#
-# exec dwm
+case "$1" in
+  "xmonad") launch_xmonad ;;
+  "dwm")    launch_dwm    ;;
+  *)        exit          ;;
+esac
 
 # vim: ft=sh

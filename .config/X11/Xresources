@@ -12,9 +12,9 @@ Xft.autohint: true
 
 *faceName: FiraCode Nerd Font-11
 *font: FiraCode Nerd Font-11
-*boldFont: FiraCode Nerd Font-11
-*italicFont: FiraCode Nerd Font-11
-*boldItalicfont: FiraCode Nerd Font-11
+*boldFont: FiraCode Nerd Font-11:bold
+*italicFont: FiraCode Nerd Font-11:italic
+*boldItalicfont: FiraCode Nerd Font-11:bold:italic
 
 *foreground: #c5cdd9
 *background: #090909
