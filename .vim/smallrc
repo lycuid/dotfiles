@@ -8,7 +8,7 @@ set autoindent
 set nu rnu
 set mouse=a                       " mouse click navigation.
 set encoding=utf-8
-set et ts=2 sw=2 softtabstop=0
+set et ts=2 sw=2 softtabstop=2
 set incsearch                     " highlight search as you type.
 set hlsearch                      " highlight search words.
 set fileformat=unix
@@ -45,6 +45,7 @@ command Q q
 autocmd Filetype rust nnoremap <leader>f :w<CR>:silent !rustfmt %<CR>:e<CR>
 autocmd Filetype go nnoremap <leader>f :w<CR>:silent !gofmt -w %<CR>:e<CR>
 autocmd Filetype c,cpp nnoremap <leader>f :w<CR>:silent !clang-format -i %<CR>:e<CR>
+
 
 autocmd Filetype xdefaults autocmd BufWritePost <buffer> silent !xrdb $XDG_CONFIG_HOME/X11/Xresources
 

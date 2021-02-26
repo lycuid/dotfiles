@@ -20,7 +20,6 @@ tmplRight = intercalate " <box type=Left width=2 color=#303030> </box>"
           [ templateNetwork
           , templateCpu
           , templateMemory
-          , templateSound
           , templateTmuxls
           , templateBattery
           ]
@@ -52,7 +51,6 @@ config
                         , commandBattery
                         , commandDate
                         , commandTmuxls
-                        , commandSound
                         , Run $ UnsafeStdinReader
                         ]
 }
