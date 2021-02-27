@@ -37,9 +37,9 @@ then
   # compile options from 'src/Xmobar/App/Compile.hs'.
   build_flags=(-o $BIN -dynamic -threaded -i -ilib -fforce-recomp -main-is main -v0)
 
-  ghc --make xmobar.hs "${build_flags[@]}" "${temp_flags[@]}"
+  ghc --make xmobar.hs "${build_flags[@]}" "${temp_flags[@]}" && rm -rf "$temp_dir"
 
-  rm -rf "$temp_dir"
+  exit $?
 fi
 
 $BIN

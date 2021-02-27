@@ -1,5 +1,4 @@
 launch_xmonad() {
-  # unnecessary stuff (stuff, that i "CAN" live without).
   picom -b &      # compositior (for transparency).
   $HOME/.fehbg &  # setting wallpaper.
 

@@ -120,13 +120,13 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 
 ------------------------------------------------------------------------
 -- Layouts:
-myLayout  = avoidStruts $ master_stack ||| monocle ||| mirrored
+myLayout  = avoidStruts $ tall ||| full ||| mirrored
   where
     spacing = spacingRaw True (Border 3 3 3 3) True (Border 3 3 3 3) True
 
-    master_stack  = renamed [Replace "="] . spacing $ Tall 1 (3/100) (1/2)
-    monocle       = renamed [Replace ""] $ noBorders Full
-    mirrored      = renamed [Replace ">"] . spacing $ Mirror master_stack
+    tall      = renamed [Replace "T"] . spacing $ Tall 1 (3/100) (1/2)
+    full      = renamed [Replace "F"] $ noBorders Full
+    mirrored  = renamed [Replace "M"] . spacing $ Mirror tall
 
 ------------------------------------------------------------------------
 -- Window rules:
@@ -153,7 +153,7 @@ myLogHook proc = do
     , ppUrgent            = xmobarColor (red def) ""
     , ppTitle             = xmobarColor (green def) "" . shorten 30
     , ppSep               = " <box type=Left width=2 color=#303030> </box>"
-    , ppLayout            = myXmobarLayoutStyle . (++) (wrap "[" "]" noOfWs')
+    , ppLayout            = myXmobarLayoutStyle . flip (++) (wrap " [" "]" noOfWs')
     , ppOrder             = take 3
     , ppOutput            = hPutStrLn proc
     }
