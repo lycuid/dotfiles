@@ -1,0 +1,6 @@
+#!/bin/sh
+
+[ -z "$1" ] && args=() || args=(-s $1)
+tmux new-session "${args[@]}" -n "server" \; new-window -d -n "code"
+
+# vim: ft=sh
