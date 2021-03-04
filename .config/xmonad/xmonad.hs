@@ -146,7 +146,7 @@ myLogHook proc = do
   noOfWs' <- gets $ show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
   dynamicLogWithPP $ def
     { ppCurrent           = xmobarColor (white def) ""
-                          . wrap ("<box type=Bottom width=2 color=" ++ (cyan def) ++ ">") "</box>"
+                          . wrap ("<box type=Bottom width=1 color=" ++ (cyan def) ++ ">") "</box>"
     , ppHidden            = xmobarColor (white def) ""
     , ppHiddenNoWindows   = xmobarColor "#353535" ""
     , ppVisibleNoWindows  = Just (xmobarColor "red" "")
