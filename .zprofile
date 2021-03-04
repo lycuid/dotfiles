@@ -33,7 +33,7 @@ export ZSH="$ZDOTDIR/oh-my-zsh"
 export ZSH_THEME="simple-lambda"
 
 export LESSHISTFILE="/dev/null"
-export FZF_DEFAULT_OPTS="--reverse --border"
+export FZF_DEFAULT_OPTS="--border"
 
 # Path Settings.
 [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
