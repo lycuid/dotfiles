@@ -9,6 +9,7 @@ xset r rate 300 50 &              # increase x rate.
 xautolock &                       # auto lock (configs in Xresources).
 dunst &                           # notification daemon.
 sxhkd &                           # hotkey daemon.
+unclutter &                       # hide cursor while idle.
 
 if [ -d $XDG_CONFIG_HOME/X11/xinitrc.d ]; then
   for file in $XDG_CONFIG_HOME/X11/xinitrc.d/*.sh ; do
