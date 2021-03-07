@@ -11,11 +11,11 @@ dunst &                           # notification daemon.
 sxhkd &                           # hotkey daemon.
 unclutter &                       # hide cursor while idle.
 
-if [ -d $XDG_CONFIG_HOME/X11/xinitrc.d ]; then
-  for file in $XDG_CONFIG_HOME/X11/xinitrc.d/*.sh ; do
-    [ -x "$file" ] && . $file
+if [ -d "$XDG_CONFIG_HOME"/X11/xinitrc.d ]; then
+  for file in "$XDG_CONFIG_HOME"/X11/xinitrc.d/*.sh; do
+    [ -f "$file" ] && . $file
   done
-  unset f
+  unset file
 fi
 
 case "$1" in

@@ -27,10 +27,9 @@ export WALLPAPERS="$XDG_DATA_HOME/wallpapers"
 # zsh key delay (mostly for vi mode).
 export KEYTIMEOUT=1
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-export HISTFILE="$XDG_DATA_HOME/zsh/zsh_history"
-# oh-my-zsh stuff.
-export ZSH="$ZDOTDIR/oh-my-zsh"
-export ZSH_THEME="simple-lambda"
+export HISTFILE="$XDG_DATA_HOME/zsh/history"
+export HISTSIZE=50000
+export SAVEHIST=10000
 
 export LESSHISTFILE="/dev/null"
 export FZF_DEFAULT_OPTS="--border"
@@ -48,6 +47,7 @@ then
   do
     [ -d "$LOCAL_BIN/$DIR" ] && PATH="$LOCAL_BIN/$DIR:$PATH"
   done
+  unset DIR
   PATH="$LOCAL_BIN:$PATH"
 fi
 unset LOCAL_BIN
