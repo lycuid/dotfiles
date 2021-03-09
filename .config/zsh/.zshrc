@@ -8,7 +8,6 @@ if [ -d $SCRIPTS_DIR ]; then
   unset SCRIPTS_DIR FILE
 fi
 
-# inspired from my favourite angry, insatiable linux baldster on yt - luke smith.
 function lfcd() {
   local dir=$(lf -last-dir-path=/dev/stdout | more)
   [ -d "$dir" ] && cd $dir
