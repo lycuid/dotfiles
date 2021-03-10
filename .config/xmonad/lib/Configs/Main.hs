@@ -8,7 +8,7 @@ myTerminal              = "$TERMINAL"
 myTerminalWithResource  = unwords [myTerminal, "-n"]
 myEditor                = "$EDITOR"
 
-myBrowsers              = ["Brave-browser", "Firefox"]
+myBrowsers              = ["Brave-browser"]
 myFloating              = ["Gimp", "mpv", "vlc"]
 
 myFocusFollowsMouse     = False
