@@ -8,9 +8,3 @@ if [ -d $SCRIPTS_DIR ]; then
   unset SCRIPTS_DIR FILE
 fi
 
-function lfcd() {
-  local dir=$(lf -last-dir-path=/dev/stdout | more)
-  [ -d "$dir" ] && cd $dir
-}
-bindkey -s '^o' "lfcd\n"
-
