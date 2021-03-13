@@ -20,6 +20,7 @@ export VISUAL="$TERMINAL -e nvim"
 export BROWSER="brave-browser"
 export LAUNCHER="dmenu_launcher"
 export SCREENLOCK="slock"
+export DMENU_DEFAULT_ARGS="-h 25"
 
 export SCM="$HOME/xkcd/scm"
 export WALLPAPERS="$XDG_DATA_HOME/wallpapers"

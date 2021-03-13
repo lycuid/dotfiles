@@ -7,8 +7,8 @@ dmenu.selhighlightforeground: #131313
 dmenu.highlightforeground: #00ffff
 dmenu.highlightbackground: #353535
 
-dmenu.font: Fira Code-10
-dmenu.boldFont: Fira Code-10
-dmenu.italicFont: Fira Code-10
-dmenu.boldItalicfont: Fira Code-10
+dmenu.font: TerminessTTF Nerd Font-12
+dmenu.boldFont: TerminessTTF Nerd Font-12
+dmenu.italicFont: TerminessTTF Nerd Font-12
+dmenu.boldItalicfont: TerminessTTF Nerd Font-12
 

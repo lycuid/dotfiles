@@ -27,8 +27,8 @@ tmplRight = intercalate " <box type=Left width=2 color=#303030> </box>"
 config :: Config
 config
   = defaultConfig
-  { font              = "xft:FiraCode Nerd Font-8,monospace-14"
-  , additionalFonts   = ["xft:FiraCode Nerd Font-8:style=Bold,monospace-14"]
+  { font              = "xft:TerminessTTF Nerd Font-10,monospace-11"
+  , additionalFonts   = ["xft:TerminessTTF Nerd Font-10:style=Bold,monospace-11"]
   , overrideRedirect  = True
   , bgColor           = "#191919"
   , fgColor           = "#bdc3c7"

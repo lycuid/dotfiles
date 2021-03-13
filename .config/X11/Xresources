@@ -10,11 +10,11 @@ Xft.dpi: 96
 Xft.antialias: true
 Xft.autohint: true
 
-*faceName: FiraCode Nerd Font-11
-*font: FiraCode Nerd Font-11
-*boldFont: FiraCode Nerd Font-11:bold
-*italicFont: FiraCode Nerd Font-11:italic
-*boldItalicfont: FiraCode Nerd Font-11:bold:italic
+*faceName: Hack Nerd Font-11
+*font: Hack Nerd Font-11
+*boldFont: Hack Nerd Font-11:bold
+*italicFont: Hack Nerd Font-11:italic
+*boldItalicfont: Hack Nerd Font-11:bold:italic
 
 *foreground: #c5cdd9
 *background: #090909
