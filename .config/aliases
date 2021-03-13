@@ -1,6 +1,8 @@
 # vim: filetype=sh
 
-alias ls="lsd"
+alias ls="ls -h --color=always"
+alias ll="ls -l"
+alias la="ls -Al"
 alias rm="rm -riv"
 alias server="python3 -m http.server"
 alias mx="tmux"

@@ -13,7 +13,7 @@ myFloating              = ["Gimp", "mpv", "vlc"]
 
 myFocusFollowsMouse     = False
 myClickJustFocuses      = False
-myBorderWidth           = 1 :: Dimension
+myBorderWidth           = 2 :: Dimension
 myModMask               = mod4Mask
 myFocusedBorderColor    = "#9b59b6"
 myNormalBorderColor     = "#000000"

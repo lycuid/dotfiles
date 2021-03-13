@@ -5,7 +5,7 @@ options:
   link      sync with symlinks from 'src' dir to 'dest' dir.
   unlink    remove all 'src' dir symlinks from 'dest' dir."
 
-trap 'echo "$USAGE"' EXIT
+trap '[ "$?" -ne 0 ] && echo "$USAGE"' EXIT
 
 [ "$#" -lt 3 ] && exit 1
 

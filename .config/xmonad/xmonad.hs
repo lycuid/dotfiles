@@ -122,7 +122,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- Layouts:
 myLayout  = avoidStruts $ tall ||| full ||| mirrored
   where
-    spacing = spacingRaw True (Border 3 3 3 3) True (Border 3 3 3 3) True
+    spacing = spacingRaw False (Border 3 3 3 3) True (Border 3 3 3 3) True
 
     tall      = renamed [Replace "T"] . spacing $ Tall 1 (3/100) (1/2)
     full      = renamed [Replace "F"] $ noBorders Full

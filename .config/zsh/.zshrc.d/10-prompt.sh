@@ -12,7 +12,7 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-parens
 # (:A) add paren between branch info and changes (if exists).
 +vi-git-parens() {
   [ -z "${hook_com[unstaged]}" ] && [ -n "${hook_com[staged]}" ] \
-    && hook_com[staged]="(\033[0m(${hook_com[staged]}"
+    && hook_com[staged]="\033[0m(${hook_com[staged]}"
 
   [ -z "${hook_com[staged]}" ] && [ -n "${hook_com[unstaged]}" ] \
     && hook_com[unstaged]="${hook_com[unstaged]}\033[0m)"
@@ -23,11 +23,10 @@ precmd() {
 }
 
 git_info() {
-  local LAMBDA="%(?,%{$fg_bold[green]%}λ,%{$fg_bold[red]%}λ)%{$reset_color%}"
-  [ -z "$vcs_info_msg_0_" ] && \
-    echo " $LAMBDA" ||
-    echo " ${vcs_info_msg_0_}\n$LAMBDA"
+  LAMBDA="%(?,%{$fg_bold[green]%}λ,%{$fg_bold[red]%}λ)%{$reset_color%}"
+  [ -z "$vcs_info_msg_0_" ] && echo " $LAMBDA" || echo " ${vcs_info_msg_0_}\n$LAMBDA"
 }
+
 ME="%(!.%{$fg[red]%}%n%{$reset_color%}.%{$fg[cyan]%}%n%{$reset_color%})"
 
 PS1=$'\n'"%{$fg[white]%}[${ME}%B%{$fg[blue]%}@%b%{$fg[white]%}%m %{$fg[magenta]%}\
