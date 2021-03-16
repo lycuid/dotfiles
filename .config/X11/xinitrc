@@ -18,9 +18,8 @@ if [ -d "$XDG_CONFIG_HOME"/X11/xinitrc.d ]; then
 fi
 
 case "$1" in
-  "xmonad") launch_xmonad ;;
-  "dwm")    launch_dwm    ;;
-  *)        exit          ;;
+  "dwm")  launch_dwm    ;;
+  *)      launch_xmonad ;;
 esac
 
 # vim: ft=sh
