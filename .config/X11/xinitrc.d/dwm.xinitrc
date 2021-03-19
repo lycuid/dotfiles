@@ -1,3 +1,5 @@
+# vim: ft=sh
+
 DWN_CACHE_DIR=${XDG_CACHE_HOME:-$HOME/.cache}/dwm
 
 # constants.
@@ -43,7 +45,7 @@ CPU() {
   used=$(( (user + nnice + system) - (puser + pnice + psystem) ))
   echo "$user $nnice $system $idle $iowait $irq $softirq" > "$prev_data"
 
-  printf "  %3s%%" $(( 100 * used / total ))
+  printf "   %2s%%" $(( 100 * used / total ))
 }
 
 MEM() {
@@ -82,15 +84,12 @@ BAT() {
   done
 }
 
-launch_dwm() {
-  mkdir -p "$DWN_CACHE_DIR"
+mkdir -p "$DWN_CACHE_DIR"
 
-  while true
-  do
-    xsetroot -name "  $(NETWORK)  |  $(CPU)  |  $(MEM)  |  $(BAT)$(DATE) "
-    sleep 1
-  done &
+while true
+do
+  xsetroot -name "  $(NETWORK)  |  $(CPU)  |  $(MEM)  |  $(BAT)$(DATE) "
+  sleep 1
+done &
 
-  exec dwm
-}
-
+exec dwm

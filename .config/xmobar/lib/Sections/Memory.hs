@@ -9,7 +9,7 @@ templateMemory = "<fc=white><action=`notify_max_mem` button=1>\
 
 commandMemory :: Runnable
 commandMemory = Run $ Memory
-  [ "--template" ,"\xf233  <usedratio>%"
+  [ "--template" ,"\xf1c0  <usedratio>%"
   , "--Low"      , "25"
   , "--High"     , "65"
   , "--low"      , "#4cd137"

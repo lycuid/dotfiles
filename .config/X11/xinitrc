@@ -1,7 +1,10 @@
-#!/bin/sh
+# vim: ft=sh
 
-[ -f "$XDG_CONFIG_HOME/X11/Xresources" ] &&
-  xrdb -load "$XDG_CONFIG_HOME/X11/Xresources"
+xdirname=$(dirname $0)    # eg. $XDG_CONFIG_HOME/X11/
+xbasename=$(basename $0)  # eg. xinitrc
+wm="$1"                   # dwm, xmonad etc
+
+[ -f "$xdirname/Xresources" ] && xrdb -load "$xdirname/Xresources"
 
 xsetroot -cursor_name left_ptr &  # good'ol left arrow.
 xset r rate 300 50 &              # increase x rate.
@@ -10,16 +13,8 @@ xautolock &                       # auto lock (configs in Xresources).
 dunst &                           # notification daemon.
 sxhkd &                           # hotkey daemon.
 
-if [ -d "$XDG_CONFIG_HOME"/X11/xinitrc.d ]; then
-  for file in "$XDG_CONFIG_HOME"/X11/xinitrc.d/*.sh; do
-    [ -f "$file" ] && . $file
-  done
-  unset file
-fi
+# looks for something like $XDG_CONFIG_HOME/X11/xinitrc.d/xmonad.xinitrc
+wm_xinitrc="$xdirname/$xbasename.d/${wm:-dwm}.$xbasename"
+[ ! -x "$wm_xinitrc" ] && exit 1
 
-case "$1" in
-  "dwm")  launch_dwm    ;;
-  *)      launch_xmonad ;;
-esac
-
-# vim: ft=sh
+$wm_xinitrc
