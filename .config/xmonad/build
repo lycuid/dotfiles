@@ -40,6 +40,7 @@ then
 
   ghc --make xmonad.hs "${build_flags[@]}" "${temp_flags[@]}"
   rm -rf "$temp_dir"
+
+  echo "[+] successfully compiled xmonad."
 fi
 
-echo "[+] successfully compiled xmonad."

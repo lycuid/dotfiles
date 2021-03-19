@@ -44,14 +44,10 @@ export FZF_DEFAULT_OPTS="--border"
 LOCAL_BIN="$HOME/.local/bin"
 if [ -d "$LOCAL_BIN" ];
 then
-  for DIR in $(ls "$LOCAL_BIN");
-  do
-    [ -d "$LOCAL_BIN/$DIR" ] && PATH="$LOCAL_BIN/$DIR:$PATH"
-  done
-  unset DIR
+  for DIR in "$LOCAL_BIN"/*; do [ -d "$DIR" ] && PATH="$DIR:$PATH"; done
   PATH="$LOCAL_BIN:$PATH"
 fi
-unset LOCAL_BIN
+unset DIR LOCAL_BIN
 
 export PATH
 

@@ -46,7 +46,6 @@ autocmd Filetype rust nnoremap <leader>f :w<CR>:silent !rustfmt %<CR>:e<CR>
 autocmd Filetype go nnoremap <leader>f :w<CR>:silent !gofmt -w %<CR>:e<CR>
 autocmd Filetype c,cpp nnoremap <leader>f :w<CR>:silent !clang-format -i %<CR>:e<CR>
 
-
 autocmd Filetype xdefaults autocmd BufWritePost <buffer> silent !xrdb $XDG_CONFIG_HOME/X11/Xresources
 
 runtime vimrc.d/build_systems.vim

@@ -21,11 +21,11 @@ should_recompile()
     if [ -f "$file" ];
     then
       file_mod=$(modified_time $file)
-      latest_mod=$(( $file_mod > $latest_mod ? $file_mod : $latest_mod ))
+      latest_mod=$(( file_mod > latest_mod ? file_mod : latest_mod ))
     fi
   done
 
-  echo $(( $latest_mod > $bin_mod ))
+  echo $(( latest_mod > bin_mod ))
 }
 
 if [[ $(should_recompile) -eq 1 ]];
@@ -41,9 +41,9 @@ then
 
   ghc --make xmobar.hs "${build_flags[@]}" "${temp_flags[@]}"
   rm -rf "$temp_dir"
-fi
 
-echo "[+] successfully compiled xmobar."
+  echo "[+] successfully compiled xmobar."
+fi
 
 $BIN
 
