@@ -26,8 +26,7 @@ link() {
   paths=$(
     cd $(dirname $SRC)/$(basename $SRC) && tree -iafI "\.git" --noreport . \
       | cut -d \/ -f 2- \
-      | egrep "^\.\w+" \
-      | egrep -v "^\.git"
+      | egrep "^\.\w+"
   )
 
   for path in $paths; do
@@ -53,7 +52,6 @@ unlink() {
     cd $(dirname $SRC)/$(basename $SRC) && tree --dirsfirst -iafI "\.git" --noreport . \
       | cut -d \/ -f 2- \
       | egrep "^\.\w+" \
-      | egrep -v "^\.git" \
       | sed '1!G;h;$!d'
   )
 

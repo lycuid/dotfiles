@@ -45,7 +45,7 @@ CPU() {
   used=$(( (user + nnice + system) - (puser + pnice + psystem) ))
   echo "$user $nnice $system $idle $iowait $irq $softirq" > "$prev_data"
 
-  printf "   %2s%%" $(( 100 * used / total ))
+  printf "  %3s%%" $(( 100 * used / total ))
 }
 
 MEM() {
@@ -53,15 +53,11 @@ MEM() {
     /Mem/ { c = ($3 + $5) / 1024 }
     END   {
       if (c >= 1000) {
-        printf "  %.2f GiB\n", c/1024
+        printf "  %.2f GiB", c/1024
       } else {
-        printf "  %4d MiB\n", c
+        printf "  %4d MiB", c
       }
     }'
-}
-
-DATE() {
-  echo "$(date +'%a, %b %d %H:%M:%S')"
 }
 
 BAT() {
@@ -84,11 +80,15 @@ BAT() {
   done
 }
 
+DATE() {
+  echo "$(date +'%a, %b %d %H:%M:%S')"
+}
+
 mkdir -p "$DWN_CACHE_DIR"
 
 while true
 do
-  xsetroot -name "  $(NETWORK)  |  $(CPU)  |  $(MEM)  |  $(BAT)$(DATE) "
+  xsetroot -name "  $(NETWORK)  |  $(CPU)  |  $(MEM)  |  $(BAT)$(DATE)"
   sleep 1
 done &
 
