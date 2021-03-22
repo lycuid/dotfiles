@@ -1,34 +1,25 @@
 # vim: ft=sh
 
-DWN_CACHE_DIR=${XDG_CACHE_HOME:-$HOME/.cache}/dwm
+DWN_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/dwm"
 
 # constants.
 batsym=(               )
 batsymlen=${#batsym[@]}
 
 NETWORK() {
-  ACTIVE_INTERFACE=$(ip link | grep "state UP" | head -n1 | cut -d\  -f2)
+  ACTIVE_INTERFACE=$(ip link | awk '/state\sUP/ {print substr($2,0,length($2)-1)}')
   [ -z "$ACTIVE_INTERFACE" ] && return 0
 
   prev_bytes="$DWN_CACHE_DIR"/network_bytes
   [ ! -f "$prev_bytes" ] && echo "0 0" > "$prev_bytes"
 
-  read prx ptx < $prev_bytes
-  read RX TX <<< $(
-    rx_bytes=0
-    tx_bytes=0
+  read prx ptx < "$prev_bytes"
+  rx="$(</sys/class/net/"$ACTIVE_INTERFACE"/statistics/rx_bytes)"
+  tx="$(</sys/class/net/"$ACTIVE_INTERFACE"/statistics/tx_bytes)"
 
-    for NETDIR in /sys/class/net/*;
-    do
-      rx_bytes=$(( rx_bytes + "$(<"$NETDIR"/statistics/rx_bytes)" ))
-      tx_bytes=$(( tx_bytes + "$(<"$NETDIR"/statistics/tx_bytes)" ))
-    done
+  echo "$rx $tx" > "$prev_bytes"
 
-    echo "$rx_bytes $tx_bytes"
-  )
-  echo "$RX $TX" > "$prev_bytes"
-
-  echo "$ACTIVE_INTERFACE  $(( (RX-prx) / 1024 )) KiB/s  $(( (TX-ptx) / 1024 )) KiB/s"
+  echo "$ACTIVE_INTERFACE:  $(( (rx-prx) / 1024 )) KiB/s  $(( (tx-ptx) / 1024 )) KiB/s"
 }
 
 CPU() {
@@ -86,7 +77,7 @@ DATE() {
 
 mkdir -p "$DWN_CACHE_DIR"
 
-while true
+while true;
 do
   xsetroot -name "  $(NETWORK)  |  $(CPU)  |  $(MEM)  |  $(BAT)$(DATE)"
   sleep 1

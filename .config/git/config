@@ -10,3 +10,6 @@
 	gpgsign = true
 [init]
 	defaultBranch = master
+[alias]
+	ss = status
+	cc = commit -v
