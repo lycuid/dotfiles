@@ -10,7 +10,7 @@ trap '[ "$?" -ne 0 ] && echo "$USAGE"' EXIT
 [ "$#" -lt 3 ] && exit 1
 
 getRelativePath() {
-  echo "$(cd $(dirname $1); pwd)/$(basename $1)"
+  echo "$(cd $(dirname $1)/$(basename $1); pwd)"
 }
 
 query=$1
@@ -23,25 +23,21 @@ YELLOW="\033[93m"
 BLUE="\033[94m"
 
 link() {
-  paths=$(
-    cd $(dirname $SRC)/$(basename $SRC) && tree -iafI "\.git" --noreport . \
-      | cut -d \/ -f 2- \
-      | egrep "^\.\w+"
-  )
+  paths=$(cd $SRC && tree -iaf --noreport .[^\.g][^i][^t]* | cut -d\  -f1)
 
   for path in $paths; do
-    s=$SRC/$path
-    d=$DEST/$path
+    spath="$SRC/$path"
+    dpath="$DEST/$path"
 
-    if [ -f $s ]; then
+    if [ -f "$spath" ]; then
       echo -e "$GREEN[+] Linking: $path$DEFAULT"
-      ln -rsf $s $d
+      ln -rsf "$spath" "$dpath"
     else
-      if [ -d $d ]; then
+      if [ -d "$dpath" ]; then
         echo -e "$YELLOW[?] Ignoring directory: $path$DEFAULT"
       else
         echo -e "$BLUE[+] Creating directory: $path$DEFAULT"
-        mkdir $d
+        mkdir "$dpath"
       fi
     fi
   done
@@ -49,22 +45,22 @@ link() {
 
 unlink() {
   paths=$(
-    cd $(dirname $SRC)/$(basename $SRC) && tree --dirsfirst -iafI "\.git" --noreport . \
-      | cut -d \/ -f 2- \
-      | egrep "^\.\w+" \
+    cd $SRC && tree --dirsfirst -iaf --noreport .[^\.g][^i][^t]* \
+      | cut -d\  -f1 \
       | sed '1!G;h;$!d'
-  )
+    )
 
   for path in $paths; do
-    d=$DEST/$path
-    if [ -f $d ]; then
+    dpath="$DEST/$path"
+
+    if [ -f "$dpath" ]; then
       echo -e "$GREEN[+] Unlinking: $path$DEFAULT"
-      rm $d
+      rm "$dpath"
     fi
 
-    if [ -d $d ] && [ $(ls $d | wc -l) -eq 0 ]; then
+    if [ -d "$dpath" ] && [ $(ls "$dpath" | wc -l) -eq 0 ]; then
       echo -e "$YELLOW[+] Removing Empty Directory: $path$DEFAULT"
-      rm -rf $d
+      rm -rf "$dpath"
     fi
   done
 }

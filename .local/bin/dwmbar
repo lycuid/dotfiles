@@ -4,7 +4,7 @@ DWM_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/dwm"
 mkdir -p "$DWM_CACHE_DIR"
 trap "rm -rf $DWM_CACHE_DIR" EXIT
 
-echo "$$" > "$DWM_CACHE_DIR"/pidof_dwm_statusbar
+echo "$$" > "$DWM_CACHE_DIR"/pidof_dwmbar
 trap "DISPLAY_BAR" RTMIN+1
 
 # constants.
