@@ -13,3 +13,4 @@
 [alias]
 	ss = status
 	cc = commit -v
+	dd = diff

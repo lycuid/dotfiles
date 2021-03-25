@@ -6,12 +6,16 @@ wm="$1"                   # dwm, xmonad etc
 
 [ -f "$xdirname/Xresources" ] && xrdb -load "$xdirname/Xresources"
 
-xsetroot -cursor_name left_ptr &  # good'ol left arrow.
-xset r rate 300 50 &              # increase x rate.
+xsetroot -cursor_name left_ptr &
+xset r rate 300 50 &
 
-xautolock &                       # auto lock (configs in Xresources).
-dunst &                           # notification daemon.
-sxhkd &                           # hotkey daemon.
+xset s on
+SCREENSAVER_LOCK=180; SCREENSAVER_TIMEOUT=15
+xset s $(( SCREENSAVER_LOCK - SCREENSAVER_TIMEOUT )) $SCREENSAVER_LOCK
+xss-lock --notifier="notify_lock $SCREENSAVER_TIMEOUT" -- slock &
+
+dunst &
+sxhkd &
 
 # looks for something like $XDG_CONFIG_HOME/X11/xinitrc.d/xmonad.xinitrc
 wm_xinitrc="$xdirname/$xbasename.d/${wm:-dwm}.$xbasename"

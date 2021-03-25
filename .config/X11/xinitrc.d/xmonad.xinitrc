@@ -1,7 +1,7 @@
 # vim: ft=sh
 
-picom -b &      # compositior (for transparency).
-$HOME/.fehbg &  # setting wallpaper.
+picom -b &
+$HOME/.fehbg &
 
 # This is a fix for https://github.com/xmonad/xmonad/issues/164
 [ -d "$HOME/.xmonad" ] && rm -rf $HOME/.xmonad

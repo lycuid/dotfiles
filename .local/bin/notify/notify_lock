@@ -1,0 +1,5 @@
+#!/bin/sh
+
+[ -z "$1" ] && exit 1
+notify-send -u critical -t 15000 "**** Inactivity alert ****" "lock screen in $1 secs."
+

@@ -1,6 +1,5 @@
 #include "Xresources.d/st"
 #include "Xresources.d/dmenu"
-#include "Xresources.d/xautolock"
 #include "Xresources.d/urxvt"
 
 utf8: 2
@@ -12,9 +11,9 @@ Xft.autohint: true
 
 *faceName: Hack Nerd Font-11
 *font: Hack Nerd Font-11
-*boldFont: Hack Nerd Font-11:bold
-*italicFont: Hack Nerd Font-11:italic
-*boldItalicfont: Hack Nerd Font-11:bold:italic
+*boldFont: Hack Nerd Font-11:Bold
+*italicFont: Hack Nerd Font-11:Italic
+*boldItalicFont: Hack Nerd Font-11:Bold:Italic
 
 *foreground: #c5cdd9
 *background: #090909

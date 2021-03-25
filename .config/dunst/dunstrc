@@ -15,7 +15,6 @@
   icon_path           = "/home/lycuid/.local/share/icons/32x32/status"
   icon_position       = "left"
   max_icon_size       = 32
-  corner_radius       = 3
   shrink              = yes
   transparency        = 3
   idle_threshold      = 0
@@ -34,7 +33,7 @@
   context     = ctrl+shift+period
 
 [frame]
-  width = 1
+  width = 2
 
 [urgency_low]
   background  = "#252525"
