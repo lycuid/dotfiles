@@ -1,4 +1,4 @@
 #!/bin/sh
 
-dmenu_run ${DMENU_DEFAULT_ARGS} -b -p "run: "
+dmenu_run -b -p "run: "
 

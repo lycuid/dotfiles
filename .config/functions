@@ -1,0 +1,18 @@
+# vim: ft=sh
+
+open() {
+  ls -Al "$SCM" \
+    | egrep '^d' \
+    | awk '{print $9}' \
+    | fzf \
+    | xargs -i $EDITOR --cmd "cd $SCM/{}" "$SCM/{}"
+}
+
+conf() {
+  tree -iaf --noreport "$SCM"/dotfiles/.[^\.g][^i][^t]* \
+    | cut -d\  -f1 \
+    | sed -rn 's/.*dotfiles\/(.*)$/\1/p' \
+    | fzf \
+    | xargs -i $EDITOR "$SCM"/dotfiles/{}
+}
+

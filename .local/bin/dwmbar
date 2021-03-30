@@ -2,10 +2,10 @@
 
 DWM_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/dwm"
 mkdir -p "$DWM_CACHE_DIR"
-trap "rm -rf $DWM_CACHE_DIR" EXIT
+trap "rm -rf $DWM_CACHE_DIR" EXIT INT TERM
 
 echo "$$" > "$DWM_CACHE_DIR"/pidof_dwmbar
-trap "DISPLAY_BAR" RTMIN+1
+trap "DISPLAY_BAR" RTMIN
 
 # constants.
 batsym=(               )
@@ -85,8 +85,7 @@ BAT() {
     case $(<"$BAT_DIR"/status) in
       Charging)     batstatus="${batsym[$batindex]}  ";;
       Discharging)  batstatus="${batsym[$(( batcapacity * batsymlen / 100 ))]}  ";;
-      Full)         batstatus="${batsym[$(( batsymlen - 1))]}  ";;
-      *)            batstatus="   "
+      *)            batstatus="${batsym[$(( batsymlen - 1))]}  ";;
     esac
     echo "$batstatus $batcapacity%  |  "
   done

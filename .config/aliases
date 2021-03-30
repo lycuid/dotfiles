@@ -1,6 +1,6 @@
-# vim: filetype=sh
+# vim: ft=sh
 
-alias ls="ls -h --color=always"
+alias ls="ls -h --color=auto"
 alias ll="ls -l"
 alias la="ls -Al"
 alias rm="rm -riv"
@@ -8,6 +8,5 @@ alias server="python3 -m http.server"
 alias mx="tmux"
 alias vi="nvim"
 alias vis="vim -u $HOME/.vim/smallrc"
-
-alias open="dir -Al $SCM | egrep '^d' | awk '{print \$9}' | fzf | xargs -i nvim --cmd 'cd $SCM/{}' $SCM/{}"
+alias cdot="cd $SCM/dotfiles"
 

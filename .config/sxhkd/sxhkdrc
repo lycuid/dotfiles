@@ -6,19 +6,19 @@ super + Return
 super + ctrl + b
   $BROWSER
 super + ctrl + l
-  $SCREENLOCK
+  xset s activate
 super + ctrl + c
   dmenu_ssh
 super + ctrl + o
-  dmenu_vim_edit --dirmode --embed --prompt "open project :" $SCM
+  dmenu_edit -d -p "open project :" $SCM
 
 # system audio keybindings.
 super + {_, ctrl +} equal
-  pactl set-sink-volume @DEFAULT_SINK@ +{1,5}%
+  volume inc {1,5}
 super + {_, ctrl +} minus
-  pactl set-sink-volume @DEFAULT_SINK@ -{1,5}%
+  volume dec {1,5}
 super + ctrl + m
-  pactl set-sink-mute @DEFAULT_SINK@ toggle
+  volume toggle
 
 # shutdown, reboot.
 super + ctrl + s

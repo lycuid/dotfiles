@@ -1,0 +1,27 @@
+#!/bin/sh
+
+[ -f "$XDG_CACHE_HOME/dwm/pidof_dwmbar" ] && \
+  PIDOF_DWMBAR=$(<"$XDG_CACHE_HOME/dwm/pidof_dwmbar")
+
+notify=1
+
+if [ "$1" = "toggle" ]; then
+  sound=$(amixer sset Master toggle 2>/dev/null)
+else
+  [ -z "$2" ] && exit 1
+  notify=0
+  case "$1" in
+    inc) sound=$(amixer sset Master "$2"%+  2>/dev/null) ;;
+    dec) sound=$(amixer sset Master "$2"%-  2>/dev/null) ;;
+    set) sound=$(amixer sset Master "$2"    2>/dev/null) ;;
+  esac
+fi
+
+[ -z "$sound" ] && exit 1
+
+[ -n "$PIDOF_DWMBAR" ] && kill -34 $PIDOF_DWMBAR
+vol=$(sed -rn "s/.*\[([[:digit:]]+\%)\].*\[(on|off)\]$/\1 (\2)/p" <<< "$sound")
+
+[ "$notify" -eq 1 ] && notify-send -u low -t 1000 "Volume changed" "$vol."
+
+# vim: ft=sh

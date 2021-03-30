@@ -1,0 +1,39 @@
+#!/bin/sh -e
+
+PROMPT=""
+DIRMODE=0
+DMENU_ARGS=(-c -g 1 -l 5)
+
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    -p)
+      PROMPT="$2"
+      shift;shift ;;
+    -d)
+      DIRMODE=1
+      shift ;;
+    *) break ;;
+  esac
+done
+
+TARGET_DIR="${1:-"$HOME"}"
+
+dirmode_select() {
+  ls -Ad "$TARGET_DIR"/*/ | dmenu -p "${PROMPT:-"edit :"}" "${DMENU_ARGS[@]}"
+}
+
+file_select() {
+  selected="$TARGET_DIR"
+  while true; do
+    selected="$selected/$(ls -A "$selected" | dmenu -p "${PROMPT:-"open :"}" "${DMENU_ARGS[@]}")"
+    [ -f "$selected" ] && break
+  done
+  echo "$selected"
+}
+
+filepath=$([ "$DIRMODE" -eq 1 ] && echo "$(dirmode_select)" || echo "$(file_select)")
+[ -z "$filepath" ] && exit 1
+[ -f "$filepath" ] && dirpath=$(dirname $filepath)
+
+${TERMINAL:-st} -e vi --cmd "cd ${dirpath:-$filepath}" $filepath &
+

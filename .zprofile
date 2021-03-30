@@ -23,7 +23,6 @@ export LAUNCHER="dmenu_launcher"
 # misc
 export SCM="$HOME/xkcd/scm"
 export WALLPAPERS="$XDG_DATA_HOME/wallpapers"
-export DMENU_DEFAULT_ARGS="-h 25"
 
 # zsh key delay (mostly for vi mode).
 export KEYTIMEOUT=1
