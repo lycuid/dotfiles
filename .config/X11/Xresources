@@ -35,8 +35,8 @@ Xft.autohint: true
 *.color11: #f7ca18
 
 ! blue
-*.color4: #22709f
-*.color12: #6f93af
+*.color4: #1e3799
+*.color12: #686de0
 
 ! magenta
 *.color5: #D980FA

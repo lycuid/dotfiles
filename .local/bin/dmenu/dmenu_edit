@@ -19,7 +19,9 @@ done
 TARGET_DIR="${1:-"$HOME"}"
 
 dirmode_select() {
-  ls -Ad "$TARGET_DIR"/*/ | dmenu -p "${PROMPT:-"edit :"}" "${DMENU_ARGS[@]}"
+  cd "$TARGET_DIR" && ls -Ad */ \
+    | dmenu -p "${PROMPT:-"edit :"}" "${DMENU_ARGS[@]}" \
+    | xargs -i echo "$TARGET_DIR/{}"
 }
 
 file_select() {
@@ -35,5 +37,5 @@ filepath=$([ "$DIRMODE" -eq 1 ] && echo "$(dirmode_select)" || echo "$(file_sele
 [ -z "$filepath" ] && exit 1
 [ -f "$filepath" ] && dirpath=$(dirname $filepath)
 
-${TERMINAL:-st} -e vi --cmd "cd ${dirpath:-$filepath}" $filepath &
+${TERMINAL:-st} -e $EDITOR --cmd "cd ${dirpath:-$filepath}" $filepath &
 
