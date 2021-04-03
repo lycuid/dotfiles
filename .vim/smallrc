@@ -9,14 +9,10 @@ set nu rnu
 set mouse=a                       " mouse click navigation.
 set encoding=utf-8
 set et ts=2 sw=2 softtabstop=2
-set incsearch                     " highlight search as you type.
-set hlsearch                      " highlight search words.
+set hlsearch incsearch            " highlight search as you type.
 set fileformat=unix
 set list listchars=tab:--,eol:¬
 set noshowcmd
-
-" copy/paste from system clipboard.
-set clipboard=unnamedplus
 
 "" no swap and backup files.
 set nobackup

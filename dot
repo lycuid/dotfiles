@@ -23,7 +23,7 @@ YELLOW="\033[93m"
 BLUE="\033[94m"
 
 link() {
-  paths=$(cd $SRC && tree -iaf --noreport .[^\.g][^i][^t]* | cut -d\  -f1)
+  paths=$(cd $SRC && tree -iaf --noreport .[^\.g]?[^t]* | cut -d\  -f1)
 
   for path in $paths; do
     spath="$SRC/$path"
@@ -45,7 +45,7 @@ link() {
 
 unlink() {
   paths=$(
-    cd $SRC && tree --dirsfirst -iaf --noreport .[^\.g][^i][^t]* \
+    cd $SRC && tree --dirsfirst -iaf --noreport .[^\.g]?[^t]* \
       | cut -d\  -f1 \
       | sed '1!G;h;$!d'
     )
@@ -66,8 +66,8 @@ unlink() {
 }
 
 case $query in
-  "link"    ) link   ;;
-  "unlink"  ) unlink ;;
-  *         ) exit 1 ;;
+  "link")   link   ;;
+  "unlink") unlink ;;
+  *)        exit 1 ;;
 esac
 
