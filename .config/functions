@@ -9,7 +9,7 @@ open() {
 }
 
 conf() {
-  tree -iaf --noreport "$SCM"/dotfiles/.[^\.g][^i][^t]* \
+  tree -iafI "\.git" --noreport "$SCM/dotfiles/" \
     | cut -d\  -f1 \
     | sed -rn 's/.*dotfiles\/(.*)$/\1/p' \
     | fzf \

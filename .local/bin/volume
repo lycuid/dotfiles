@@ -1,27 +1,19 @@
 #!/bin/sh
 
-[ -f "$XDG_CACHE_HOME/dwm/pidof_dwmbar" ] && \
-  PIDOF_DWMBAR=$(<"$XDG_CACHE_HOME/dwm/pidof_dwmbar")
+VOLUME_PIPE="$XDG_RUNTIME_DIR"/pipe/volume
+[ -p "$VOLUME_PIPE" ] || mkfifo "$VOLUME_PIPE"
 
-notify=1
+[ -z "$1" ] && exit 1
+sound=$(amixer sset Master "$1" 2>/dev/null)
 
-if [ "$1" = "toggle" ]; then
-  sound=$(amixer sset Master toggle 2>/dev/null)
-else
-  [ -z "$2" ] && exit 1
-  notify=0
-  case "$1" in
-    inc) sound=$(amixer sset Master "$2"%+  2>/dev/null) ;;
-    dec) sound=$(amixer sset Master "$2"%-  2>/dev/null) ;;
-    set) sound=$(amixer sset Master "$2"    2>/dev/null) ;;
-  esac
-fi
+# @TODO: find a better way (more efficient/clever).
+VOLUME=$(
+sed -rn "s/.*\[([[:digit:]]+)\%\].*\[(on|off)\]$/\2 \1/p" <<< "$sound" \
+  | sed "s/on/ /p" \
+  | sed "s/off/ /p" \
+  | head -n1
+)
 
-[ -z "$sound" ] && exit 1
-
-[ -n "$PIDOF_DWMBAR" ] && kill -34 $PIDOF_DWMBAR
-vol=$(sed -rn "s/.*\[([[:digit:]]+\%)\].*\[(on|off)\]$/\1 (\2)/p" <<< "$sound")
-
-[ "$notify" -eq 1 ] && notify-send -u low -t 1000 "Volume changed" "$vol."
+echo "$VOLUME" > "$VOLUME_PIPE"
 
 # vim: ft=sh

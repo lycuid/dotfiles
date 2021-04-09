@@ -14,9 +14,9 @@ super + ctrl + o
 
 # system audio keybindings.
 super + {_, ctrl +} equal
-  volume inc {1,5}
+  volume {1,5}%+
 super + {_, ctrl +} minus
-  volume dec {1,5}
+  volume {1,5}%-
 super + ctrl + m
   volume toggle
 

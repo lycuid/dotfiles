@@ -16,4 +16,4 @@ commandNetwork = Run $ DynNetwork
   , "--low"      , "#4cd137"
   , "--normal"   , "#ffdd59"
   , "--high"     , "#cc6666"
-  ] 20
+  ] 10

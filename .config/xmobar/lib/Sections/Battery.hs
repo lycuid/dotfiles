@@ -20,5 +20,5 @@ commandBattery = Run $ Battery
   , "-o", "<left>% <fc=#ffdd59>(<timeleft>)</fc>"
   , "-O", "<left>% <fc=#ffdd59>\xf0e7</fc>"
   , "-i", "<left>% <fc=#4cd137>\xf0e7</fc>"
-  ] 100
+  ] 10
 
