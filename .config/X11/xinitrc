@@ -2,7 +2,7 @@
 
 xdirname=$(dirname $0)    # eg. $XDG_CONFIG_HOME/X11/
 xbasename=$(basename $0)  # eg. xinitrc
-wm="$1"                   # dwm, xmonad etc
+wm="${1:-dwm}"            # dwm, xmonad etc
 
 [ -f "$xdirname/Xresources" ] && xrdb -load "$xdirname/Xresources"
 
@@ -14,11 +14,18 @@ SCREENSAVER_LOCK=180; SCREENSAVER_TIMEOUT=15
 xset s $(( SCREENSAVER_LOCK - SCREENSAVER_TIMEOUT )) $SCREENSAVER_LOCK
 xss-lock --notifier="notify_lock $SCREENSAVER_TIMEOUT" -- slock &
 
+mkdir -p "$XDG_RUNTIME_DIR"/pipe
+volume 0% &
+volume mute &
+
 dunst &
 sxhkd &
 
 # looks for something like $XDG_CONFIG_HOME/X11/xinitrc.d/xmonad.xinitrc
-wm_xinitrc="$xdirname/$xbasename.d/${wm:-dwm}.$xbasename"
+wm_xinitrc="$xdirname/$xbasename.d/$wm.$xbasename"
 [ ! -x "$wm_xinitrc" ] && exit 1
 
+rm -rf "$XDG_RUNTIME_DIR/dwm"
+
 $wm_xinitrc
+

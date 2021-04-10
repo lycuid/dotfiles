@@ -1,5 +1,4 @@
 [ -f "$XDG_CONFIG_HOME/aliases" ] && . "$XDG_CONFIG_HOME/aliases"
-[ -f "$XDG_CONFIG_HOME/functions" ] && . "$XDG_CONFIG_HOME/functions"
 
 SCRIPTS_DIR="$ZDOTDIR/.zshrc.d"
 if [ -d $SCRIPTS_DIR ]; then

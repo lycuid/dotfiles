@@ -1,11 +1,7 @@
 # vim: ft=sh
 
-DWM_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/dwm"
-mkdir -p "$DWM_CACHE_DIR"
-trap "rm -rf $DWM_CACHE_DIR" EXIT INT TERM
-
-echo "$$" > "$DWM_CACHE_DIR"/pidof_dwmbar
-trap "DISPLAY_BAR" RTMIN
+DWM_RUNTIME_DIR="$XDG_RUNTIME_DIR"/dwm
+mkdir -p "$DWM_RUNTIME_DIR"
 
 # constants.
 batsym=(               )
@@ -15,7 +11,7 @@ NETWORK() {
   ACTIVE_INTERFACE=$(ip link | awk '/state\sUP/ {print substr($2,0,length($2)-1)}')
   [ -z "$ACTIVE_INTERFACE" ] && return 0
 
-  prev_bytes="$DWM_CACHE_DIR"/network_bytes
+  prev_bytes="$DWM_RUNTIME_DIR"/network_bytes
   [ ! -f "$prev_bytes" ] && echo "0 0" > "$prev_bytes"
 
   read prx ptx < "$prev_bytes"
@@ -28,7 +24,7 @@ NETWORK() {
 }
 
 CPU() {
-  prev_data="$DWM_CACHE_DIR"/cpu_data
+  prev_data="$DWM_RUNTIME_DIR"/cpu_data
   [ ! -f "$prev_data" ] && echo "0 0 0 0 0 0 0" > "$prev_data"
 
   read puser pnice psystem pidle piowait pirq psoftirq < "$prev_data"
@@ -57,23 +53,11 @@ MEM() {
 }
 
 SOUND() {
-  amixer get Master | awk '\
-    BEGIN { sound=0; speaker=0; mute=""; }\
-
-    match($0, /[[:digit:]]+%/) {\
-      sound+=substr($0, RSTART, RLENGTH - 1);\
-      speakers+=1;\
-      if ($6 == "[off]") {\
-        mute="";\
-      }\
-    }\
-
-    END {if (speakers > 0) { printf "%s  %s", mute, sound/speakers; }}\
-  '
+  cat "$DWM_RUNTIME_DIR"/volume
 }
 
 BAT() {
-  batindexfile="$DWM_CACHE_DIR"/bat_symbol
+  batindexfile="$DWM_RUNTIME_DIR"/bat_symbol
   [ ! -f "$batindexfile" ] && echo "0" > "$batindexfile"
 
   read batindex < "$batindexfile"
@@ -95,13 +79,13 @@ DATE() {
   echo "$(date +'%a, %b %d %H:%M:%S')"
 }
 
-DISPLAY_BAR() {
-  sound=$(SOUND)
-  while true; do
-    sleep 1 & wait $(
-      xsetroot -name "  $(NETWORK)  |  $(CPU)  |  $(MEM)  |  $sound  |  $(BAT)$(DATE)"
-    )
-  done
-}
+while true; do
+  if read sound < "$XDG_RUNTIME_DIR"/pipe/volume; then
+    echo "$sound" > "$DWM_RUNTIME_DIR"/volume
+  fi
+done &
 
-DISPLAY_BAR
+while true; do
+  xsetroot -name "  $(NETWORK)  |  $(CPU)  |  $(MEM)  |  $(SOUND)  |  $(BAT)$(DATE)"
+  sleep 1
+done
