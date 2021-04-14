@@ -33,7 +33,7 @@ config
   , overrideRedirect  = True
   , bgColor           = "#191919"
   , fgColor           = "#bdc3c7"
-  , alpha             = 225
+  , alpha             = 255
   , position          = Bottom
   , textOffset        = -1
   , iconOffset        = -1

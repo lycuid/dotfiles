@@ -15,8 +15,7 @@ xset s $(( SCREENSAVER_LOCK - SCREENSAVER_TIMEOUT )) $SCREENSAVER_LOCK
 xss-lock --notifier="notify_lock $SCREENSAVER_TIMEOUT" -- slock &
 
 mkdir -p "$XDG_RUNTIME_DIR"/pipe
-volume 0% &
-volume mute &
+volume '0%' &
 
 dunst &
 sxhkd &
