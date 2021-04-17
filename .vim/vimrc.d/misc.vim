@@ -21,6 +21,7 @@ set updatetime=100 " ms.
 
 "" fzf keymap.
 nnoremap <C-p> :GFiles<CR>
+nnoremap <leader>b :Buffers<CR>
 
 "" GVIM settings.
 if has("gui_running")
