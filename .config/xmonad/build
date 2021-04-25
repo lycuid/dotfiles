@@ -1,45 +1,32 @@
 #!/bin/sh
 
 set -e
-
 BIN=$1
+CFG="xmonad.hs"
 
-modified_time()
-{
+modified_time() {
   stat -L $1 | awk '/^Modify/ {print $2, $3, $4}' | xargs -i date +"%s" --date="{}"
 }
 
-should_recompile()
-{
+should_recompile() {
   if [ ! -f $BIN ]; then echo 1; exit 0; fi
+  latest_mod=$(find -L lib "$CFG" "$BIN" -printf "%T@ %p\n" | sort -nr | cut -d\  -f2 | head -n1)
 
-  bin_mod=$(modified_time $BIN)
-  latest_mod=$(modified_time xmonad.hs)
-
-  for file in $(tree -iaf --noreport lib)
-  do
-    if [ -f "$file" ];
-    then
-      file_mod=$(modified_time $file)
-      latest_mod=$(( $file_mod > $latest_mod ? $file_mod : $latest_mod ))
-    fi
-  done
-
-  echo $(( $latest_mod > $bin_mod ))
+  [ "$latest_mod" = "$BIN" ] && echo 0 || echo 1
 }
 
 if [[ $(should_recompile) -eq 1 ]];
 then
   echo "[+] recompiling xmonad."
 
-  # put the object files in temp dir (delete after binary is compiled).
+  # put the object files in temp dir.
   temp_dir=$(mktemp -d)
+  trap 'rm -rf "$temp_dir"' EXIT TERM INT HUP
   temp_flags=(-odir "$temp_dir" -hidir "$temp_dir")
 
-  build_flags=(-o $BIN -i -ilib -dynamic -fforce-recomp -main-is main -v0)
+  build_flags=(-o "$BIN" -i -ilib -dynamic -fforce-recomp -main-is main -v0)
 
-  ghc --make xmonad.hs "${build_flags[@]}" "${temp_flags[@]}"
-  rm -rf "$temp_dir"
+  ghc --make "$CFG" "${build_flags[@]}" "${temp_flags[@]}"
 
   echo "[+] successfully compiled xmonad."
 fi

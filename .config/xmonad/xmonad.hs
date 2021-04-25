@@ -33,7 +33,7 @@ import Text.Printf                    (printf)
 import System.Exit
 import Data.List                      (isInfixOf)
 
-------------------------------------------------------------------------
+-------------------------------------------------------------------
 -- Workspaces.
 myWorkspaces :: [String]
 myWorkspaces  = clickAction . map show $ [1..5]
@@ -143,7 +143,7 @@ myEventHook = mempty
 ------------------------------------------------------------------------
 -- Status bars and logging
 myLogHook proc = do
-  noOfWs' <- gets $ show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+  no_of_ws <- gets $ show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
   dynamicLogWithPP $ def
     { ppCurrent           = xmobarColor (white def) ""
                           . wrap ("<box type=Bottom width=1 color=" ++ (cyan def) ++ ">") "</box>"
@@ -153,7 +153,7 @@ myLogHook proc = do
     , ppUrgent            = xmobarColor (red def) ""
     , ppTitle             = xmobarColor (green def) "" . shorten 30
     , ppSep               = " <box type=Left width=2 color=#303030> </box>"
-    , ppLayout            = myXmobarLayoutStyle . flip (++) (wrap " [" "]" noOfWs')
+    , ppLayout            = myXmobarLayoutStyle . flip (++) (wrap " [" "]" no_of_ws)
     , ppOrder             = take 3
     , ppOutput            = hPutStrLn proc
     }
