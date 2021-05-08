@@ -9,4 +9,5 @@ alias mx="tmux"
 alias vi="nvim"
 alias vis="vim -u $HOME/.vim/smallrc"
 alias cdot="cd $SCM/dotfiles"
+alias dot="git -C $SCM/dotfiles"
 
