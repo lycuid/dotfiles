@@ -15,10 +15,7 @@ set list listchars=tab:--,eol:¬
 set noshowcmd
 
 "" no swap and backup files.
-set nobackup
-set nowritebackup
-set noswapfile
-set noundofile
+set nobackup nowritebackup noswapfile noundofile
 
 " https://github.com/vim/vim/issues/993#issuecomment-255651605
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"  " set foreground color
@@ -37,7 +34,7 @@ noremap <C-l> :bn<CR>
 command W w
 command Q q
 
-autocmd Filetype xdefaults autocmd BufWritePost <buffer> silent !xrdb $XDG_CONFIG_HOME/X11/Xresources
+autocmd Filetype xdefaults autocmd BufWritePost silent !xrdb $XDG_CONFIG_HOME/X11/Xresources
 
 runtime vimrc.d/build_systems.vim
 runtime vimrc.d/code_formatting.vim
