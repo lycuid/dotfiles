@@ -1,20 +1,15 @@
-set colorcolumn=81  " wrap indicator
-set cursorline      " highlight current line
-
-" colorscheme.
 if expand("$TERM") !~ "rxvt"
   set termguicolors
 end
 
+set colorcolumn=81
+set cursorline
 set t_Co=256
 colorscheme old_school
 
 " nerdcommenter configs.
-let g:NERDSpaceDelims = 1
-let g:NERDDefaultAlign = 'left'
-
-"" indentLine settings.
-let g:indentLine_enabled=1
+let g:NERDSpaceDelims=1
+let g:NERDDefaultAlign='left'
 
 "" git gutter settings
 set updatetime=100 " ms.
@@ -35,4 +30,3 @@ if has("gui_running")
 
   set guifont=Hack\ Nerd\ Font\ 11
 endif
-

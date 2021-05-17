@@ -13,8 +13,6 @@ set hlsearch incsearch            " highlight search as you type.
 set fileformat=unix
 set list listchars=tab:--,eol:¬
 set noshowcmd
-
-"" no swap and backup files.
 set nobackup nowritebackup noswapfile noundofile
 
 " https://github.com/vim/vim/issues/993#issuecomment-255651605

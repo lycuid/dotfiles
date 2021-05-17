@@ -1,29 +1,13 @@
-if empty(glob('~/.vim/autoload/plug.vim'))
-  exec '!mkdir -p ~/.vim/autoload && curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall
-end
-
-call plug#begin('~/.vim/plugged')
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'ryanoasis/vim-devicons'
-Plug 'airblade/vim-gitgutter'
-Plug 'Yggdroot/indentLine'
-Plug 'vim-airline/vim-airline'
-Plug 'lycuid/old-school.vim'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-
-call plug#end()
+packadd! fzf.vim
+packadd! nerdcommenter
+packadd! nerdtree
+packadd! nerdtree-git-plugin
+packadd! vim-devicons
+packadd! vim-gitgutter
+packadd! indentLine
+packadd! vim-airline
 
 runtime vimrc.d/misc.vim
-runtime vimrc.d/coc.vim
 runtime vimrc.d/airline.vim
 runtime vimrc.d/nerdtree.vim
 runtime smallrc
-
