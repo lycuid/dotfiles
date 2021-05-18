@@ -7,15 +7,15 @@ options:
 
 trap '[ "$?" -ne 0 ] && echo "$USAGE"' EXIT
 
-[ "$#" -lt 3 ] && exit 1
+[ "$#" -lt 1 ] && exit 1
 
 getRelativePath() {
   echo "$(cd $(dirname $1)/$(basename $1); pwd)"
 }
 
 query=$1
-SRC=$(getRelativePath $2)
-DEST=$(getRelativePath $3)
+SRC=$(getRelativePath ${2:-.})
+DEST=$(getRelativePath ${3:-$HOME})
 
 DEFAULT="\033[0m"
 GREEN="\033[92m"
