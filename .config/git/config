@@ -3,7 +3,7 @@
 	email       = abhishekk19@gmail.com
 	signingkey  = 11A87774208CD2D4
 [core]
-	editor = nvim
+	editor = vim
 [pull]
 	rebase = false
 [commit]
