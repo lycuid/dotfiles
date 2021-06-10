@@ -1,7 +1,10 @@
 # vim: ft=sh
 
 DWM_RUNTIME_DIR="$XDG_RUNTIME_DIR"/dwm
-mkdir -p "$DWM_RUNTIME_DIR"
+DWMBAR="$DWM_RUNTIME_DIR"/dwmbar
+
+# This will create both 'DWM_RUNTIME_DIR' and 'DWMBAR' directories
+mkdir -p "$DWMBAR"
 
 # constants.
 batsym=(               )
@@ -53,7 +56,7 @@ MEM() {
 }
 
 SOUND() {
-  cat "$DWM_RUNTIME_DIR"/volume
+  cat "$DWMBAR"/volume
 }
 
 BAT() {
@@ -75,17 +78,34 @@ BAT() {
   done
 }
 
-DATE() {
+DATETIME() {
   echo "$(date +'%a, %b %d %H:%M:%S')"
 }
 
+# read pipe for volume and update the bar.
 while true; do
   if read sound < "$XDG_RUNTIME_DIR"/pipe/volume; then
-    echo "$sound" > "$DWM_RUNTIME_DIR"/volume
+    echo "$sound" > "$DWMBAR"/volume
+
+    network=$(cat $DWMBAR/network)
+    cpu=$(cat $DWMBAR/cpu)
+    mem=$(cat $DWMBAR/mem)
+    bat=$(cat $DWMBAR/bat)
+    datetime=$(DATETIME)
+
+    xsetroot -name "  $network  |  $cpu  |  $mem  |  $sound  |  $bat$datetime"
   fi
 done &
 
+# main loop for updating the bar.
 while true; do
-  xsetroot -name "  $(NETWORK)  |  $(CPU)  |  $(MEM)  |  $(SOUND)  |  $(BAT)$(DATE)"
+  network=`tee $DWMBAR/network <<< $(NETWORK)`
+  cpu=`tee $DWMBAR/cpu <<< $(CPU)`
+  mem=`tee $DWMBAR/mem <<< $(MEM)`
+  sound=$(SOUND)
+  bat=`tee $DWMBAR/bat <<< $(BAT)`
+  datetime=$(DATETIME)
+
+  xsetroot -name "  $network  |  $cpu  |  $mem  |  $sound  |  $bat$datetime"
   sleep 1
 done
