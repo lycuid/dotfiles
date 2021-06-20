@@ -1,10 +1,7 @@
-if expand("$TERM") !~ "rxvt"
-  set termguicolors
-end
-
 set colorcolumn=81
 set cursorline
 set t_Co=256
+set termguicolors
 colorscheme old_school
 
 " nerdcommenter configs.

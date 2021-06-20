@@ -21,7 +21,7 @@ export BROWSER="brave-browser"
 export LAUNCHER="dmenu_launcher"
 
 # misc
-export SCM="$HOME/xkcd/scm"
+export SCM="/mnt/xkcd/scm"
 export WALLPAPERS="$XDG_DATA_HOME/wallpapers"
 
 # zsh key delay (mostly for vi mode).

@@ -10,7 +10,7 @@ mkdir -p "$DWMBAR"
 batsym=(               )
 batsymlen=${#batsym[@]}
 
-NETWORK() {
+NET() {
   ACTIVE_INTERFACE=$(ip link | awk '/state\sUP/ {print substr($2,0,length($2)-1)}')
   [ -z "$ACTIVE_INTERFACE" ] && return 0
 
@@ -82,30 +82,32 @@ DATETIME() {
   echo "$(date +'%a, %b %d %H:%M:%S')"
 }
 
+display_bar() {
+  net=$(<"$DWMBAR"/net)
+  cpu=$(<"$DWMBAR"/cpu)
+  mem=$(<"$DWMBAR"/mem)
+  vol=$(<"$DWMBAR"/vol)
+  bat=$(<"$DWMBAR/"bat)
+  datetime=$(DATETIME)
+
+  xsetroot -name "  $net  |  $cpu  |  $mem  |  $vol  |  $bat$datetime"
+}
+
 # read pipe for volume and update the bar.
 while true; do
   if read sound < "$XDG_RUNTIME_DIR"/pipe/volume; then
-    echo "$sound" > "$DWMBAR"/volume
-
-    network=$(cat $DWMBAR/network)
-    cpu=$(cat $DWMBAR/cpu)
-    mem=$(cat $DWMBAR/mem)
-    bat=$(cat $DWMBAR/bat)
-    datetime=$(DATETIME)
-
-    xsetroot -name "  $network  |  $cpu  |  $mem  |  $sound  |  $bat$datetime"
+    echo "$sound" > "$DWMBAR"/vol
+    $(display_bar)
   fi
 done &
 
 # main loop for updating the bar.
 while true; do
-  network=`tee $DWMBAR/network <<< $(NETWORK)`
-  cpu=`tee $DWMBAR/cpu <<< $(CPU)`
-  mem=`tee $DWMBAR/mem <<< $(MEM)`
-  sound=$(SOUND)
-  bat=`tee $DWMBAR/bat <<< $(BAT)`
-  datetime=$(DATETIME)
+  echo "$(NET)" > "$DWMBAR"/net
+  echo "$(CPU)" > "$DWMBAR"/cpu
+  echo "$(MEM)" > "$DWMBAR"/mem
+  echo "$(BAT)" > "$DWMBAR"/bat
+  $(display_bar)
 
-  xsetroot -name "  $network  |  $cpu  |  $mem  |  $sound  |  $bat$datetime"
   sleep 1
 done

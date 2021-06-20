@@ -32,7 +32,7 @@ noremap <C-l> :bn<CR>
 command W w
 command Q q
 
-autocmd Filetype xdefaults autocmd BufWritePost silent !xrdb $XDG_CONFIG_HOME/X11/Xresources
+autocmd Filetype xdefaults autocmd BufWritePost <buffer> silent !xrdb $XDG_CONFIG_HOME/X11/Xresources
 
 runtime vimrc.d/build_systems.vim
 runtime vimrc.d/code_formatting.vim
