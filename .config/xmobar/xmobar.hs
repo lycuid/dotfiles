@@ -16,7 +16,7 @@ tmplCenter :: String
 tmplCenter = "<fc=white>%date%</fc>"
 
 tmplRight :: String
-tmplRight = intercalate " <box type=Left width=2 color=#303030> </box>"
+tmplRight = intercalate " <box type=Left width=2 color=#171717> </box>"
           [ templateNetwork
           , templateCpu
           , templateMemory
@@ -31,7 +31,7 @@ config
   { font              = "xft:TerminessTTF Nerd Font-10,monospace-11"
   , additionalFonts   = ["xft:TerminessTTF Nerd Font-10:style=Bold,monospace-11"]
   , overrideRedirect  = True
-  , bgColor           = "#191919"
+  , bgColor           = "#090909"
   , fgColor           = "#bdc3c7"
   , alpha             = 255
   , position          = Bottom

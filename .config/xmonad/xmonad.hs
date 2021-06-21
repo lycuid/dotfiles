@@ -151,7 +151,7 @@ myLogHook proc = do
     , ppHiddenNoWindows   = xmobarColor "#353535" ""
     , ppVisibleNoWindows  = Just (xmobarColor "red" "")
     , ppUrgent            = xmobarColor (red def) ""
-    , ppTitle             = xmobarColor (green def) "" . shorten 30
+    , ppTitle             = xmobarColor (white def) "" . shorten 30
     , ppSep               = " <box type=Left width=2 color=#303030> </box>"
     , ppLayout            = myXmobarLayoutStyle . flip (++) (wrap " [" "]" no_of_ws)
     , ppOrder             = take 3

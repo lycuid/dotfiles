@@ -1,11 +1,11 @@
 ! vim: filetype=xdefaults
 
-dmenu.background: #191919
-dmenu.selbackground: #353535
-dmenu.selhighlightbackground: #00ffff
-dmenu.selhighlightforeground: #131313
-dmenu.highlightforeground: #00ffff
-dmenu.highlightbackground: #353535
+dmenu.background: #090909
+dmenu.selbackground: #171717
+dmenu.selhighlightbackground: #089CAC
+dmenu.selhighlightforeground: #090909
+dmenu.highlightforeground: #089CAC
+dmenu.highlightbackground: #171717
 
 dmenu.font: TerminessTTF Nerd Font-12:style=Regular
 dmenu.boldFont: TerminessTTF Nerd Font:-12style=Bold
