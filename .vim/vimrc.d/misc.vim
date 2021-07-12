@@ -1,6 +1,5 @@
 set colorcolumn=81
 set cursorline
-set t_Co=256
 set termguicolors
 colorscheme old_school
 
