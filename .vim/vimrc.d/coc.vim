@@ -119,5 +119,8 @@ let g:coc_global_extensions = [
   \ 'coc-eslint',
   \ 'coc-json',
   \ 'coc-emmet',
+  \ 'coc-highlight',
   \ ]
 
+" Disabled on vim startup.
+let g:coc_start_at_startup = v:false

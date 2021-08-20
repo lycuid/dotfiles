@@ -9,11 +9,11 @@ Xft.dpi: 96
 Xft.antialias: true
 Xft.autohint: true
 
-*faceName: Hack Nerd Font-11
-*font: Hack Nerd Font-11
-*boldFont: Hack Nerd Font-11:Bold
-*italicFont: Hack Nerd Font-11:Italic
-*boldItalicFont: Hack Nerd Font-11:Bold:Italic
+*faceName: TerminessTTF Nerd Font-13
+*font: TerminessTTF Nerd Font-13
+*boldFont: TerminessTTF Nerd Font-13:Bold
+*italicFont: TerminessTTF Nerd Font-13:Italic
+*boldItalicFont: TerminessTTF Nerd Font-13:Bold:Italic
 
 *foreground: #c5cdd9
 *background: #090909

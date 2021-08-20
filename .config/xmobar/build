@@ -2,35 +2,21 @@
 
 set -e
 BIN=$1
-CFG="xmobar.hs"
 
-modified_time() {
-  stat -L $1 | awk '/^Modify/ {print $2, $3, $4}' | xargs -i date +"%s" --date="{}"
-}
-
-should_recompile() {
-  if [ ! -f $BIN ]; then echo 1; exit 0; fi
-  latest_mod=$(find -L lib "$CFG" "$BIN" -printf "%T@ %p\n" | sort -nr | cut -d\  -f2 | head -n1)
-
-  [ "$latest_mod" = "$BIN" ] && echo 0 || echo 1
-}
-
-if [[ $(should_recompile) -eq 1 ]];
+if $(find . ! -type d | cut -d\/ -f2- | stest -qn "$BIN");
 then
   echo "[+] recompiling xmobar."
 
-  # put the object files in temp dir
   temp_dir=$(mktemp -d)
   trap 'rm -rf "$temp_dir"' EXIT TERM INT HUP
-  temp_flags=(-odir "$temp_dir" -hidir "$temp_dir")
 
+  temp_flags=(-odir "$temp_dir" -hidir "$temp_dir")
   # compile options from 'src/Xmobar/App/Compile.hs'.
   build_flags=(-o "$BIN" -dynamic -threaded -i -ilib -fforce-recomp -main-is main -v0)
 
-  ghc --make "$CFG" "${build_flags[@]}" "${temp_flags[@]}"
+  ghc --make xmobar.hs "${build_flags[@]}" "${temp_flags[@]}"
 
   echo "[+] successfully compiled xmobar."
 fi
 
 $BIN
-
