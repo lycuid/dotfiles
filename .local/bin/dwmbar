@@ -1,12 +1,11 @@
 # vim: ft=sh
 
 DWM_RUNTIME_DIR="$XDG_RUNTIME_DIR"/dwm
+DWM_CACHE_DIR="$DWM_RUNTIME_DIR"/cache
 DWMBAR="$DWM_RUNTIME_DIR"/dwmbar
 
-# This will create both 'DWM_RUNTIME_DIR' and 'DWMBAR' directories
-mkdir -p "$DWMBAR"
+mkdir -p "$DWM_CACHE_DIR" "$DWMBAR"
 
-# constants.
 batsym=(               )
 batsymlen=${#batsym[@]}
 
@@ -14,7 +13,7 @@ NET() {
   ACTIVE_INTERFACE=$(ip link | awk '/state\sUP/ {print substr($2,0,length($2)-1)}')
   [ -z "$ACTIVE_INTERFACE" ] && return 0
 
-  prev_bytes="$DWM_RUNTIME_DIR"/network_bytes
+  prev_bytes="$DWM_CACHE_DIR"/network_bytes
   [ ! -f "$prev_bytes" ] && echo "0 0" > "$prev_bytes"
 
   read prx ptx < "$prev_bytes"
@@ -27,7 +26,7 @@ NET() {
 }
 
 CPU() {
-  prev_data="$DWM_RUNTIME_DIR"/cpu_data
+  prev_data="$DWM_CACHE_DIR"/cpu_data
   [ ! -f "$prev_data" ] && echo "0 0 0 0 0 0 0" > "$prev_data"
 
   read puser pnice psystem pidle piowait pirq psoftirq < "$prev_data"
@@ -60,7 +59,7 @@ SOUND() {
 }
 
 BAT() {
-  batindexfile="$DWM_RUNTIME_DIR"/bat_symbol
+  batindexfile="$DWM_CACHE_DIR"/bat_symbol
   [ ! -f "$batindexfile" ] && echo "0" > "$batindexfile"
 
   read batindex < "$batindexfile"
@@ -93,7 +92,7 @@ display_bar() {
   xsetroot -name "  $net  |  $cpu  |  $mem  |  $vol  |  $bat$datetime"
 }
 
-# read pipe for volume and update the bar.
+# read volume from pipe and update the bar.
 while true; do
   if read sound < "$XDG_RUNTIME_DIR"/pipe/volume; then
     echo "$sound" > "$DWMBAR"/vol

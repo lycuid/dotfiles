@@ -22,7 +22,7 @@ import XMonad.Layout.NoBorders        (noBorders)
 import XMonad.Layout.Spacing          (spacingRaw, Border(..))
 
 -- User Configs.
-import Configs.Main
+import Configs
 import Configs.KeyBindings            (keymod, myCustomKeyBindings)
 import Configs.Scratchpad             (myScratchpads)
 import Configs.Colors                 (Colors(..))
@@ -163,6 +163,7 @@ myLogHook proc = do
 myStartupHook = do
   spawnOnce "notify_welcome"
 
+main :: IO ()
 main = do
   xmobarProc <- spawnPipe "xmobar"
   xmonad $ docks $ def

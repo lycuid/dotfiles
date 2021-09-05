@@ -48,12 +48,10 @@ unlink() {
 
   for path in $paths; do
     dpath="$DEST/$path"
-
     if [ -f "$dpath" ]; then
       echo -e "$GREEN[+] Unlinking: $path$DEFAULT"
       rm "$dpath"
     fi
-
     if [ -d "$dpath" ] && [ $(ls "$dpath" | wc -l) -eq 0 ]; then
       echo -e "$YELLOW[+] Removing Empty Directory: $path$DEFAULT"
       rm -rf "$dpath"
@@ -66,5 +64,3 @@ case $query in
   "unlink") unlink ;;
   *)        exit 1 ;;
 esac
-
-

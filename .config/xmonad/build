@@ -10,10 +10,11 @@ then
   temp_dir=$(mktemp -d)
   trap 'rm -rf "$temp_dir"' EXIT TERM INT HUP
 
-  temp_flags=(-odir "$temp_dir" -hidir "$temp_dir")
-  build_flags=(-o "$BIN" -i -ilib -dynamic -fforce-recomp -main-is main -v0)
+  tmp_flags=(-odir "$temp_dir" -hidir "$temp_dir")
+  build_flags=(-o "$BIN" -dynamic -i -ilib -fforce-recomp -v0)
 
-  ghc --make xmonad.hs "${build_flags[@]}" "${temp_flags[@]}"
+  ghc --make xmonad.hs "${build_flags[@]}" "${tmp_flags[@]}"
+  strip "$BIN"
 
   echo "[+] successfully compiled xmonad."
 fi

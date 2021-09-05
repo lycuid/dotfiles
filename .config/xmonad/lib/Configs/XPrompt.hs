@@ -10,7 +10,7 @@ import XMonad.Util.Run          (unsafeSpawn)
 
 import Data.List                (isInfixOf)
 
-import Configs.Main             (myEditor)
+import Configs                  (myEditor)
 import Configs.Colors           (Colors(..))
 
 

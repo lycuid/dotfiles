@@ -1,4 +1,5 @@
-module Configs.Main where
+{-# OPTIONS_GHC #-}
+module Configs where
 
 import XMonad
 import XMonad.Hooks.DynamicLog  (wrap, xmobarColor)

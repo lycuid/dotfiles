@@ -11,10 +11,10 @@ then
   trap 'rm -rf "$temp_dir"' EXIT TERM INT HUP
 
   temp_flags=(-odir "$temp_dir" -hidir "$temp_dir")
-  # compile options from 'src/Xmobar/App/Compile.hs'.
-  build_flags=(-o "$BIN" -dynamic -threaded -i -ilib -fforce-recomp -main-is main -v0)
+  build_flags=(-o "$BIN" -dynamic -threaded -i -ilib -fforce-recomp -v0)
 
   ghc --make xmobar.hs "${build_flags[@]}" "${temp_flags[@]}"
+  strip "$BIN"
 
   echo "[+] successfully compiled xmobar."
 fi

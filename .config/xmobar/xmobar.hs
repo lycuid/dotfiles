@@ -1,13 +1,13 @@
 import Xmobar
 
-import Sections.Misc
+import Sections
 import Sections.Battery
 import Sections.Cpu
 import Sections.Memory
 import Sections.Network
 
-import Data.List (intercalate)
-
+import System.Directory   (getCurrentDirectory)
+import Data.List          (intercalate)
 
 tmplLeft :: String
 tmplLeft = "%UnsafeStdinReader%"
@@ -25,8 +25,8 @@ tmplRight = intercalate " <box type=Left width=2 color=#171717> </box>"
           , templateBattery
           ]
 
-config :: Config
-config
+config :: FilePath -> Config
+config pwd
   = defaultConfig
   { font              = "xft:TerminessTTF Nerd Font-10,monospace-11"
   , additionalFonts   = ["xft:TerminessTTF Nerd Font-10:style=Bold,monospace-11"]
@@ -50,7 +50,7 @@ config
                         , commandCpu
                         , commandMemory
                         , commandVolume
-                        , commandTmuxls
+                        , commandTmuxls pwd
                         , commandBattery
                         , commandDate
                         , Run $ UnsafeStdinReader
@@ -58,4 +58,6 @@ config
 }
 
 main :: IO ()
-main = xmobar config
+main = do
+  pwd <- getCurrentDirectory
+  xmobar (config pwd)

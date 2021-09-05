@@ -7,8 +7,8 @@ dmenu.selhighlightforeground: #090909
 dmenu.highlightforeground: #089CAC
 dmenu.highlightbackground: #171717
 
-dmenu.font: TerminessTTF Nerd Font-13:style=Regular
-dmenu.boldFont: TerminessTTF Nerd Font:-13style=Bold
-dmenu.italicFont: TerminessTTF Nerd Font-13:style=Italic
-dmenu.boldItalicfont: TerminessTTF Nerd Font-13:style=Bold,Italic
+dmenu.font: TerminessTTF Nerd Font-12:style=Regular
+dmenu.boldFont: TerminessTTF Nerd Font:-12style=Bold
+dmenu.italicFont: TerminessTTF Nerd Font-12:style=Italic
+dmenu.boldItalicfont: TerminessTTF Nerd Font-12:style=Bold,Italic
 

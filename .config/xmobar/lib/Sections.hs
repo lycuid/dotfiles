@@ -1,6 +1,8 @@
-module Sections.Misc where
+module Sections where
 
 import Xmobar
+
+import System.FilePath.Posix ((</>))
 
 templateTmuxls :: String
 templateTmuxls =  "<fn=1><fc=#9b59b6>\
@@ -17,9 +19,8 @@ templateVolume =  "<fn=1>\
 commandDate :: Runnable
 commandDate = Run $ Date "\xf073  %a, %b %d %H:%M:%S" "date" 10
 
-commandTmuxls :: Runnable
-commandTmuxls = Run $ Com "sh" ["/home/lycuid/.config/xmobar/scripts/tmuxls.sh"] "tmuxls" 10
+commandTmuxls :: FilePath -> Runnable
+commandTmuxls pwd = Run $ Com "sh" [pwd </> "scripts" </> "tmuxls.sh"] "tmuxls" 10
 
 commandVolume :: Runnable
 commandVolume = Run $ PipeReader "?:$XDG_RUNTIME_DIR/pipe/volume" "volume"
-

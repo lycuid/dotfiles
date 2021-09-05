@@ -8,4 +8,3 @@ autocmd FileType javascript nmap <buffer> <F5> :w<bar>!node %<CR>
 autocmd FileType lisp nmap <buffer> <F5> :w<bar>!clisp %<CR>
 autocmd FileType ruby nmap <buffer> <F5> :w<bar>!ruby %<CR>
 autocmd FileType java nmap <buffer> <F5> :w<bar>!javac % && java %:r<CR>
-
