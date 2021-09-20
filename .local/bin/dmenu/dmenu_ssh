@@ -1,7 +1,6 @@
 #!/bin/sh
 
 SSH_CONFIG="$HOME/.ssh/config"
-[ -f "$SSH_CONFIG" ] && HOSTS=$(egrep '^\s+?Host\s' "$SSH_CONFIG" | awk '{print $2}') || exit 0;
+[ -f "$SSH_CONFIG" ] && HOSTS=`awk '/^Host/ {print $2}' "$SSH_CONFIG"` || exit 0;
 
 echo "$HOSTS" | dmenu -b -p 'ssh:' | xargs -i ${TERMINAL} -e ssh {} & disown
-

@@ -7,4 +7,3 @@ zle -N down-line-or-beginning-search
 bindkey -M vicmd "^e" edit-command-line
 bindkey -M vicmd "k" up-line-or-beginning-search
 bindkey -M vicmd "j" down-line-or-beginning-search
-

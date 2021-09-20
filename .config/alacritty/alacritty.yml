@@ -88,25 +88,25 @@
 
 # Font configuration
 font:
-  size: 13.0
+  size: 11.0
 
   normal:
-    family: TerminessTTF Nerd Font
+    family: Hack Nerd Font
     style: Regular
 
   # Bold font face
   bold:
-    family: TerminessTTF Nerd Font
+    family: Hack Nerd Font
     style: Bold
 
   # Italic font face
   italic:
-    family: TerminessTTF Nerd Font
+    family: Hack Nerd Font
     style: Italic
 
   # Bold italic font face
   bold_italic:
-    family: TerminessTTF Nerd Font
+    family: Hack Nerd Font
     style: Bold Italic
 
   # Offset is the extra space around each character. `offset.y` can be thought of

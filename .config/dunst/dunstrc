@@ -1,7 +1,7 @@
 # vim: filetype=config
 
 [global]
-  font                = "Terminus 13"
+  font                = "Hack Nerd Font 10"
   plain_text          = no
   markup              = yes
   format              = "<b>%s</b>\n%b"

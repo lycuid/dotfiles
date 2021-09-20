@@ -2,4 +2,3 @@
 
 command=$(tmux ls 2> /dev/null | awk '{printf "%-15s (%s %s)\n", $1, $2, $3}')
 notify-send -u low "active TMUX sessions:" "$command"
-

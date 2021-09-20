@@ -38,4 +38,3 @@ filepath=$([ "$DIRMODE" -eq 1 ] && echo "$(dirmode_select)" || echo "$(file_sele
 [ -f "$filepath" ] && dirpath=$(dirname $filepath)
 
 ${TERMINAL:-st} -e $EDITOR --cmd "cd ${dirpath:-$filepath}" $filepath &
-

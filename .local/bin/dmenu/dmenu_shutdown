@@ -1,4 +1,3 @@
 #!/bin/sh
 
 printf "shutdown\nreboot" | dmenu -c -bw 1 | xargs -i sudo -A {} now
-

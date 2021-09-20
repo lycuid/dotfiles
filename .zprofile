@@ -49,4 +49,3 @@ fi
 unset DIR LOCAL_BIN
 
 export PATH
-
