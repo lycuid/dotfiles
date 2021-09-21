@@ -29,12 +29,6 @@
 [submodule ".vim/pack/lycuid/opt/old-school.vim"]
 	path = .vim/pack/lycuid/opt/old-school.vim
 	url = git@github.com:lycuid/old-school.vim.git
-[submodule ".vim/pack/lycuid/opt/typescript-vim"]
-	path = .vim/pack/lycuid/opt/typescript-vim
-	url = git@github.com:leafgarland/typescript-vim.git
-[submodule ".vim/pack/lycuid/opt/vim-jsx-typescript"]
-	path = .vim/pack/lycuid/opt/vim-jsx-typescript
-	url = git@github.com:peitalin/vim-jsx-typescript.git
 [submodule ".vim/pack/lycuid/start/old-school.vim"]
 	path = .vim/pack/lycuid/start/old-school.vim
 	url = git@github.com:lycuid/old-school.vim.git
