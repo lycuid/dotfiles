@@ -23,5 +23,5 @@ myXmobarLayoutStyle = cycleLayoutAction . whiteColor . greenBox
   where
     cycleLayoutAction = wrap "<action=xdotool key super+space>" "</action>"
     whiteColor = xmobarColor "white" ""
-    greenBox = wrap ("<box type=Bottom width=1 color=" ++ (cyan def) ++ "> ") " </box>"
+    greenBox = wrap ("<box type=Bottom width=1 color=" ++ cyan def ++ "> ") " </box>"
 

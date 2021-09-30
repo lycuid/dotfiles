@@ -9,6 +9,7 @@ export SUDO_ASKPASS="$HOME/.local/bin/dmenu/dmenu_askpass"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 
 export STACK_ROOT="$XDG_DATA_HOME/stack"
+export CABAL_DIR="$XDG_DATA_HOME/cabal"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GOPATH="$XDG_DATA_HOME/go"
@@ -35,15 +36,16 @@ export LESSHISTFILE="/dev/null"
 export FZF_DEFAULT_OPTS="--border"
 
 # Path Settings.
-[ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
-[ -d "$HOME/.cabal/bin" ] && PATH="$HOME/.cabal/bin:$PATH"
-[ -d "$CARGO_HOME" ] && PATH="$CARGO_HOME/bin:$PATH"
-[ -d "$GOPATH" ] && PATH="$GOPATH/bin:$PATH"
+PATH="$CABAL_DIR/bin:$PATH"
+PATH="$CARGO_HOME/bin:$PATH"
+PATH="$GOPATH/bin:$PATH"
 
 LOCAL_BIN="$HOME/.local/bin"
 if [ -d "$LOCAL_BIN" ];
 then
-  for DIR in "$LOCAL_BIN"/*; do [ -d "$DIR" ] && PATH="$DIR:$PATH"; done
+  for DIR in "$LOCAL_BIN"/*; do
+    [ -d "$DIR" ] && PATH="$DIR:$PATH"
+  done
   PATH="$LOCAL_BIN:$PATH"
 fi
 unset DIR LOCAL_BIN

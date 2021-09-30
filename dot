@@ -26,18 +26,18 @@ link() {
   paths=$(cd $SRC && find .[^\.]* -not -regex ".*\.git\/?.*")
 
   for path in $paths; do
-    spath="$SRC/$path"
-    dpath="$DEST/$path"
+    srcpath="$SRC/$path"
+    destpath="$DEST/$path"
 
-    if [ -f "$spath" ]; then
+    if [ -f "$srcpath" ]; then
       echo -e "$GREEN[+] Linking: $path$DEFAULT"
-      ln -rsf "$spath" "$dpath"
+      ln -rsf "$srcpath" "$destpath"
     else
-      if [ -d "$dpath" ]; then
+      if [ -d "$destpath" ]; then
         echo -e "$YELLOW[?] Ignoring directory: $path$DEFAULT"
       else
         echo -e "$BLUE[+] Creating directory: $path$DEFAULT"
-        mkdir "$dpath"
+        mkdir "$destpath"
       fi
     fi
   done
@@ -47,14 +47,14 @@ unlink() {
   paths=$(cd $SRC && find .[^\.]* -not -regex ".*\.git\/?.*" | tac)
 
   for path in $paths; do
-    dpath="$DEST/$path"
-    if [ -f "$dpath" ]; then
+    destpath="$DEST/$path"
+    if [ -f "$destpath" ]; then
       echo -e "$GREEN[+] Unlinking: $path$DEFAULT"
-      rm "$dpath"
+      rm "$destpath"
     fi
-    if [ -d "$dpath" ] && [ $(ls "$dpath" | wc -l) -eq 0 ]; then
+    if [ -d "$destpath" ] && [ $(ls "$destpath" | wc -l) -eq 0 ]; then
       echo -e "$YELLOW[+] Removing Empty Directory: $path$DEFAULT"
-      rm -rf "$dpath"
+      rm -rf "$destpath"
     fi
   done
 }

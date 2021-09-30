@@ -44,7 +44,7 @@ myWorkspaces  = clickAction . map show $ [1..5]
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
-modMaps conf@(XConfig {XMonad.modMask = modm}) = map (keymod modm)
+modMaps conf@XConfig {XMonad.modMask = modm} = map (keymod modm)
   -- Move focus to the next window
   [ (xK_j       , windows W.focusDown)
   -- Move focus to the previous window
@@ -72,7 +72,7 @@ modMaps conf@(XConfig {XMonad.modMask = modm}) = map (keymod modm)
   , (xK_b       , sendMessage ToggleStruts)
   ]
 
-modShiftMaps conf@(XConfig {XMonad.modMask = modm}) = map (keymod (modm .|. shiftMask))
+modShiftMaps conf@XConfig {XMonad.modMask = modm} = map (keymod (modm .|. shiftMask))
   -- close focused window
   [ (xK_c       , kill)
   --  Reset the layouts on the current workspace to default
@@ -87,7 +87,7 @@ modShiftMaps conf@(XConfig {XMonad.modMask = modm}) = map (keymod (modm .|. shif
   , (xK_q       , io (exitWith ExitSuccess))
   ]
 
-myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
+myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
   modMaps             conf ++
   modShiftMaps        conf ++
   myCustomKeyBindings conf ++
@@ -106,15 +106,15 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
 --
-myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
+myMouseBindings XConfig {XMonad.modMask = modm} = M.fromList
   -- mod-button1, Set the window to floating mode and move by dragging
-  [ ((modm, button1), (\w -> focus w >> mouseMoveWindow w
-                                     >> windows W.shiftMaster))
+  [ ((modm, button1), \w -> focus w >> mouseMoveWindow w
+                                     >> windows W.shiftMaster)
   -- mod-button2, Raise the window to the top of the stack
-  , ((modm, button2), (\w -> focus w >> windows W.shiftMaster))
+  , ((modm, button2), \w -> focus w >> windows W.shiftMaster)
   -- mod-button3, Set the window to floating mode and resize by dragging
-  , ((modm, button3), (\w -> focus w >> mouseResizeWindow w
-                                     >> windows W.shiftMaster))
+  , ((modm, button3), \w -> focus w >> mouseResizeWindow w
+                                     >> windows W.shiftMaster)
   -- you may also bind events to the mouse scroll wheel (button4 and button5)
   ]
 
@@ -130,11 +130,11 @@ myLayout  = avoidStruts $ tall ||| full ||| mirrored
 
 ------------------------------------------------------------------------
 -- Window rules:
-myManageHook = (composeAll . concat $
+myManageHook = composeAll . concat $
   [ [fmap (isInfixOf x) className --> doFloat | x <- myFloating]
   , [fmap (isInfixOf x) className --> doShift (myWorkspaces !! 2) | x <- myBrowsers]
   , [fmap (isInfixOf x) className <&&> resource =? "Dialog" --> doFloat | x <- myBrowsers]
-  ])
+  ]
 
 ------------------------------------------------------------------------
 -- Event handling
@@ -146,7 +146,7 @@ myLogHook proc = do
   no_of_ws <- gets $ show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
   dynamicLogWithPP $ def
     { ppCurrent           = xmobarColor (white def) ""
-                          . wrap ("<box type=Bottom width=1 color=" ++ (cyan def) ++ ">") "</box>"
+                          . wrap ("<box type=Bottom width=1 color=" ++ cyan def ++ ">") "</box>"
     , ppHidden            = xmobarColor (white def) ""
     , ppHiddenNoWindows   = xmobarColor "#353535" ""
     , ppVisibleNoWindows  = Just (xmobarColor "red" "")
@@ -183,4 +183,3 @@ main = do
     , startupHook        = myStartupHook
     , manageHook         = myManageHook <+> namedScratchpadManageHook myScratchpads
     }
-

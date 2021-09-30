@@ -8,7 +8,7 @@ open() {
     | egrep '^d' \
     | awk '{print $NF}' \
     | fzf \
-    | xargs -i $EDITOR --cmd "cd $SCM/{}" "$SCM/{}"
+    | xargs -i $EDITOR +"cd $SCM/{}" "$SCM/{}"
 }
 bindkey -s '^o' "open\n"
 

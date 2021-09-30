@@ -7,4 +7,3 @@ if [ -d $SCRIPTS_DIR ]; then
   done
   unset SCRIPTS_DIR FILE
 fi
-

@@ -29,5 +29,5 @@ git_info() {
 
 ME="%(!.%{$fg[red]%}%n%{$reset_color%}.%{$fg[cyan]%}%n%{$reset_color%})"
 
-PS1=$'\n'"%{$fg[white]%}[${ME}%B%{$fg[blue]%}@%b%{$fg[white]%}%m %{$fg[magenta]%}\
+PS1="%{$fg[white]%}[${ME}%B%{$fg[blue]%}@%b%{$fg[white]%}%m %{$fg[magenta]%}\
 %1~%{$reset_color%}%{$fg[white]%}]"$'$(git_info)'"%{$reset_color%} "

@@ -13,7 +13,7 @@ tmplLeft :: String
 tmplLeft = "%UnsafeStdinReader%"
 
 tmplCenter :: String
-tmplCenter = "<fc=white>%date%</fc>"
+tmplCenter = templateDate
 
 tmplRight :: String
 tmplRight = intercalate " <box type=Left width=2 color=#171717> </box>"
@@ -25,12 +25,12 @@ tmplRight = intercalate " <box type=Left width=2 color=#171717> </box>"
           , templateBattery
           ]
 
-config :: IO Config
-config = do
+generateConfig :: IO Config
+generateConfig = do
   pwd <- getCurrentDirectory
   return defaultConfig
-    { font              = "xft:TerminessTTF Nerd Font-10,monospace-11"
-    , additionalFonts   = ["xft:TerminessTTF Nerd Font-10:style=Bold,monospace-11"]
+    { font              = "xft:BlexMono Nerd Font-9,monospace-11"
+    , additionalFonts   = ["xft:BlexMono Nerd Font-9:Bold,monospace-11"]
     , overrideRedirect  = True
     , bgColor           = "#090909"
     , fgColor           = "#bdc3c7"
@@ -59,6 +59,4 @@ config = do
   }
 
 main :: IO ()
-main = do
-  conf <- config
-  xmobar conf
+main = generateConfig >>= xmobar

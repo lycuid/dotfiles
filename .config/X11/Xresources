@@ -9,11 +9,11 @@ Xft.dpi: 96
 Xft.antialias: true
 Xft.autohint: true
 
-*faceName: Hack Nerd Font-11:Retina:Regular
-*font: Hack Nerd Font-11:Retina:Regular
-*boldFont: Hack Nerd Font-11:Bold
-*italicFont: Hack Nerd Font-11:Italic
-*boldItalicFont: Hack Nerd Font-11:Bold:Italic
+*faceName: BlexMono Nerd Font-11:Regular
+*font: BlexMono Nerd Font-11:Regular
+*boldFont: BlexMono Nerd Font-11:Bold
+*italicFont: BlexMono Nerd Font-11:Italic
+*boldItalicFont: BlexMono Nerd Font-11:Bold:Italic
 
 *foreground: #c5cdd9
 *background: #090909

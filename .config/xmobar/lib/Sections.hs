@@ -4,6 +4,9 @@ import Xmobar
 
 import System.FilePath.Posix ((</>))
 
+templateDate :: String
+templateDate = "<fc=white>%date%</fc>"
+
 templateTmuxls :: String
 templateTmuxls =  "<fn=1><fc=#9b59b6>\
                   \<action=`notify_tmux_ls` button=1>\
@@ -17,7 +20,7 @@ templateVolume =  "<fn=1>\
                   \</action></fn>"
 
 commandDate :: Runnable
-commandDate = Run $ Date "\xf073  %a, %b %d %H:%M:%S" "date" 10
+commandDate = Run $ Date "<fn=1>\xf073  %a, %b %d %H:%M:%S</fn> " "date" 10
 
 commandTmuxls :: FilePath -> Runnable
 commandTmuxls pwd = Run $ Com "sh" [pwd </> "scripts" </> "tmuxls.sh"] "tmuxls" 10

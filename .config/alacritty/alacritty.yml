@@ -91,22 +91,22 @@ font:
   size: 11.0
 
   normal:
-    family: Hack Nerd Font
+    family: BlexMono Nerd Font
     style: Regular
 
   # Bold font face
   bold:
-    family: Hack Nerd Font
+    family: BlexMono Nerd Font
     style: Bold
 
   # Italic font face
   italic:
-    family: Hack Nerd Font
+    family: BlexMono Nerd Font
     style: Italic
 
   # Bold italic font face
   bold_italic:
-    family: Hack Nerd Font
+    family: BlexMono Nerd Font
     style: Bold Italic
 
   # Offset is the extra space around each character. `offset.y` can be thought of
@@ -131,7 +131,7 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
 
-# Colors (Tomorrow Night)
+# Colors
 colors:
   # Default colors
   primary:
