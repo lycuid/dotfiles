@@ -7,7 +7,7 @@ dmenu.selhighlightforeground: #090909
 dmenu.highlightforeground: #089CAC
 dmenu.highlightbackground: #171717
 
-dmenu.font: BlexMono Nerd Font-11:Regular
-dmenu.boldFont: BlexMono Nerd Font-11:Bold
-dmenu.italicFont: BlexMono Nerd Font-11:Italic
-dmenu.boldItalicfont: BlexMono Nerd Font-11:Bold:Italic
+dmenu.font: monospace-11:Regular
+dmenu.boldFont: monospace-11:Bold
+dmenu.italicFont: monospace-11:Italic
+dmenu.boldItalicfont: monospace-11:Bold:Italic

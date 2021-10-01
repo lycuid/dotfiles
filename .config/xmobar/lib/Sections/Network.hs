@@ -10,7 +10,7 @@ templateNetwork = "<fc=white>\
 
 commandNetwork :: Runnable
 commandNetwork = Run $ DynNetwork
-  [ "--template" , "<dev>: \xf0d7 <rx> KiB/s \xf0d8 <tx> KiB/s"
+  [ "--template" , "<fn=1><dev>:</fn> \xf0d7 <rx> KiB/s \xf0d8 <tx> KiB/s"
   , "--Low"      , "10000"
   , "--High"     , "50000"
   , "--low"      , "#4cd137"

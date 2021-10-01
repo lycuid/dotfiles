@@ -1,7 +1,6 @@
 # vim: filetype=config
 
 [global]
-  font                = "BlexMono Nerd Font 11"
   plain_text          = no
   markup              = yes
   format              = "<b>%s</b>\n%b"

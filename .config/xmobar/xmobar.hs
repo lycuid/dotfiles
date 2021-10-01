@@ -29,8 +29,8 @@ generateConfig :: IO Config
 generateConfig = do
   pwd <- getCurrentDirectory
   return defaultConfig
-    { font              = "xft:BlexMono Nerd Font-9,monospace-11"
-    , additionalFonts   = ["xft:BlexMono Nerd Font-9:Bold,monospace-11"]
+    { font              = "xft:Hack Nerd Font-9,monospace-11"
+    , additionalFonts   = ["xft:Hack Nerd Font-9:Bold,monospace-11"]
     , overrideRedirect  = True
     , bgColor           = "#090909"
     , fgColor           = "#bdc3c7"

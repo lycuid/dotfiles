@@ -16,7 +16,7 @@ xss-lock -- slock &
 mkdir -p "$XDG_RUNTIME_DIR"/pipe
 volume '0%' &
 
-dunst &
+start_dunst & # starting dunst with some commandline args.
 sxhkd &
 
 # looks for something like $XDG_CONFIG_HOME/X11/xinitrc.d/xmonad.xinitrc
@@ -26,4 +26,3 @@ wm_xinitrc="$xdirname/$xbasename.d/$wm.$xbasename"
 rm -rf "$XDG_RUNTIME_DIR/dwm"
 
 $wm_xinitrc
-

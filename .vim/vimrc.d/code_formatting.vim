@@ -1,4 +1,4 @@
-autocmd FileType rust nnoremap <buffer> <leader>f :w<CR>:silent !rustfmt %<CR>:e<CR>
-autocmd FileType go nnoremap <buffer> <leader>f :w<CR>:silent !gofmt -w %<CR>:e<CR>
-autocmd FileType c,cpp nnoremap <buffer> <leader>f :w<CR>:silent !clang-format -i %<CR>:e<CR>
-autocmd FileType javascript,typescript,typescriptreact,javascriptreact nnoremap <buffer> <leader>f :w<CR>:silent !prettier --write %<CR>:e<CR>
+autocmd FileType rust nmap <buffer> <leader>f :w<cr>:silent !rustfmt %<cr>:e<cr>
+autocmd FileType go nmap <buffer> <leader>f :w<cr>:silent !gofmt -w %<cr>:e<cr>
+autocmd FileType c,cpp nmap <buffer> <leader>f :w<cr>:silent !clang-format -i %<cr>:e<cr>
+autocmd FileType javascript,typescript,typescriptreact,javascriptreact nmap <buffer> <leader>f :w<cr>:silent !prettier --write %<cr>:e<cr>

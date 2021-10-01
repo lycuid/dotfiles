@@ -9,15 +9,17 @@ let g:NERDDefaultAlign='left'
 
 "" git gutter settings
 set updatetime=100 " ms.
+nnoremap gn :GitGutterNextHunk<cr>
+nnoremap gp :GitGutterPrevHunk<cr>
 
 "" fzf keymap.
-nnoremap <C-p> :GFiles<CR>
-nnoremap <leader>b :Buffers<CR>
+nnoremap <c-p> :GFiles<cr>
+nnoremap <c-b> :Buffers<cr>
 
 "" GVIM settings.
 if has("gui_running")
   "" ctrl+F1 toggle menubar.
-  nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
+  nnoremap <c-f1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
 
   set go-=T  "" REMOVES TOOLBAR
   set go-=r  "" REMOVES RIGHT SCROLLBAR

@@ -1,11 +1,5 @@
 #!/bin/sh
 
-get_color()
-{
-  local color="color$1:"
-  xrdb -query all | grep $color | awk '{print $2}' | xargs echo
-}
-
 dmenu -c -h 35 -bw 1 -p "sudo: " \
-  -nb "$(get_color 0)" -nf "$(get_color 0)" -sb "$(get_color 9)" \
-  -fn "FiraCode Nerd Font-18" <&-
+  -nb "$(xrdb -get color0)" -nf "$(xrdb -get color0)" -sb "$(xrdb -get color9)" \
+  -fn "monospace-18" <&-

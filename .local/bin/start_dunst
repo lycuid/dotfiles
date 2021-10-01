@@ -1,0 +1,5 @@
+#/bin/sh
+
+dunst -font "$(xrdb -get font | cut -d\: -f1 | tr "-" " ")"
+
+# vim:ft=sh
