@@ -1,7 +1,9 @@
-autocmd FileType python nmap <buffer> <f5> :w<bar>!python %<cr>
-autocmd FileType haskell nmap <buffer> <f5> :w<bar>!runhaskell %<cr>
-autocmd FileType rust nmap <buffer> <f5> :w<bar>!rustc % && ./%:r<cr>
-autocmd FileType go nmap <buffer> <f5> :w<bar>!go run %<cr>
-autocmd FileType cpp nmap <buffer> <f5> :w<bar>!g++ -std=c++11 -o %:r % && ./%:r<cr>
-autocmd FileType c nmap <buffer> <f5> :w<bar>!gcc -o %:r % && ./%:r<cr>
-autocmd FileType lisp nmap <buffer> <f5> :w<bar>!clisp %<cr>
+autocmd FileType python setlocal makeprg=python\ %
+autocmd FileType haskell setlocal makeprg=runhaskell\ %
+autocmd FileType rust setlocal makeprg=rustc\ %\ &&\ \.\/%:r
+autocmd FileType go setlocal makeprg=go\ run\ %
+autocmd FileType cpp setlocal makeprg=g++\ -std=c++11\ \-o\ %:r\ %\ &&\ \.\/%:r
+autocmd FileType c setlocal makeprg=cc\ \-o\ %:r\ %\ &&\ \.\/%:r
+autocmd FileType lisp setlocal makeprg=clisp\ %
+
+nnoremap <f5> :make!<cr>

@@ -1,21 +1,24 @@
 [submodule ".vim/pack/lycuid/start/old-school.vim"]
 	path = .vim/pack/lycuid/start/old-school.vim
-	url = https://github.com/lycuid/old-school.vim
+	url = git@github.com:lycuid/old-school.vim.git
 [submodule ".vim/pack/lycuid/opt/fzf.vim"]
 	path = .vim/pack/lycuid/opt/fzf.vim
-	url = git@github.com:junegunn/fzf.vim.git
+	url = https://github.com/junegunn/fzf.vim
 [submodule ".vim/pack/lycuid/opt/nerdtree"]
 	path = .vim/pack/lycuid/opt/nerdtree
-	url = git@github.com:preservim/nerdtree.git
+	url = https://github.com/preservim/nerdtree
 [submodule ".vim/pack/lycuid/opt/nerdcommenter"]
 	path = .vim/pack/lycuid/opt/nerdcommenter
-	url = git@github.com:preservim/nerdcommenter.git
+	url = https://github.com/preservim/nerdcommenter
 [submodule ".vim/pack/lycuid/opt/vim-devicons"]
 	path = .vim/pack/lycuid/opt/vim-devicons
-	url = git@github.com:ryanoasis/vim-devicons.git
+	url = https://github.com/ryanoasis/vim-devicons
 [submodule ".vim/pack/lycuid/opt/vim-gitgutter"]
 	path = .vim/pack/lycuid/opt/vim-gitgutter
-	url = git@github.com:airblade/vim-gitgutter.git
+	url = https://github.com/airblade/vim-gitgutter
 [submodule ".vim/pack/lycuid/opt/indentLine"]
 	path = .vim/pack/lycuid/opt/indentLine
-	url = git@github.com:Yggdroot/indentLine.git
+	url = https://github.com/Yggdroot/indentLine
+[submodule ".vim/pack/lycuid/opt/nvim-lspconfig"]
+	path = .vim/pack/lycuid/opt/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig

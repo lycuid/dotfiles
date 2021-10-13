@@ -1,6 +1,10 @@
 new() {
-  [ -z "$1" ] && args=() || args=(-s $1)
-  tmux -2 new-session "${args[@]}" -n "code" \; new-window -d -n "shell"
+  local repo=$(cut -d\/ -f1 <<< "$1")
+  cd "$SCM/$repo" || return 1
+  tmux -2 new-session -s "$repo" -n "code" \
+    ';' new-window -d -n "shell" \
+    ';' send-keys "clear && $EDITOR ." enter
+  cd - &>/dev/null
 }
 
 open() {

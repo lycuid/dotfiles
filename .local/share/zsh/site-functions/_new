@@ -1,0 +1,3 @@
+#compdef new
+
+_directories -W $SCM

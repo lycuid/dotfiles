@@ -25,6 +25,7 @@ export LAUNCHER="dmenu_launcher"
 export SCM="/mnt/xkcd/scm"
 export WALLPAPERS="$XDG_DATA_HOME/wallpapers"
 
+export FPATH="$XDG_DATA_HOME/zsh/site-functions:$FPATH"
 # zsh key delay (mostly for vi mode).
 export KEYTIMEOUT=1
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"

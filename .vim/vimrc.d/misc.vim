@@ -26,5 +26,5 @@ if has("gui_running")
   set go-=L  "" REMOVES LEFT SCROLLBAR
   set go-=m  "" REMOVES MENUBAR
 
-  set guifont=Hack\ Nerd\ Font\ 11
+  set guifont=BlexMono\ Nerd\ Font\ 12
 endif
