@@ -1,16 +1,15 @@
-# vim: filetype=config
+# vim: ft=cfg
 
 [global]
-  plain_text          = no
+  font                = sans-serif 11
   markup              = yes
   format              = "<b>%s</b>\n%b"
   indicate_hidden     = yes
   alignment           = center
-  bounce_freq         = 0
   word_wrap           = yes
   ignore_newline      = no
   stack_duplicates    = yes
-  geometry            = "375x50-40+40"
+  width               = (350, 375)
   icon_path           = "/home/lycuid/.local/share/icons/32x32/status"
   icon_position       = "left"
   max_icon_size       = 32
@@ -26,13 +25,13 @@
   padding             = 8
   horizontal_padding  = 15
 
-[shortcuts]
-  close       = ctrl+space
-  close_all   = ctrl+shift+space
-  context     = ctrl+shift+period
-
-[frame]
-  width = 2
+# [shortcuts]
+#   close       = ctrl+space
+#   close_all   = ctrl+shift+space
+#   context     = ctrl+shift+period
+#
+# [frame]
+#   width = 2
 
 [urgency_low]
   background  = "#252525"

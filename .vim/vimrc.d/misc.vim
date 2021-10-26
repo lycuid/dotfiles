@@ -9,8 +9,6 @@ let g:NERDDefaultAlign='left'
 
 "" git gutter settings
 set updatetime=100 " ms.
-nnoremap gn :GitGutterNextHunk<cr>
-nnoremap gp :GitGutterPrevHunk<cr>
 
 "" fzf keymap.
 nnoremap <c-p> :GFiles<cr>

@@ -14,9 +14,9 @@ super + ctrl + o
 
 # system audio keybindings.
 super + {_, ctrl +} equal
-  volume {1,5}%+
+  volume {1, 5}%+
 super + {_, ctrl +} minus
-  volume {1,5}%-
+  volume {1, 5}%-
 super + ctrl + m
   volume toggle
 
@@ -24,3 +24,6 @@ super + ctrl + m
 super + ctrl + s
   dmenu_shutdown
 
+# dunst
+ctrl + {_, shift +} space
+  dunstctl {close, close-all}
