@@ -3,15 +3,15 @@ module Configs.XPrompt
   , editorXPrompt
   ) where
 
-import XMonad
-import XMonad.Prompt
-import XMonad.Prompt.Shell      (shellPrompt, getShellCompl)
-import XMonad.Util.Run          (unsafeSpawn)
+import           XMonad
+import           XMonad.Prompt
+import           XMonad.Prompt.Shell (getShellCompl, shellPrompt)
+import           XMonad.Util.Run     (unsafeSpawn)
 
-import Data.List                (isInfixOf)
+import           Data.List           (isInfixOf)
 
-import Configs                  (myEditor)
-import Configs.Colors           (Colors(..))
+import           Configs             (myEditor)
+import           Configs.Colors      (Colors (..))
 
 
 xpConfig :: XPConfig
@@ -31,13 +31,6 @@ xpConfig =
     , historySize           = 64
     , searchPredicate       = isInfixOf
     , maxComplRows          = Just 5
-    -- , historyFilter :: [String] -> [String]
-    -- , completionKey :: (KeyMask, KeySym)
-    -- , changeModeKey :: KeySym
-    -- , defaultText :: String
-    -- , autoComplete :: Maybe Int
-    -- , showCompletionOnTab :: Bool
-    -- , searchPredicate :: String -> String -> Bool
     }
 
 shellXPrompt :: X ()
@@ -56,4 +49,3 @@ editorXPrompt conf = mkXPrompt Editor editorXPConfig (getShellCompl [cmd] $ sear
   where
     run a  = unsafeSpawn $ cmd ++ " " ++ a
     cmd    = unwords [XMonad.terminal conf, "-e", myEditor]
-

@@ -1,12 +1,11 @@
 module Configs.Scratchpad where
 
-import Configs
+import           Configs
 
-import XMonad
-import XMonad.Util.NamedScratchpad  ( customFloating
-                                    , NamedScratchpad(..)
-                                    )
-import qualified XMonad.StackSet as W
+import           XMonad
+import qualified XMonad.StackSet             as W
+import           XMonad.Util.NamedScratchpad (NamedScratchpad (..),
+                                              customFloating)
 
 myScratchpads = [ NS "term" spawnTerminal (resource =? "scratchpad-term") centerFloating
                 , NS "fm" spawnFileManager (resource =? "scratchpad-fm") centerFloating
@@ -17,4 +16,3 @@ myScratchpads = [ NS "term" spawnTerminal (resource =? "scratchpad-term") center
     spawnFileManager    = unwords [myTerminalWithResource, "scratchpad-fm", "-e", "vifm"]
     spawnNetworkManager = unwords [myTerminalWithResource, "scratchpad-nm", "-e", "nmtui"]
     centerFloating      = customFloating $ W.RationalRect (1/10) (1/10) (4/5) (4/5)
-

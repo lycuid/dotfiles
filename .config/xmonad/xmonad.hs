@@ -1,50 +1,47 @@
-import XMonad
-import XMonad.Util.Run                (spawnPipe, hPutStrLn)
-import XMonad.Util.SpawnOnce          (spawnOnce)
-import XMonad.Util.NamedScratchpad    (namedScratchpadManageHook)
+import           XMonad
+import           XMonad.Util.NamedScratchpad (namedScratchpadManageHook)
+import           XMonad.Util.Run             (hPutStrLn, spawnPipe)
+import           XMonad.Util.SpawnOnce       (spawnOnce)
 
-import XMonad.Hooks.ManageDocks       ( docks
-                                      , avoidStruts
-                                      , ToggleStruts(..))
-import XMonad.Hooks.DynamicLog        ( dynamicLogWithPP
-                                      , wrap
-                                      , shorten
-                                      , xmobarColor
-                                      , PP(..)
-                                      )
+import           XMonad.Hooks.DynamicLog     (PP (..), dynamicLogWithPP,
+                                              shorten, wrap, xmobarColor)
+import           XMonad.Hooks.ManageDocks    (ToggleStruts (..), avoidStruts,
+                                              docks)
 
-import qualified XMonad.StackSet as W
-import qualified Data.Map        as M
+import qualified Data.Map                    as M
+import qualified XMonad.StackSet             as W
 
 -- Layouts.
-import XMonad.Layout.Renamed          (renamed, Rename(Replace))
-import XMonad.Layout.NoBorders        (noBorders)
-import XMonad.Layout.Spacing          (spacingRaw, Border(..))
+import           XMonad.Layout.NoBorders     (noBorders)
+import           XMonad.Layout.Renamed       (Rename (Replace), renamed)
+import           XMonad.Layout.Spacing       (Border (..), spacingRaw)
 
 -- User Configs.
-import Configs
-import Configs.KeyBindings            (keymod, myCustomKeyBindings)
-import Configs.Scratchpad             (myScratchpads)
-import Configs.Colors                 (Colors(..))
+import           Configs
+import           Configs.Colors              (Colors (..))
+import           Configs.KeyBindings         (keymod, myCustomKeyBindings)
+import           Configs.Scratchpad          (myScratchpads)
 
 -- misc.
-import Data.Monoid
-import Text.Printf                    (printf)
-import System.Exit
-import Data.List                      (isInfixOf)
+import           Data.List                   (isInfixOf)
+import           Data.Monoid                 (Endo)
+import           GHC.IO.Handle
+import           System.Exit
+import           Text.Printf                 (printf)
 
 -------------------------------------------------------------------
 -- Workspaces.
 myWorkspaces :: [String]
-myWorkspaces  = clickAction . map show $ [1..5]
-  -- Making the workspace tabs on xmobar, clickable.
+myWorkspaces = clickable ([1..5] :: [Integer])
   where
-    clickAction = map (uncurry action) . zip (map show [1..])
-    action = printf "<action=xdotool key super+%s> %s </action>"
+    clickable = zipWith formatString ([1..] :: [Integer])
+    formatString = printf "<action=xdotool key super+%d> %d </action>"
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
-modMaps conf@XConfig {XMonad.modMask = modm} = map (keymod modm)
+--
+modMaps :: XConfig Layout -> [((KeyMask, KeySym), X ())]
+modMaps XConfig {XMonad.modMask = modm} = map (keymod modm)
   -- Move focus to the next window
   [ (xK_j       , windows W.focusDown)
   -- Move focus to the previous window
@@ -72,6 +69,7 @@ modMaps conf@XConfig {XMonad.modMask = modm} = map (keymod modm)
   , (xK_b       , sendMessage ToggleStruts)
   ]
 
+modShiftMaps :: XConfig Layout -> [((KeyMask, KeySym), X ())]
 modShiftMaps conf@XConfig {XMonad.modMask = modm} = map (keymod (modm .|. shiftMask))
   -- close focused window
   [ (xK_c       , kill)
@@ -84,9 +82,10 @@ modShiftMaps conf@XConfig {XMonad.modMask = modm} = map (keymod (modm .|. shiftM
   -- Swap the focused window with the previous window
   , (xK_k       , windows W.swapUp)
   -- Quit xmonad
-  , (xK_q       , io (exitWith ExitSuccess))
+  , (xK_q       , io exitSuccess)
   ]
 
+myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
   modMaps             conf ++
   modShiftMaps        conf ++
@@ -106,6 +105,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
 --
+myMouseBindings :: XConfig Layout -> M.Map (KeyMask, Button) (Window -> X ())
 myMouseBindings XConfig {XMonad.modMask = modm} = M.fromList
   -- mod-button1, Set the window to floating mode and move by dragging
   [ ((modm, button1), \w -> focus w >> mouseMoveWindow w
@@ -120,16 +120,18 @@ myMouseBindings XConfig {XMonad.modMask = modm} = M.fromList
 
 ------------------------------------------------------------------------
 -- Layouts:
-myLayout  = avoidStruts $ tall ||| full ||| mirrored
+--
+myLayout = avoidStruts $ tall ||| full ||| mirrored
   where
     spacing = spacingRaw False (Border 3 3 3 3) True (Border 3 3 3 3) True
-
     tall      = renamed [Replace "T"] . spacing $ Tall 1 (3/100) (1/2)
     full      = renamed [Replace "F"] $ noBorders Full
     mirrored  = renamed [Replace "M"] . spacing $ Mirror tall
 
 ------------------------------------------------------------------------
 -- Window rules:
+--
+myManageHook :: Query (Endo WindowSet)
 myManageHook = composeAll . concat $
   [ [fmap (isInfixOf x) className --> doFloat | x <- myFloating]
   , [fmap (isInfixOf x) className --> doShift (myWorkspaces !! 2) | x <- myBrowsers]
@@ -138,10 +140,14 @@ myManageHook = composeAll . concat $
 
 ------------------------------------------------------------------------
 -- Event handling
+--
+myEventHook :: Monoid m => Event -> X m
 myEventHook = mempty
 
 ------------------------------------------------------------------------
 -- Status bars and logging
+--
+myLogHook :: Handle -> X ()
 myLogHook proc = do
   no_of_ws <- gets $ show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
   dynamicLogWithPP $ def
@@ -160,6 +166,7 @@ myLogHook proc = do
 
 ------------------------------------------------------------------------
 -- Startup hook
+myStartupHook :: X ()
 myStartupHook = do
   spawnOnce "notify_welcome"
 

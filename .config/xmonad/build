@@ -3,17 +3,14 @@
 set -e
 BIN=$1
 
+cabal clean
 if $(find . ! -type d | cut -d\/ -f2- | stest -qn "$BIN");
 then
-  echo "[+] recompiling xmonad."
+  echo "[+] binary output => $BIN"
 
-  temp_dir=$(mktemp -d)
-  trap 'rm -rf "$temp_dir"' EXIT TERM INT HUP
-
-  tmp_flags=(-odir "$temp_dir" -hidir "$temp_dir")
-  build_flags=(-o "$BIN" -dynamic -i -ilib -fforce-recomp -v0)
-
-  ghc --make xmonad.hs "${build_flags[@]}" "${tmp_flags[@]}"
+  cabal build
+  find dist-newstyle -type f -name xmonad-bin | xargs -i mv {} "$BIN"
+  cabal clean
   strip "$BIN"
 
   echo "[+] successfully compiled xmonad."

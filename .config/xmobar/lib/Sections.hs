@@ -1,7 +1,6 @@
 module Sections where
 
 import Xmobar
-
 import System.FilePath.Posix ((</>))
 
 templateDate :: String
@@ -23,7 +22,7 @@ commandDate :: Runnable
 commandDate = Run $ Date "<fn=1>\xf073  %a, %b %d %H:%M:%S</fn> " "date" 10
 
 commandTmuxls :: FilePath -> Runnable
-commandTmuxls pwd = Run $ Com "sh" [pwd </> "scripts" </> "tmuxls.sh"] "tmuxls" 10
+commandTmuxls bin = Run $ Com "sh" [bin </> "tmuxls.sh"] "tmuxls" 10
 
 commandVolume :: Runnable
 commandVolume = Run $ PipeReader "?:$XDG_RUNTIME_DIR/pipe/volume" "volume"

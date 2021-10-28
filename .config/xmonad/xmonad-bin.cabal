@@ -1,0 +1,19 @@
+cabal-version:  >=1.10
+name:           xmonad-bin
+version:        0.1
+author:         Abhishek Kadam
+maintainer:     lycuid@gmail.com
+license:        GPL3
+build-type:     Simple
+
+executable xmonad-bin
+  main-is:          xmonad.hs
+  hs-source-dirs:   ., lib
+  other-modules:    Configs
+                  , Configs.Colors
+                  , Configs.KeyBindings
+                  , Configs.Scratchpad
+                  , Configs.XPrompt
+  ghc-options:      -dynamic -Wall
+  build-depends:    base, containers, xmonad, xmonad-contrib
+  default-language: Haskell2010

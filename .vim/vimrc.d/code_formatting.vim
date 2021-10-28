@@ -1,5 +1,12 @@
-autocmd FileType rust nmap <buffer> <leader>f :w<cr>:silent !rustfmt %<cr>:e<cr>
-autocmd FileType haskell nmap <buffer> <leader>f :w<cr>:silent !stylish-haskell -i %<cr>:e<cr>
-autocmd FileType go nmap <buffer> <leader>f :w<cr>:silent !gofmt -w %<cr>:e<cr>
-autocmd FileType c,cpp nmap <buffer> <leader>f :w<cr>:silent !clang-format -i %<cr>:e<cr>
-autocmd FileType javascript,typescript,typescriptreact,javascriptreact nmap <buffer> <leader>f :w<cr>:silent !prettier --write %<cr>:e<cr>
+let lang_formatters = {
+  \ "rust":     "rustfmt",
+  \ "haskell":  "stylish-haskell",
+  \ "go":       "gofmt",
+  \ "c,cpp":    "clang-format",
+  \ "javascript,typescript,javascriptreact,typescriptreact": "prettier",
+  \ }
+
+for [lang, formatter] in items(lang_formatters)
+  execute 'autocmd FileType ' . lang . ' nmap <buffer> <leader>f mx:%!' . formatter . '<cr>`x'
+  execute 'autocmd FileType ' . lang . ' :set formatprg=' . formatter
+endfor

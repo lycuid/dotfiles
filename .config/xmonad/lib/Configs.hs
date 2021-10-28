@@ -1,17 +1,15 @@
 {-# OPTIONS_GHC #-}
 module Configs where
 
-import XMonad
-import XMonad.Hooks.DynamicLog  (wrap, xmobarColor)
-import Configs.Colors           (Colors(..))
+import           Configs.Colors          (Colors (..))
+import           XMonad
+import           XMonad.Hooks.DynamicLog (wrap, xmobarColor)
 
 myTerminal              = "$TERMINAL"
 myTerminalWithResource  = unwords [myTerminal, "-n"]
 myEditor                = "$EDITOR"
-
 myBrowsers              = ["Brave-browser"]
 myFloating              = ["Gimp", "mpv", "vlc"]
-
 myFocusFollowsMouse     = False
 myClickJustFocuses      = False
 myBorderWidth           = 2 :: Dimension
@@ -24,4 +22,3 @@ myXmobarLayoutStyle = cycleLayoutAction . whiteColor . greenBox
     cycleLayoutAction = wrap "<action=xdotool key super+space>" "</action>"
     whiteColor = xmobarColor "white" ""
     greenBox = wrap ("<box type=Bottom width=1 color=" ++ cyan def ++ "> ") " </box>"
-

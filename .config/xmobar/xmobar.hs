@@ -6,8 +6,9 @@ import Sections.Cpu
 import Sections.Memory
 import Sections.Network
 
-import System.Directory   (getCurrentDirectory)
-import Data.List          (intercalate)
+import Data.List              (intercalate)
+import System.Directory       (getCurrentDirectory)
+import System.FilePath.Posix  ((</>))
 
 tmplLeft :: String
 tmplLeft = "%UnsafeStdinReader%"
@@ -27,7 +28,8 @@ tmplRight = intercalate " <box type=Left width=2 color=#171717> </box>"
 
 generateConfig :: IO Config
 generateConfig = do
-  pwd <- getCurrentDirectory
+  bin <- (</> "bin") <$> getCurrentDirectory
+
   return defaultConfig
     { font              = "xft:sans-serif:size=9,monospace-13"
     , additionalFonts   = ["xft:sans-serif:size=9:Bold,monospace-13"]
@@ -51,10 +53,10 @@ generateConfig = do
                           , commandCpu
                           , commandMemory
                           , commandVolume
-                          , commandTmuxls pwd
+                          , commandTmuxls bin
                           , commandBattery
                           , commandDate
-                          , Run $ UnsafeStdinReader
+                          , Run UnsafeStdinReader
                           ]
   }
 
