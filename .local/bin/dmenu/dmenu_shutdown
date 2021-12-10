@@ -1,3 +1,6 @@
 #!/bin/sh
 
-printf "shutdown\nreboot" | dmenu -c -bw 1 | xargs -i sudo -A {} now
+case $1 in
+  "-f") printf "poweroff\nreboot" | dmenu -c -bw 1 | xargs -i systemctl {};;
+  *)    printf "shutdown\nreboot" | dmenu -c -bw 1 | xargs -i sudo -A {} now ;;
+esac

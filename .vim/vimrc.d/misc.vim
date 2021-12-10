@@ -12,6 +12,7 @@ set updatetime=100 " ms.
 
 "" fzf keymap.
 nnoremap <c-p> :GFiles<cr>
+nnoremap <c-a-p> :Files<cr>
 nnoremap <c-b> :Buffers<cr>
 
 "" GVIM settings.
@@ -24,5 +25,5 @@ if has("gui_running")
   set go-=L  "" REMOVES LEFT SCROLLBAR
   set go-=m  "" REMOVES MENUBAR
 
-  set guifont=BlexMono\ Nerd\ Font\ 12
+  set guifont=sans-serif=11
 endif

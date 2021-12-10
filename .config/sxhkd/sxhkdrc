@@ -24,6 +24,10 @@ super + ctrl + m
 super + ctrl + s
   dmenu_shutdown
 
+# Force shutdown, reboot.
+super + ctrl + shift + s
+  dmenu_shutdown -f
+
 # dunst
 ctrl + {_, shift +} space
   dunstctl {close, close-all}

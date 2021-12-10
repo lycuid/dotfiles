@@ -32,3 +32,8 @@ conf() {
     | xargs -i $EDITOR "$SCM"/dotfiles/{}
 }
 bindkey -s '^p' "conf\n"
+
+sessions() {
+  tmux a -t $(tmux ls -F "#{session_name}" | fzf)
+}
+bindkey -s '^t' "sessions\n"

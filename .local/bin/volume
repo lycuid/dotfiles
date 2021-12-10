@@ -9,8 +9,7 @@ sound=$(amixer sset Master "$1" 2>/dev/null)
 # @TODO: find a better way (more efficient/clever).
 VOLUME=$(
 sed -rn "s/.*\[([[:digit:]]+)\%\].*\[(on|off)\]$/\2 \1/p" <<< "$sound" \
-  | sed "s/on/ /p" \
-  | sed "s/off/ /p" \
+  | sed -e "s/on/ /p" -e "s/off/ /p" \
   | head -n1
 )
 

@@ -12,4 +12,3 @@ vim.cmd("runtime vimrc")
 vim.cmd("packadd! nvim-lspconfig")
 
 require("lsp")
-require("misc")
