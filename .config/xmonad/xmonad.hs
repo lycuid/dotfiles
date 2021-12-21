@@ -4,7 +4,7 @@ import           XMonad.Util.Run             (hPutStrLn, spawnPipe)
 import           XMonad.Util.SpawnOnce       (spawnOnce)
 
 import           XMonad.Hooks.DynamicLog     (PP (..), dynamicLogWithPP,
-                                              shorten, wrap, xmobarColor)
+                                              shorten, wrap)
 import           XMonad.Hooks.ManageDocks    (ToggleStruts (..), avoidStruts,
                                               docks)
 
@@ -35,7 +35,7 @@ myWorkspaces :: [String]
 myWorkspaces = clickable ([1..5] :: [Integer])
   where
     clickable = zipWith formatString ([1..] :: [Integer])
-    formatString = printf "<action=xdotool key super+%d> %d </action>"
+    formatString = printf "<BtnL=xdotool key super+%d> %d </BtnL>"
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -121,12 +121,11 @@ myMouseBindings XConfig {XMonad.modMask = modm} = M.fromList
 ------------------------------------------------------------------------
 -- Layouts:
 --
-myLayout = avoidStruts $ tall ||| full ||| mirrored
+myLayout = avoidStruts $ tall ||| full
   where
     spacing = spacingRaw False (Border 3 3 3 3) True (Border 3 3 3 3) True
-    tall      = renamed [Replace "T"] . spacing $ Tall 1 (3/100) (1/2)
-    full      = renamed [Replace "F"] $ noBorders Full
-    mirrored  = renamed [Replace "M"] . spacing $ Mirror tall
+    tall = renamed [Replace "T"] . spacing $ Tall 1 (3/100) (1/2)
+    full = renamed [Replace "F"] $ noBorders Full
 
 ------------------------------------------------------------------------
 -- Window rules:
@@ -148,20 +147,18 @@ myEventHook = mempty
 -- Status bars and logging
 --
 myLogHook :: Handle -> X ()
-myLogHook proc = do
+myLogHook handle = do
   no_of_ws <- gets $ show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
   dynamicLogWithPP $ def
-    { ppCurrent           = xmobarColor (white def) ""
-                          . wrap ("<box type=Bottom width=1 color=" ++ cyan def ++ ">") "</box>"
-    , ppHidden            = xmobarColor (white def) ""
-    , ppHiddenNoWindows   = xmobarColor "#353535" ""
-    , ppVisibleNoWindows  = Just (xmobarColor "red" "")
-    , ppUrgent            = xmobarColor (red def) ""
-    , ppTitle             = xmobarColor (white def) "" . shorten 30
-    , ppSep               = " <box type=Left width=2 color=#303030> </box>"
-    , ppLayout            = myXmobarLayoutStyle . flip (++) (wrap " [" "]" no_of_ws)
+    { ppCurrent           = wrap ("<Box:Bottom=" ++ cyan def ++ ":1>") "</Box>"
+    , ppHiddenNoWindows   = xdbarFg "#353535"
+    , ppVisibleNoWindows  = Just (xdbarFg "red")
+    , ppUrgent            = xdbarFg (red def)
+    , ppTitle             = shorten 30
+    , ppSep               = " <Box:Left=#303030:2> </Box>"
+    , ppLayout            = myXdbarLayoutStyle . flip (++) (wrap " [" "]" no_of_ws)
     , ppOrder             = take 3
-    , ppOutput            = hPutStrLn proc
+    , ppOutput            = hPutStrLn handle
     }
 
 ------------------------------------------------------------------------
@@ -169,10 +166,11 @@ myLogHook proc = do
 myStartupHook :: X ()
 myStartupHook = do
   spawnOnce "notify_welcome"
+  spawnOnce "smolprog | xargs xsetroot -name"
 
 main :: IO ()
 main = do
-  xmobarProc <- spawnPipe "xmobar"
+  xdbarPipe <- spawnPipe "xdbar"
   xmonad $ docks $ def
     { terminal           = myTerminal
     , focusFollowsMouse  = myFocusFollowsMouse
@@ -186,7 +184,7 @@ main = do
     , mouseBindings      = myMouseBindings
     , layoutHook         = myLayout
     , handleEventHook    = myEventHook
-    , logHook            = myLogHook xmobarProc
+    , logHook            = myLogHook xdbarPipe
     , startupHook        = myStartupHook
     , manageHook         = myManageHook <+> namedScratchpadManageHook myScratchpads
     }

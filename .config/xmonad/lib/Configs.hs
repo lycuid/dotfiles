@@ -1,24 +1,48 @@
-{-# OPTIONS_GHC #-}
 module Configs where
 
 import           Configs.Colors          (Colors (..))
 import           XMonad
-import           XMonad.Hooks.DynamicLog (wrap, xmobarColor)
+import           XMonad.Hooks.DynamicLog (wrap)
 
-myTerminal              = "$TERMINAL"
-myTerminalWithResource  = unwords [myTerminal, "-n"]
-myEditor                = "$EDITOR"
-myBrowsers              = ["Brave-browser"]
-myFloating              = ["Gimp", "mpv", "vlc"]
-myFocusFollowsMouse     = False
-myClickJustFocuses      = False
-myBorderWidth           = 2 :: Dimension
-myModMask               = mod4Mask
-myFocusedBorderColor    = "#9b59b6"
-myNormalBorderColor     = "#000000"
+myTerminal :: String
+myTerminal = "$TERMINAL"
 
-myXmobarLayoutStyle = cycleLayoutAction . whiteColor . greenBox
+myTerminalWithResource :: String
+myTerminalWithResource = unwords [myTerminal, "-n"]
+
+myEditor :: String
+myEditor = "$EDITOR"
+
+myBrowsers :: [String]
+myBrowsers = ["Brave-browser"]
+
+myFloating :: [String]
+myFloating = ["Gimp", "mpv", "vlc"]
+
+myFocusFollowsMouse :: Bool
+myFocusFollowsMouse = False
+
+myClickJustFocuses :: Bool
+myClickJustFocuses = False
+
+myBorderWidth :: Dimension
+myBorderWidth = 2
+
+myModMask :: KeyMask
+myModMask = mod4Mask
+
+myFocusedBorderColor :: String
+myFocusedBorderColor = "#9b59b6"
+
+myNormalBorderColor :: String
+myNormalBorderColor = "#000000"
+
+xdbarFg       :: String -> String -> String
+xdbarFg ""    = id
+xdbarFg color = wrap ("<Fg=" ++ color ++ ">") "</Fg>"
+
+myXdbarLayoutStyle :: String -> String
+myXdbarLayoutStyle = cycleLayoutAction . greenBox
   where
-    cycleLayoutAction = wrap "<action=xdotool key super+space>" "</action>"
-    whiteColor = xmobarColor "white" ""
-    greenBox = wrap ("<box type=Bottom width=1 color=" ++ cyan def ++ "> ") " </box>"
+    cycleLayoutAction = wrap "<BtnL=xdotool key super+space>" "</BtnL>"
+    greenBox          = wrap ("<Box:Bottom=" ++ cyan def ++ ":1> ") " </Box>"

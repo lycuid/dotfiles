@@ -1,6 +1,7 @@
 set colorcolumn=81
 set cursorline
 set termguicolors
+let g:transparent_bg=1
 colorscheme old_school
 
 " nerdcommenter configs.
@@ -24,6 +25,4 @@ if has("gui_running")
   set go-=r  "" REMOVES RIGHT SCROLLBAR
   set go-=L  "" REMOVES LEFT SCROLLBAR
   set go-=m  "" REMOVES MENUBAR
-
-  set guifont=sans-serif=11
 endif

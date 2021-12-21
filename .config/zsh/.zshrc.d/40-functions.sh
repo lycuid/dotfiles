@@ -9,9 +9,11 @@ new() {
   cd "$SCM/$repo" 2>/dev/null
   cded=$?
 
-  tmux -2 new-session -d -s "$repo" -n "code" ';' new-window -d -n "shell" || { cd - &>/dev/null && return 1 }
+  tmux -2 new-session -d -s "$repo" -n "code" ';' new-window -d -n "shell" \
+    || { cd - &>/dev/null && return 1 }
   if [ $cded -eq 0 ]; then
-    tmux select-window -t "${repo}:code" ';' send-keys "clear && $EDITOR ." enter
+    tmux select-window -t "${repo}:code" \
+      ';' send-keys "clear && $EDITOR ." enter
     cd - &>/dev/null
   fi
   tmux attach-session -t "$repo"
@@ -34,6 +36,7 @@ conf() {
 bindkey -s '^p' "conf\n"
 
 sessions() {
-  tmux a -t $(tmux ls -F "#{session_name}" | fzf)
+  session_name=$(tmux ls -F "#{session_name}" | fzf)
+  [ -n "$session_name" ] && tmux a -t "$session_name" || return 0;
 }
 bindkey -s '^t' "sessions\n"
