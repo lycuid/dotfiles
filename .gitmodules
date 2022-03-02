@@ -22,3 +22,6 @@
 [submodule ".vim/pack/lycuid/opt/nvim-lspconfig"]
 	path = .vim/pack/lycuid/opt/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig
+[submodule ".vim/pack/lycuid/opt/vim-airline"]
+	path = .vim/pack/lycuid/opt/vim-airline
+	url = https://github.com/vim-airline/vim-airline.git

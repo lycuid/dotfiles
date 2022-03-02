@@ -166,7 +166,7 @@ myLogHook handle = do
 myStartupHook :: X ()
 myStartupHook = do
   spawnOnce "notify_welcome"
-  spawnOnce "smolprog | xargs xsetroot -name"
+  spawnOnce "killall smolprog && smolprog | xargs -i xsetroot -name {}"
 
 main :: IO ()
 main = do

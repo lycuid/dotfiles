@@ -1,28 +1,22 @@
 # vim: ft=sh
 
-xdirname=$(dirname $0)    # eg. $XDG_CONFIG_HOME/X11/
-xbasename=$(basename $0)  # eg. xinitrc
-wm="${1:-dwm}"            # dwm, xmonad etc
-
-[ -f "$xdirname/Xresources" ] && xrdb -load "$xdirname/Xresources"
+xdir=$(dirname $0)
+[ -f "$xdir/Xresources" ] && xrdb -load "$xdir/Xresources"
 
 xsetroot -cursor_name left_ptr &
 xset r rate 300 50 &
-
 xset s on &
 xset s 165 180 &
 xss-lock -- slock &
 
 mkdir -p "$XDG_RUNTIME_DIR"/pipe
 volume '0%' &
-
 dunst &
 sxhkd &
+picom -b &
+$HOME/.fehbg &
 
-# looks for something like $XDG_CONFIG_HOME/X11/xinitrc.d/xmonad.xinitrc
-wm_xinitrc="$xdirname/$xbasename.d/$wm.$xbasename"
-[ ! -x "$wm_xinitrc" ] && exit 1
+# https://github.com/xmonad/xmonad/issues/164
+rm -rf $HOME/.xmonad
 
-rm -rf "$XDG_RUNTIME_DIR/dwm"
-
-$wm_xinitrc
+exec xmonad

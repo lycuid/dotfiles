@@ -1,7 +1,7 @@
 # vim: ft=cfg
 
 [global]
-  font                = sans-serif 11
+  font                = monospace 11
   markup              = yes
   format              = "<b>%s</b>\n%b"
   indicate_hidden     = yes

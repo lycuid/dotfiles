@@ -1,28 +1,32 @@
 set colorcolumn=81
 set cursorline
 set termguicolors
-let g:transparent_bg=1
 colorscheme old_school
 
-" nerdcommenter configs.
+"" NERDCommenter.
 let g:NERDSpaceDelims=1
+let g:NERDCompactSexyComs=1
 let g:NERDDefaultAlign='left'
+let g:NERDCommentEmptyLines=1
+let g:NERDTrimTrailingWhitespace=1
 
-"" git gutter settings
+"" GitGutter.
 set updatetime=100 " ms.
 
-"" fzf keymap.
+"" Airline.
+let g:airline_powerline_fonts=1
+let g:airline_theme='transparent'
+let g:airline#extensions#tabline#enabled=1
+
+"" FZF.
 nnoremap <c-p> :GFiles<cr>
 nnoremap <c-a-p> :Files<cr>
 nnoremap <c-b> :Buffers<cr>
 
 "" GVIM settings.
 if has("gui_running")
-  "" ctrl+F1 toggle menubar.
-  nnoremap <c-f1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
-
-  set go-=T  "" REMOVES TOOLBAR
-  set go-=r  "" REMOVES RIGHT SCROLLBAR
-  set go-=L  "" REMOVES LEFT SCROLLBAR
-  set go-=m  "" REMOVES MENUBAR
+  set go-=T  "" removes toolbar
+  set go-=r  "" removes right scrollbar
+  set go-=L  "" removes left scrollbar
+  set go-=m  "" removes menubar
 endif

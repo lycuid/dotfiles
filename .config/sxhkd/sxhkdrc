@@ -20,12 +20,8 @@ super + {_, ctrl +} minus
 super + ctrl + m
   volume toggle
 
-# shutdown, reboot.
-super + ctrl + s
-  dmenu_shutdown
-
 # Force shutdown, reboot.
-super + ctrl + shift + s
+super + ctrl + s
   dmenu_shutdown -f
 
 # dunst

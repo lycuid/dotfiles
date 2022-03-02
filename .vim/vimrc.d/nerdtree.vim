@@ -12,34 +12,3 @@ endfunction
 
 let g:NERDTreeIgnore=['^node_modules$', '^\.git$']
 let g:NERDTreeShowHidden=1
-
-"" nerdtree navigation icons.
-let g:NERDTreeDirArrowExpandable='▸'
-let g:NERDTreeDirArrowCollapsible='▾'
-
-"" Nerdtree icons.
-"" refreshing devicons, visual bug (brackets around icons).
-if exists('g:loaded_webdevicons')
-  call webdevicons#refresh()
-endif
-
-"" Nerdtree git icons (nerdtree-git-plugin).
-let g:NERDTreeGitStatusIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
-
-"" nerd commenter mapping
-let g:NERDSpaceDelims=1
-let g:NERDCompactSexyComs=1
-let g:NERDDefaultAlign='left'
-let g:NERDCommentEmptyLines=1
-let g:NERDTrimTrailingWhitespace=1

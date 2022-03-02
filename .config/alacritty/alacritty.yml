@@ -91,22 +91,22 @@ font:
   size: 11.0
 
   normal:
-    family: sans-serif
+    family: monospace
     style: Regular
 
   # Bold font face
   bold:
-    family: sans-serif
+    family: monospace
     style: Bold
 
   # Italic font face
   italic:
-    family: sans-serif
+    family: monospace
     style: Italic
 
   # Bold italic font face
   bold_italic:
-    family: sans-serif
+    family: monospace
     style: Bold Italic
 
   # Offset is the extra space around each character. `offset.y` can be thought of

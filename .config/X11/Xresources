@@ -9,18 +9,18 @@ Xft.dpi: 96
 Xft.antialias: true
 Xft.autohint: true
 
-*faceName: sans-serif:size=11:Regular
-*font: sans-serif:size=11:Regular
-*boldFont: sans-serif:size=11:Bold
-*italicFont: sans-serif:size=11:Italic
-*boldItalicFont: sans-serif:size=11:Bold:Italic
+*faceName: monospace-11:Regular
+*font: monospace-11:Regular
+*boldFont: monospace-11:Bold
+*italicFont: monospace-11:Italic
+*boldItalicFont: monospace-11:Bold:Italic
 
 *foreground: #c5cdd9
 *background: #090909
 
 ! black
 *.color0: #090909
-*.color8: #252525
+*.color8: #222222
 
 ! red
 *.color1: #cc6666
@@ -35,7 +35,7 @@ Xft.autohint: true
 *.color11: #f7ca18
 
 ! blue
-*.color4: #1e3799
+*.color4: #303F9F
 *.color12: #686de0
 
 ! magenta
