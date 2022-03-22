@@ -1,6 +1,4 @@
-take() {
-  mkdir -p $1 && cd $1
-}
+take() { mkdir -p $1 && cd $1 }
 
 # start new tmux session with a specific arrangement.
 new() {
@@ -20,27 +18,12 @@ new() {
   tmux attach-session -t "$repo"
 }
 
-# choose and open a directory from '$SCM' directory in '$EDITOR'.
-open() {
-  ls -Al "$SCM" \
-    | awk '/^d/ {print $NF}' \
-    | fzf \
-    | xargs -i $EDITOR +"cd $SCM/{}" "$SCM/{}"
-}
-bindkey -s '^o' "open\n"
-
-# choose and open any of the version controlled dotfiles.
-conf() {
-  VC_DOTFILES="$SCM"/dotfiles
-  git -C "$VC_DOTFILES" ls-files --recurse-submodules \
-    | fzf \
-    | xargs -i $EDITOR "$VC_DOTFILES"/{}
-}
-bindkey -s '^p' "conf\n"
-
 # choose and open any active tmux session.
 sessions() {
   session_name=$(tmux ls -F "#{session_name}" | fzf)
   [ -n "$session_name" ] && tmux a -t "$session_name" || return 0;
 }
+
 bindkey -s '^t' "sessions\n"
+bindkey -s '^p' "conf\n"
+bindkey -s '^o' "open\n"

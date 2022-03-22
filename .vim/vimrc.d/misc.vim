@@ -1,7 +1,7 @@
 set colorcolumn=81
 set cursorline
 set termguicolors
-colorscheme old_school
+colorscheme cluless
 
 "" NERDCommenter.
 let g:NERDSpaceDelims=1
@@ -24,6 +24,8 @@ nnoremap <c-a-p> :Files<cr>
 nnoremap <c-b> :Buffers<cr>
 
 "" GVIM settings.
+set guifont=FiraCode\ Nerd\ Font:h11
+let g:neovide_transparency=0.65
 if has("gui_running")
   set go-=T  "" removes toolbar
   set go-=r  "" removes right scrollbar

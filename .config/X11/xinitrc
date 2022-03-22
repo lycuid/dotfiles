@@ -15,8 +15,8 @@ sxhkd &
 picom -b &
 $HOME/.fehbg &
 smolprog-xsetroot &
-
 notify_welcome
-exec wm > /mnt/xkcd/scm/wm/log.txt
+
+exec cluless
 
 # vim: ft=sh

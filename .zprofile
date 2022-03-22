@@ -18,7 +18,7 @@ export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
 export TERMINAL="st"
 export EDITOR="nvim"
 export VISUAL="$TERMINAL -e nvim"
-export BROWSER="brave-browser"
+export BROWSER="brave"
 export LAUNCHER="dmenu_launcher"
 
 # misc

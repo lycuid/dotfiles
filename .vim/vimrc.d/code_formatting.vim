@@ -1,9 +1,14 @@
-let lang_formatters = {
-  \ "rust":     "rustfmt",
-  \ "haskell":  "stylish-haskell",
-  \ "go":       "gofmt",
-  \ "c,cpp":    "clang-format",
-  \ "javascript,typescript,javascriptreact,typescriptreact": "prettier",
+let lang_formatters = #{
+  \ haskell:          "stylish-haskell",
+  \ rust:             "rustfmt",
+  \ python:           "autopep8",
+  \ go:               "gofmt",
+  \ c:                "clang-format",
+  \ cpp:              "clang-format",
+  \ javascript:       "prettier",
+  \ typescript:       "prettier",
+  \ javascriptreact:  "prettier",
+  \ typescriptreact:  "prettier",
   \ }
 
 for [lang, formatter] in items(lang_formatters)

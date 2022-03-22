@@ -1,6 +1,6 @@
-[submodule ".vim/pack/lycuid/start/old-school.vim"]
-	path = .vim/pack/lycuid/start/old-school.vim
-	url = git@github.com:lycuid/old-school.vim.git
+[submodule ".vim/pack/lycuid/start/cluless.vim"]
+	path = .vim/pack/lycuid/start/cluless.vim
+	url = git@github.com:lycuid/cluless.vim.git
 [submodule ".vim/pack/lycuid/opt/fzf.vim"]
 	path = .vim/pack/lycuid/opt/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
