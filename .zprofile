@@ -24,6 +24,7 @@ export LAUNCHER="dmenu_launcher"
 # misc
 export SCM="/mnt/xkcd/scm"
 export WALLPAPERS="$XDG_DATA_HOME/wallpapers"
+export BAT_THEME="Nord"
 
 export FPATH="$XDG_DATA_HOME/zsh/site-functions:$FPATH"
 # zsh key delay (mostly for vi mode).

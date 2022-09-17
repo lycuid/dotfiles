@@ -17,6 +17,10 @@ $HOME/.fehbg &
 smolprog-xsetroot &
 notify_welcome
 
-exec cluless
+STATUS=/tmp/cluless-status${DISPLAY}
+[ ! -p ${STATUS} ] && mkfifo ${STATUS}
+
+xdbar <${STATUS} &
+exec cluless >${STATUS}
 
 # vim: ft=sh

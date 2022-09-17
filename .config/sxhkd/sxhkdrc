@@ -11,6 +11,8 @@ super + ctrl + c
   dmenu_ssh
 super + ctrl + o
   dmenu_edit -d -p "open project :" $SCM
+super + ctrl + d
+  pkill -USR1 xdbar
 
 # system audio keybindings.
 super + {_, ctrl +} equal
