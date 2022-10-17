@@ -1,6 +1,7 @@
-[ -f "$XDG_CONFIG_HOME/aliases" ] && . "$XDG_CONFIG_HOME/aliases"
+[ -f ${XDG_CONFIG_HOME}/aliases ] && . ${XDG_CONFIG_HOME}/aliases
+[ -f ~/opt/env ] && . ~/opt/env
 
-SCRIPTS_DIR="$ZDOTDIR/.zshrc.d"
+SCRIPTS_DIR=${ZDOTDIR}/.zshrc.d
 if [ -d $SCRIPTS_DIR ]; then
   for FILE in "$SCRIPTS_DIR/"*.sh; do
     [ -f "$FILE" ] && . "$FILE"

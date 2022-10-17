@@ -20,6 +20,7 @@ export EDITOR="nvim"
 export VISUAL="$TERMINAL -e nvim"
 export BROWSER="brave"
 export LAUNCHER="dmenu_launcher"
+export SCRIPTS="$HOME/.local/scripts"
 
 # misc
 export SCM="/mnt/xkcd/scm"

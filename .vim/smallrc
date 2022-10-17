@@ -35,8 +35,5 @@ nnoremap <c-l> :bn<cr>
 command W w
 command Q q
 
-autocmd Filetype xdefaults autocmd BufWritePost <buffer> silent !xrdb $XDG_CONFIG_HOME/X11/Xresources
-autocmd Filetype go setlocal noet ts=4 sw=4
-
 runtime vimrc.d/build_systems.vim
 runtime vimrc.d/code_formatting.vim
