@@ -14,7 +14,7 @@ dunst &
 sxhkd &
 picom -b &
 $HOME/.fehbg &
-$SCRIPTS/smolprog/main.scm | xargs -i xsetroot -name {} &
+smolprog-xsetroot &
 notify_welcome
 
 STATUS=/tmp/cluless-status${DISPLAY}
