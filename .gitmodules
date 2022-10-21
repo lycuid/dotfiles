@@ -25,6 +25,3 @@
 [submodule ".vim/pack/lycuid/opt/vim-airline"]
 	path = .vim/pack/lycuid/opt/vim-airline
 	url = https://github.com/vim-airline/vim-airline.git
-[submodule ".local/scripts/smolprog"]
-	path = .local/scripts/smolprog
-	url = git@github.com:lycuid/smolprog.git
