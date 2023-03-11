@@ -12,7 +12,7 @@ super + ctrl + c
 super + ctrl + o
   dmenu_edit -d -p "open project :" $SCM
 super + ctrl + d
-  pkill -USR1 xdbar
+  pkill -USR1 clubar
 
 # system audio keybindings.
 super + {_, ctrl +} equal

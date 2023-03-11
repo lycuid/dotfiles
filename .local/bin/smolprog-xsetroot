@@ -1,3 +1,15 @@
 #!/bin/sh
 
-exec $SCRIPTS/smolprog/run | xargs -i xsetroot -name {}
+GUILE_OBJECTS='
+(primitive-load-path "smolprog/utils.scm.go")
+(primitive-load-path "smolprog/logger/battery.scm.go")
+(primitive-load-path "smolprog/logger/cpu.scm.go")
+(primitive-load-path "smolprog/logger/date.scm.go")
+(primitive-load-path "smolprog/logger/memory.scm.go")
+(primitive-load-path "smolprog/logger/network.scm.go")
+(primitive-load-path "smolprog/logger/sessions.scm.go")
+(primitive-load-path "smolprog/logger/volume.scm.go")
+(primitive-load-path "smolprog/main.scm.go")
+'
+
+guile -e "(smolprog)" -c "${GUILE_OBJECTS}" | xargs -i xsetroot -name {}

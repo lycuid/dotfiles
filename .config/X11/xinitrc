@@ -12,7 +12,7 @@ mkdir -p "$XDG_RUNTIME_DIR"/pipe
 volume '0%' &
 dunst &
 sxhkd &
-picom -b &
+picom -b
 $HOME/.fehbg &
 smolprog-xsetroot &
 notify_welcome
@@ -20,7 +20,7 @@ notify_welcome
 STATUS=/tmp/cluless-status${DISPLAY}
 [ ! -p ${STATUS} ] && mkfifo ${STATUS}
 
-xdbar <${STATUS} &
+clubar <${STATUS} &
 exec cluless >${STATUS}
 
 # vim: ft=sh

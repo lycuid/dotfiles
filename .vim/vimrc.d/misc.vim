@@ -1,7 +1,5 @@
 set colorcolumn=81
 set cursorline
-set termguicolors
-colorscheme cluless
 
 "" NERDCommenter.
 let g:NERDSpaceDelims=1
@@ -12,6 +10,8 @@ let g:NERDTrimTrailingWhitespace=1
 
 "" GitGutter.
 set updatetime=100 " ms.
+nnoremap <leader>gp :GitGutterPreviewHunk<cr>
+set signcolumn=yes
 
 "" Airline.
 let g:airline_powerline_fonts=1

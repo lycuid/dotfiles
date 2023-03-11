@@ -1,4 +1,3 @@
-# XDG Base directory specifications.
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -13,6 +12,7 @@ export CABAL_DIR="$XDG_DATA_HOME/cabal"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GOPATH="$XDG_DATA_HOME/go"
+export GUILE_LOAD_COMPILED_PATH="$HOME/.local/scripts"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
 
 export TERMINAL="st"
@@ -20,7 +20,6 @@ export EDITOR="nvim"
 export VISUAL="$TERMINAL -e nvim"
 export BROWSER="brave"
 export LAUNCHER="dmenu_launcher"
-export SCRIPTS="$HOME/.local/scripts"
 
 # misc
 export SCM="/mnt/xkcd/scm"

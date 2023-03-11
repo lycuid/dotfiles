@@ -1,1 +1,1 @@
-inoreabbrev lambda λ
+inoreabbrev <buffer> lambda λ
