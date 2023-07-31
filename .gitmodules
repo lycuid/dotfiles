@@ -28,3 +28,6 @@
 [submodule ".vim/pack/lycuid/opt/nvim-colorizer.lua"]
 	path = .vim/pack/lycuid/opt/nvim-colorizer.lua
 	url = https://github.com/norcalli/nvim-colorizer.lua.git
+[submodule ".vim/pack/lycuid/start/nvim-treesitter"]
+	path = .vim/pack/lycuid/start/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter.git

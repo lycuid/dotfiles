@@ -15,3 +15,4 @@ vim.cmd("packadd! nvim-colorizer.lua")
 
 require("lsp")
 require("colorizer").setup()
+require("treesitter")
