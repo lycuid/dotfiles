@@ -15,7 +15,7 @@ export GOPATH="$XDG_DATA_HOME/go"
 export GUILE_LOAD_COMPILED_PATH="$HOME/.local/scripts"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
 
-export TERMINAL="st"
+export TERMINAL="alacritty"
 export EDITOR="nvim"
 export VISUAL="$TERMINAL -e nvim"
 export BROWSER="brave"

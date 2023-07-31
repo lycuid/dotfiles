@@ -25,3 +25,6 @@
 [submodule ".vim/pack/lycuid/opt/vim-airline"]
 	path = .vim/pack/lycuid/opt/vim-airline
 	url = https://github.com/vim-airline/vim-airline.git
+[submodule ".vim/pack/lycuid/opt/nvim-colorizer.lua"]
+	path = .vim/pack/lycuid/opt/nvim-colorizer.lua
+	url = https://github.com/norcalli/nvim-colorizer.lua.git
