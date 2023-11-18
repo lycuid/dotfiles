@@ -4,6 +4,9 @@
 [submodule ".vim/pack/lycuid/opt/fzf.vim"]
 	path = .vim/pack/lycuid/opt/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
+[submodule ".vim/pack/lycuid/opt/nerdtree"]
+	path = .vim/pack/lycuid/opt/nerdtree
+	url = https://github.com/preservim/nerdtree
 [submodule ".vim/pack/lycuid/opt/nerdcommenter"]
 	path = .vim/pack/lycuid/opt/nerdcommenter
 	url = https://github.com/preservim/nerdcommenter

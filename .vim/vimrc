@@ -1,9 +1,11 @@
 packadd! fzf.vim
 packadd! nerdcommenter
+packadd! nerdtree
 packadd! vim-devicons
 packadd! vim-gitgutter
 packadd! indentLine
 packadd! vim-airline
 
 runtime vimrc.d/misc.vim
+runtime vimrc.d/nerdtree.vim
 runtime smallrc
