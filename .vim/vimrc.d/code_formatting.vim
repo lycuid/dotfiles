@@ -1,7 +1,7 @@
 let lang_formatters = #{
   \ haskell:          "stylish-haskell",
   \ rust:             "rustfmt",
-  \ python:           "autopep8",
+  \ python:           "black",
   \ go:               "gofmt",
   \ c:                "clang-format",
   \ cpp:              "clang-format",
@@ -12,6 +12,6 @@ let lang_formatters = #{
   \ }
 
 for [lang, formatter] in items(lang_formatters)
-  execute 'autocmd FileType ' . lang . ' nmap <buffer> <leader>f mx:%!' . formatter . '<cr>`x'
+  execute 'autocmd FileType ' . lang . ' nmap <buffer> <leader>f :%!' . formatter . '<cr>``'
   execute 'autocmd FileType ' . lang . ' :set formatprg=' . formatter
 endfor

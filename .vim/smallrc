@@ -26,6 +26,7 @@ autocmd QuickFixCmdPost *grep* cwin | redraw
 command! -nargs=1 GFindall silent vimgrep /<args>/gj `git ls-files`
 nnoremap <a-f> :GFindall<space>
 
+vnoremap <leader>s :'<,'>sort u<cr>
 nnoremap <leader>t :tabnew<cr>
 nnoremap ,, :noh<CR>
 

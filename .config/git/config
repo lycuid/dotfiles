@@ -14,4 +14,3 @@
 	dd  = diff
 	ll  = log
 	pp  = push
-	sup = submodule update --init --recursive --remote

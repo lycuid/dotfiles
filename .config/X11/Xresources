@@ -1,6 +1,5 @@
 #include "Xresources.d/st"
 #include "Xresources.d/dmenu"
-#include "Xresources.d/urxvt"
 
 utf8: 2
 locale: true
