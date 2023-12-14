@@ -1,0 +1,5 @@
+#!/bin/sh
+
+[ -d "$XDG_RUNTIME_DIR/net" ] || mkdir -p "$XDG_RUNTIME_DIR/net"
+
+ls /sys/class/net | dmenu -b -p "choose interface:" > "$XDG_RUNTIME_DIR/net/active"
