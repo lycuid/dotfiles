@@ -28,27 +28,35 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, opts)
   vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
   vim.keymap.set("n", "<space>f", function()
-    vim.lsp.buf.format { async = true }
+    vim.lsp.buf.format({ async = true })
   end, opts)
 end
 
+nvim_lsp.elixirls.setup({
+  cmd = { os.getenv("XDG_DATA_HOME") .. "/elixir_ls/language_server.sh" },
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150
+  }
+})
+
 local servers = {
-  "hls",
-  "pyright",
-  "gopls",
   "clangd",
+  "dockerls",
+  "gopls",
+  "hls",
+  "html",
+  "pyright",
   "rust_analyzer",
   "tsserver",
-  "html",
-  "dockerls",
 }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
+for _, server in ipairs(servers) do
+  nvim_lsp[server].setup({
     on_attach = on_attach,
     flags = {
-      debounce_text_changes = 150,
+      debounce_text_changes = 150
     }
-  }
+  })
 end
 
 require("lsp/go")
