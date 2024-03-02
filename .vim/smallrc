@@ -22,7 +22,7 @@ colorscheme cluless
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"  " set foreground color
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"  " set background color
 
-autocmd QuickFixCmdPost *grep* cwin | redraw
+autocmd QuickFixCmdPost *vimgrep* cwin | redraw
 command! -nargs=1 GFindall silent vimgrep /<args>/gj `git ls-files`
 nnoremap <a-f> :GFindall<space>
 

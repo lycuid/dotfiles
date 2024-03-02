@@ -1,4 +1,6 @@
 [ -f ${XDG_CONFIG_HOME}/aliases ] && . ${XDG_CONFIG_HOME}/aliases
+
+# optional (maybe temporary) env variables to set, without messing up my dotfiles.
 [ -f ~/opt/env ] && . ~/opt/env
 
 SCRIPTS_DIR=${ZDOTDIR}/.zshrc.d

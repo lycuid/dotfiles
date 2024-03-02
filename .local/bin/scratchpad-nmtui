@@ -1,0 +1,9 @@
+#!/bin/sh
+
+alacritty \
+  -o window.dimensions.columns=128  \
+  -o window.dimensions.lines=32     \
+  -o window.position.x=370          \
+  -o window.position.y=128          \
+  -t "scratchpad-nmtui"             \
+  -e "nmtui" &!
