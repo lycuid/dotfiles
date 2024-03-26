@@ -16,6 +16,9 @@ set list listchars=tab:--,eol:¬
 set noshowcmd
 set nobackup nowritebackup noswapfile noundofile
 set termguicolors
+set colorcolumn=81
+set cursorline
+
 colorscheme cluless
 
 " https://github.com/vim/vim/issues/993#issuecomment-255651605

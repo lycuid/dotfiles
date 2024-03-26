@@ -1,6 +1,3 @@
-set colorcolumn=81
-set cursorline
-
 "" NERDCommenter.
 let g:NERDSpaceDelims=1
 let g:NERDCompactSexyComs=1

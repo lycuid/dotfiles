@@ -397,3 +397,6 @@ mods = "Control"
 action = "DecreaseFontSize"
 key = "Minus"
 mods = "Control"
+
+[window]
+opacity = 0.95
