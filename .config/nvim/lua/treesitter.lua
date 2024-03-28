@@ -9,6 +9,7 @@ require("nvim-treesitter.configs").setup {
     "html",
     "htmldjango",
     "javascript",
+    "kotlin",
     "python",
     "racket",
     "rust",

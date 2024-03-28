@@ -42,10 +42,12 @@ nvim_lsp.elixirls.setup({
 
 local servers = {
   "clangd",
+  "dartls",
   "dockerls",
   "gopls",
   "hls",
   "html",
+  "kotlin_language_server",
   "pyright",
   "rust_analyzer",
   "tsserver",
