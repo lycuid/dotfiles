@@ -1,9 +1,9 @@
 #!/bin/sh
 
-USAGE="usage: $0 [option] src dest
+USAGE="usage: $0 [option] src dst
 options:
-  link      sync with symlinks from 'src' dir to 'dest' dir.
-  unlink    remove all 'src' dir symlinks from 'dest' dir."
+  link      sync with symlinks from 'src' dir to 'dst' dir.
+  unlink    remove all 'src' dir symlinks from 'dst' dir."
 
 trap '[ "$?" -ne 0 ] && echo "$USAGE"' EXIT
 
@@ -15,7 +15,12 @@ getRelativePath() {
 
 query=$1
 SRC=$(getRelativePath ${2:-.})
-DEST=$(getRelativePath ${3:-$HOME})
+DST=$(getRelativePath ${3:-$HOME})
+
+get_paths() {
+  local paths=$(git -C $SRC ls-files --recurse-submodules | grep -E "^\." | grep -vE "^\.git*")
+  echo "$paths"
+}
 
 DEFAULT="\033[0m"
 GREEN="\033[92m"
@@ -23,38 +28,34 @@ YELLOW="\033[93m"
 BLUE="\033[94m"
 
 link() {
-  paths=$(cd $SRC && find .[^\.]* -not -regex ".*\.git\/?.*")
+  for path in `get_paths`; do
+    local srcpath="$SRC/$path"
+    local dstpath="$DST/$path"
 
-  for path in $paths; do
-    srcpath="$SRC/$path"
-    destpath="$DEST/$path"
-
-    if [ -f "$srcpath" ]; then
-      echo -e "$GREEN[+] Linking: $path$DEFAULT"
-      ln -rsf "$srcpath" "$destpath"
-    else
-      if [ -d "$destpath" ]; then
-        echo -e "$YELLOW[?] Ignoring directory: $path$DEFAULT"
-      else
-        echo -e "$BLUE[+] Creating directory: $path$DEFAULT"
-        mkdir "$destpath"
-      fi
+    local dstdir=$(dirname $dstpath)
+    if [ ! -d $dstdir ]; then
+      echo "$BLUE[+] Creating directory: $path$DEFAULT"
+      mkdir -p "$dstdir"
     fi
+
+    echo "$GREEN[+] Linking: $path$DEFAULT"
+    ln -rsf "$srcpath" "$dstpath"
   done
 }
 
 unlink() {
-  paths=$(cd $SRC && find .[^\.]* -not -regex ".*\.git\/?.*" | tac)
+  for path in `get_paths | tac`; do
+    local dstpath="$DST/$path"
 
-  for path in $paths; do
-    destpath="$DEST/$path"
-    if [ -f "$destpath" ]; then
-      echo -e "$GREEN[+] Unlinking: $path$DEFAULT"
-      rm "$destpath"
+    if [ -f "$dstpath" ]; then
+      echo "$GREEN[+] Unlinking: $path$DEFAULT"
+      rm "$dstpath"
     fi
-    if [ -d "$destpath" ] && [ $(ls "$destpath" | wc -l) -eq 0 ]; then
-      echo -e "$YELLOW[+] Removing Empty Directory: $path$DEFAULT"
-      rm -rf "$destpath"
+
+    local dir=$(dirname $dstpath)
+    if [ -d $dir ] && [ $(ls "$dir" | wc -l) -eq 0 ]; then
+      echo "$YELLOW[+] Removing Empty Directory: $dir$DEFAULT"
+      rm -rf "$dir"
     fi
   done
 }
