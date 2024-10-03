@@ -1,8 +1,19 @@
-packadd! fzf.vim
-packadd! nerdcommenter
-packadd! vim-gitgutter
-packadd! indentLine
-packadd! vim-airline
+call plug#begin()
+
+Plug 'lycuid/cluless.vim'
+Plug 'junegunn/fzf.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'Yggdroot/indentLine'
+Plug 'airblade/vim-gitgutter'
+Plug 'vim-airline/vim-airline'
+
+if has("nvim")
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-treesitter/nvim-treesitter'
+  Plug 'norcalli/nvim-colorizer.lua'
+endif
+
+call plug#end()
 
 runtime vimrc.d/misc.vim
 runtime smallrc

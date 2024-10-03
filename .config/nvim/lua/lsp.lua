@@ -1,5 +1,3 @@
-vim.cmd("packadd! nvim-lspconfig")
-
 local nvim_lsp = require("lspconfig")
 
 local opts = { noremap=true, silent=true }
@@ -50,7 +48,7 @@ local servers = {
   "kotlin_language_server",
   "pyright",
   "rust_analyzer",
-  "tsserver",
+  "ts_ls",
 }
 for _, server in ipairs(servers) do
   nvim_lsp[server].setup({

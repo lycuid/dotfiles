@@ -1,9 +1,9 @@
 #!/bin/sh
 
 alacritty \
-  -o window.dimensions.columns=125  \
-  -o window.dimensions.lines=30     \
-  -o window.position.x=100          \
-  -o window.position.y=50           \
+  -o window.dimensions.columns=150  \
+  -o window.dimensions.lines=35     \
+  -o window.position.x=250          \
+  -o window.position.y=200          \
   -t "scratchpad-fm"                \
   -e "vifm" &!

@@ -10,8 +10,6 @@ vim.cmd("set completeopt-=preview")
 vim.cmd("set clipboard+=unnamedplus")
 
 vim.cmd("runtime vimrc")
-vim.cmd("packadd! nvim-lspconfig")
-vim.cmd("packadd! nvim-colorizer.lua")
 
 require("lsp")
 require("colorizer").setup()

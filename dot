@@ -34,11 +34,11 @@ link() {
 
     local dstdir=$(dirname $dstpath)
     if [ ! -d $dstdir ]; then
-      echo "$BLUE[+] Creating directory: $path$DEFAULT"
+      printf "$BLUE[+] Creating directory: $path$DEFAULT\n"
       mkdir -p "$dstdir"
     fi
 
-    echo "$GREEN[+] Linking: $path$DEFAULT"
+    printf "$GREEN[+] Linking: $path$DEFAULT\n"
     ln -rsf "$srcpath" "$dstpath"
   done
 }
@@ -48,15 +48,16 @@ unlink() {
     local dstpath="$DST/$path"
 
     if [ -f "$dstpath" ]; then
-      echo "$GREEN[+] Unlinking: $path$DEFAULT"
+      printf "$GREEN[+] Unlinking: $path$DEFAULT\n"
       rm "$dstpath"
     fi
 
-    local dir=$(dirname $dstpath)
-    if [ -d $dir ] && [ $(ls "$dir" | wc -l) -eq 0 ]; then
-      echo "$YELLOW[+] Removing Empty Directory: $dir$DEFAULT"
-      rm -rf "$dir"
-    fi
+    dstpath=$(dirname $dstpath)
+    while [ -d $dstpath ] && [ $(ls "$dstpath" | wc -l) -eq 0 ]; do
+      printf "$YELLOW[+] Removing Empty Directory: $dstpath$DEFAULT\n"
+      rm -rf "$dstpath"
+      dstpath=$(dirname $dstpath)
+    done
   done
 }
 
