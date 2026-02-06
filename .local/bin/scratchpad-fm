@@ -6,4 +6,4 @@ alacritty \
   -o window.position.x=250          \
   -o window.position.y=200          \
   -t "scratchpad-fm"                \
-  -e "vifm" &!
+  -e "vifm"

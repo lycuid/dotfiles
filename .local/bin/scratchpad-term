@@ -5,4 +5,4 @@ alacritty \
   -o window.dimensions.lines=35     \
   -o window.position.x=250          \
   -o window.position.y=200          \
-  -t "scratchpad-term" &!
+  -t "scratchpad-term"
